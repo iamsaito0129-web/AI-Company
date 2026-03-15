@@ -1,0 +1,24 @@
+{
+  "name": "cc-secretary",
+  "owner": {
+    "name": "Shin-sibainu"
+  },
+  "metadata": {
+    "description": "Claude Code用パーソナル秘書プラグイン"
+  },
+  "plugins": [
+    {
+      "name": "secretary",
+      "source": "./plugins/secretary",
+      "description": "対話的オンボーディングでMarkdownベースの管理フォルダ階層を自動生成するパーソナル秘書スキル",
+      "version": "1.0.0",
+      "author": {
+        "name": "Shin-sibainu"
+      },
+      "repository": "https://github.com/Shin-sibainu/cc-secretary",
+      "license": "MIT",
+      "category": "productivity",
+      "tags": ["secretary", "todo", "productivity", "markdown", "organization"]
+    }
+  ]
+}
