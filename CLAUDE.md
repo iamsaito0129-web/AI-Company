@@ -11,14 +11,14 @@
 
 ```
 .
-├── CEO/                      # 意思決定・部署振り分け
-├── Secretary/                # 秘書室（窓口・TODO管理）
-├── Researcher/               # リサーチ（調査・分析）
-├── reviews/                  # レビュー（週次・月次）
-├── 01_ABOUT_ME/             # オーナープロフィール
-├── 02_PROJECTS/             # プロジェクト管理
-├── 03_TEMPLATES/            # 共通テンプレート
-└── 04_OUTPUTS/              # 成果物
+├── .agent/                   # エージェント用リソース（Skills, Workflows）
+├── CEO/                      # 意思決定ログ
+├── Secretary/                # 会議録・TODO管理
+├── Researcher/               # 調査資料
+├── 01_GOVERNANCE/           # CLAUDE.md, 理念
+├── 02_PROJECTS/             # 進行中のプロジェクト、TODO、決定事項
+├── 03_OPERATIONS/           # テンプレート、スクリプト
+└── 04_OUTPUTS/              # 成果物、HQダッシュボード
 ```
 
 ## 組織図
@@ -57,15 +57,14 @@
 - 意思決定は `CEO/decisions/` にログを残す
 
 ### ファイル命名規則
-- **日次ファイル**: `YYYY-MM-DD.md`
-- **トピックファイル**: `kebab-case-title.md`
-- **テンプレート**: `_template.md`（各フォルダに1つ、変更しない）
-- **レビュー**: 週次 `YYYY-WXX.md`、月次 `YYYY-MM.md`
+- **日次TODO**: `02_PROJECTS/todos/YYYY-MM-DD.md`
+- **トピック**: `kebab-case-title.md`
+- **成果物**: `04_OUTPUTS/` 内の各プロジェクトフォルダ
 
 ### TODO形式
 ```markdown
-- [ ] タスク内容 | 優先度: 高/通常/低 | 期限: YYYY-MM-DD
-- [x] 完了タスク | 優先度: 通常 | 完了: YYYY-MM-DD
+- [ ] タスク内容 | @エージェント名 | 期限: YYYY-MM-DD
+- [x] 完了タスク | 完了: YYYY-MM-DD
 ```
 
 ### コンテンツルール
