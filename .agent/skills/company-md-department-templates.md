@@ -781,14 +781,14 @@ tags: []
 ---
 ---
 
-# 部署別 CLAUDE.md テンプレート
+# 部署別 GEMINI.md テンプレート
 
-各部署フォルダに `CLAUDE.md` を配置し、部署固有のルールと振る舞いを定義する。
-組織構築（Step 5）で選択された部署の `CLAUDE.md` を自動生成する。
+各部署フォルダに `GEMINI.md` を配置し、部署固有のルールと振る舞いを定義する。
+組織構築（Step 5）で選択された部署の `GEMINI.md` を自動生成する。
 
 ---
 
-## secretary/CLAUDE.md
+## secretary/GEMINI.md
 
 ```markdown
 # 秘書室
@@ -819,7 +819,7 @@ tags: []
 
 ---
 
-## ceo/CLAUDE.md
+## ceo/GEMINI.md
 
 ```markdown
 # CEO
@@ -852,7 +852,7 @@ tags: []
 
 ---
 
-## pm/CLAUDE.md
+## pm/GEMINI.md
 
 ```markdown
 # PM（プロジェクト管理）
@@ -876,7 +876,7 @@ tags: []
 
 ---
 
-## research/CLAUDE.md
+## research/GEMINI.md
 
 ```markdown
 # リサーチ
@@ -897,7 +897,7 @@ tags: []
 
 ---
 
-## marketing/CLAUDE.md
+## marketing/GEMINI.md
 
 ```markdown
 # マーケティング
@@ -920,7 +920,7 @@ tags: []
 
 ---
 
-## engineering/CLAUDE.md
+## engineering/GEMINI.md
 
 ```markdown
 # 開発
@@ -943,7 +943,7 @@ tags: []
 
 ---
 
-## finance/CLAUDE.md
+## finance/GEMINI.md
 
 ```markdown
 # 経理
@@ -966,7 +966,7 @@ tags: []
 
 ---
 
-## sales/CLAUDE.md
+## sales/GEMINI.md
 
 ```markdown
 # 営業
@@ -989,7 +989,7 @@ tags: []
 
 ---
 
-## creative/CLAUDE.md
+## creative/GEMINI.md
 
 ```markdown
 # クリエイティブ
@@ -1012,7 +1012,7 @@ tags: []
 
 ---
 
-## hr/CLAUDE.md
+## hr/GEMINI.md
 
 ```markdown
 # 人事
@@ -1033,7 +1033,7 @@ tags: []
 
 ---
 
-## 汎用部署 CLAUDE.md
+## 汎用部署 GEMINI.md
 
 カスタム部署用のフォールバック。
 
