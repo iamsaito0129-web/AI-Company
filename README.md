@@ -1,87 +1,66 @@
 # AI-Company (一人社長のAIチーム - Antigravity)
 
 ## 概要
-このリポジトリは、Google Antigravity の「マルチエージェント・オーケストレーション」を活用し、自律的に連携するAIチームの基盤です。
-秘書（Secretary）が窓口となり、CEOが意思決定を行って各部署（Researcher等）へ作業を割り振る組織運営を実現します。
+このリポジトリは、Google Antigravity の「マルチエージェント・オーケストレーション」を活用した、自律型AIチームの運用基盤です。
+秘書（Secretary）がオーナーの窓口となり、CEOが意思決定を行って専門部署（PM、リサーチ、開発、経理等）へ作業を割り振る、組織規模のAI運用を実現します。
 
 ## ディレクトリ階層と役割
 
+```
 AI-company/
 ├── .agent/                     # Antigravity用の技術定義コア
 │   ├── skills/                 # 各部署・エージェントのスキル定義 (Custom Skills)
-│   │   ├── ceo/                # `ceo` スキル: 組織構築・指示振り分け
-│   │   ├── researcher/         # `researcher` スキル: 調査・分析
-│   │   └── secretary/          # `secretary` スキル: 秘書業務・TODO管理
+│   │   ├── ceo/                # `ceo` スキル: 組織構築・意思決定・指示振り分け
+│   │   ├── researcher/         # `researcher` スキル: 調査・分析・レポート
+│   │   └── secretary/          # `secretary` スキル: 秘書業務・TODO・ナレッジ管理
 │   └── workflows/              # 定型業務の自動化定義
 │       ├── daily_sync.md       # 朝の同期会ワークフロー
 │       ├── deep_research.md    # 高度な調査ワークフロー
 │       └── investigate.md      # 調査支援
 ├── .company/                   # 【最新】実働データ・管理ディレクトリ
-│   ├── GEMINI.md               # 組織のマスター設定・プロフィール・案内図 (【要修正】変数未置換あり)
-│   ├── ceo/                    # CEO部署のデータ
-│   │   ├── GEMINI.md           # CEO固有設定 (【白紙】)
-│   │   └── decisions/          # 意思決定ログ
-│   │       └── _template.md    # テンプレート (【白紙】)
-│   ├── secretary/              # 秘書室のデータ
-│   │   ├── idea_notes/         # アイデアの欠片
-│   │   │   └── _template.md    # テンプレート (【白紙】)
-│   │   ├── inbox/              # 未整理情報の受け皿
-│   │   │   └── _template.md    # テンプレート (【白紙】)
-│   │   ├── projects/           # 進行中のプロジェクト管理
-│   │   ├── reviews/            # 直近の振り返り (【白紙】template)
-│   │   └── todos/              # 日次のTODO管理
-│   │       └── _template.md    # テンプレート (【白紙】)
-│   └── reviews/                # 組織全体の週次・月次レビュー (【白紙】template)
+│   ├── GEMINI.md               # 組織のマスター設定・プロフィール・組織図（完成）
+│   ├── ceo/                    # CEO（意思決定ログ、振り分け基準）
+│   ├── secretary/              # 秘書室（TODO、アイデア、ナレッジ等 15カテゴリ）
+│   ├── reviews/                # 組織全体の週次・月次レビュー
+│   ├── pm/                     # PM（プロジェクト、チケット管理）
+│   ├── research/               # リサーチ（調査トピック、レポート）
+│   ├── marketing/              # マーケティング（コンテンツ企画、キャンペーン）
+│   ├── engineering/            # 開発（技術ドキュメント、デバッグログ）
+│   ├── finance/                # 経理（請求書、経費管理）
+│   ├── sales/                  # 営業（クライアント管理、提案書）
+│   ├── creative/               # クリエイティブ（デザインブリーフ、アセット）
+│   └── hr/                     # 人事（採用管理、オンボーディング）
 ├── agents/                     # エージェントの人格・権限定義 (Prompt Engineering)
-│   ├── CEO/
-│   │   └── ROLE.md             # CEOの行動指針 (【要修正】旧パス 02_WORKSPACE 参照)
+│   ├── CEO/                    # 【要修正】旧パス参照(02_WORKSPACE等)が残存
 │   ├── Researcher/
-│   │   └── ROLE.md             # リサーチャーの行動指針 (【要修正】旧パス 04_OUTPUTS 参照)
 │   └── Secretary/
-│       └── ROLE.md             # 秘書の行動指針 (【要修正】旧パス 01_KNOWLEDGE 参照)
-├── 旧型：01_KNOWLEDGE/          # 古いナレッジベース (アーカイブ扱い)
-├── 旧型：03_TEMPLATES/          # 古いテンプレート (アーカイブ扱い)
-├── 旧型：04_OUTPUTS/            # 古い成果物 (アーカイブ扱い)
+├── 旧型：01_KNOWLEDGE/          # 以前の構成（アーカイブ/移行中）
+├── 旧型：03_TEMPLATES/
+├── 旧型：04_OUTPUTS/
 ├── _archive/                   # 不要ファイルの退避先
-├── .gitignore                  # 除外設定
-└── README.md                   # このファイル (全体概要)
+└── README.md                   # このファイル
+```
 
+## 各コンポーネントの進捗状況
 
-## 各ファイルの役割・状態詳細
+### 1. .company/ (実働データ) - 【完了】
+- **組織構築**: 基本11部署すべてのフォルダ構築とサブディレクトリの作成が完了しました。
+- **GEMINI.md**: 組織マスタードキュメント。変数の置換、組織図（ASCIIアート）、部署役割、フォルダ目的のすべてを現在のフル構成に合わせて完成させました。
+- **テンプレート**: 秘書室の15カテゴリ、各部署の専門カテゴリすべてに `_template.md` を配備し、内容の流し込みも完了しています。
+- **GEMINI.md (部署別)**: 各部署ルートに、役割とルールを定義した部署別「憲法」を配備しました。
 
-### 1. .agent/ (技術定義)
-Antigravityのスキルやワークフローを定義しています。エージェントが「何ができるか」を司ります。
+### 2. .agent/ (技術定義) - 【運用中】
+- CEO、秘書、リサーチャーの3つのコアスキルが定義されており、Antigravity上で自律的に動作可能です。
 
-### 2. .company/ (実働データ)
-現在の組織運営におけるリアルタイムデータが格納されます。
-- **GEMINI.md**: 全体の中心となるドキュメント。ただし、`{{ORG_CHART}}` などの変数が残っており、**【要修正】** です。
-- **reviews/****: 中身の `_template.md` が **【白紙】** です。
-- **_template.md**: 各フォルダ内のテンプレートが **【白紙】** 状態なものが多く、今後定義が必要です。
+### 3. agents/ (役割定義) - 【要修正予定】
+- **ROLE.md**: 現在、人格定義内のパス指定が旧ディレクトリ構成（`01_KNOWLEDGE` 等）を参照しています。今後、新設した `.company/` 基準へのパス書き換えが必要です。
 
-### 3. agents/ (役割定義)
-各エージェントの「性格」や「権限」を定義します。
-- **ROLE.md**: **【要修正】**。以前のディレクトリ構成（`01_KNOWLEDGE`, `02_WORKSPACE` 等）を参照しており、現在の `.company/` を使った構成とパスが一致していません。
-
-### 4. 旧型：* シリーズ
-以前の `cc-company` / `Claude Code` 時代の構成です。
-- **【要修正】**: 現在のマルチエージェント構成（`.company`）に完全移行できていないため、必要に応じてデータを移行し、これらは削除または完全アーカイブ化する必要があります。
-
----
-## 【要修正】リスト
-- [x] 全体の typo: `reviwes` → `reviews` (修正済み)
-- [ ] `.company/GEMINI.md`: 変数（`{{...}}`）の置換と最新化
-- [ ] `agents/*/ROLE.md`: パス指定を現在の `.company/` 基準に更新
-- [ ] `旧型：...` から `.company/` への完全移行
-
-## 【白紙】リスト
-- `.company/ceo/GEMINI.md`
-- `.company/ceo/decisions/_template.md`
-- `.company/reviews/_template.md`
-- `.company/secretary/idea_notes/_template.md`
-- `.company/secretary/inbox/_template.md`
-- `.company/secretary/reviews/_template.md`
-- `.company/secretary/todos/_template.md`
+## 今後のタスク
+- [x] `.company/GEMINI.md`: 変数置換と組織図の完成
+- [x] `.company/` 以下の全テンプレート・全部署GEMINI.md配備
+- [x] 秘書室 (secretary) の全15カテゴリ拡張
+- [ ] `agents/*/ROLE.md`: パス指定を `.company/` 基準に一括更新
+- [ ] 旧型ディレクトリからのデータ完全移行とアーカイブ化
 
 ---
 *Created using Antigravity AI-Company Architecture.*
-
