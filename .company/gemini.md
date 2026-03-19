@@ -12,32 +12,99 @@
 
 ```
 .company/
+C:.
 │  GEMINI.md
 ├─ceo
 │  │  GEMINI.md
 │  └─decisions
 │          _template.md
-│
+├─creative
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─assets
+│  │      _template.md
+│  └─briefs
+│          _template.md
+├─engineering
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─debug-log
+│  │      _template.md
+│  └─docs
+│          _template.md
+├─finance
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─expenses
+│  │      _template.md
+│  └─invoices
+│          _template.md
+├─hr
+│  │  GEMINI.md
+│  │  _template.md
+│  └─hiring
+│          _template.md
+├─marketing
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─campaigns
+│  │      _template.md
+│  └─content-plan
+│          _template.md
+├─pm
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─projects
+│  │      _template.md
+│  └─tickets
+│          _template.md
+├─research
+│  │  GEMINI.md
+│  │  _template.md
+│  └─topics
+│          _template.md
 ├─reviews
 │      _template.md
-│
+├─sales
+│  │  GEMINI.md
+│  │  _template.md
+│  ├─clients
+│  │      _template.md
+│  └─proposals
+│          _template.md
 └─secretary
-    │  拡張候補.md
-    │
+    │  GEMINI.md
+    │  _template.md
+    ├─clients
+    │      _template.md
+    ├─content-plan
+    │      _template.md
+    ├─debugging
+    │      _template.md
+    ├─finances
+    │      _template.md
     ├─idea_notes
     │      _template.md
-    │
     ├─inbox
     │      _template.md
-    │
+    ├─journal
+    │      _template.md
+    ├─knowledge
+    │      _template.md
+    ├─meetings
+    │      _template.md
+    ├─notes
+    │      _template.md
     ├─projects
     │      .gitkeep
-    │
+    │      _template.md
+    ├─reading-list
+    │      _template.md
+    ├─research
+    │      _template.md
     ├─reviews
     │      _template.md
-    │
     └─todos
-            2026-03-16.md
             _template.md
 ```
 
@@ -52,12 +119,34 @@
     │  CEO    │
     └────┬────┘
          │
-{{ORG_CHART}}
+     ┌────┴───────────────────────────────────────┐
+     │                                           │
+┌────┴────┐                                 ┌────┴────┐
+│  秘書室  │                                 │ 各専門部署 │
+└─────────┘                                 └────┬────┘
+                                                 │
+    ┌────────┬────────┬────────┬────────┬────────┼────────┬────────┬────────┐
+    │        │        │        │        │        │        │        │        │
+┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐ ┌───┴──┐
+│  PM  │ │ リサーチ │ │ マーケ │ │  開発  │ │  経理  │ │  営業  │ │ クリエ │ │  人事  │ │ レビュー │
+└──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘
 ```
 
 ## 各部署の役割
 
-{{DEPARTMENT_DESCRIPTIONS}}
+| 部署 | フォルダ | 役割・主な業務 |
+|------|---------|---------------|
+| **秘書室** | `secretary/` | オーナーの窓口。TODO管理、壁打ち、雑談、クイックメモ。 |
+| **CEO** | `ceo/` | 組織全体の意思決定、案件の各部署への振り分け、ログ管理。 |
+| **PM** | `pm/` | プロジェクトの進捗管理、マイルストーン設定、チケット管理。 |
+| **リサーチ** | `research/` | 市場調査、競合分析、技術トレンド調査、レポート作成。 |
+| **マーケティング** | `marketing/` | コンテンツ企画（SNS/ブログ）、キャンペーン実行、KPI管理。 |
+| **開発** | `engineering/` | 技術ドキュメント管理、システム詳細設計、デバッグログ記録。 |
+| **経理** | `finance/` | 請求書発行、経費精算、売上管理、月次集計。 |
+| **営業** | `sales/` | クライアント管理、提案書作成、案件パイプライン管理。 |
+| **クリエイティブ** | `creative/` | デザインブリーフ作成、ブランド指針管理、アセット管理。 |
+| **人事** | `hr/` | 採用ポジション管理、選考ステータス、チーム構築。 |
+| **レビュー**| `reviews/` | 組織全体の活動に対する週次・月次の振り返り。 |
 
 ## 運営ルール
 
@@ -73,7 +162,35 @@
 
 ### 各フォルダの目的
 
-{{FOLDER_DESCRIPTIONS}}
+### 共通配備
+- `GEMINI.md`: 各部署の「憲法」。役割、ルール、構造を定義。
+- `_template.md`: 新規ファイル作成時の雛形。
+
+### 部署別フォルダ
+- **ceo/decisions/**: 重要な意思決定の記録。
+- **pm/projects/**: プロジェクト単位の計画と進捗。
+- **pm/tickets/**: 細分化された作業チケット。
+- **research/topics/**: 特定テーマの調査結果。
+- **marketing/content-plan/**: コンテンツ制作パイプライン。
+- **marketing/campaigns/**: キャンペーンの企画と結果。
+- **engineering/docs/**: 技術仕様書や設計ドキュメント。
+- **engineering/debug-log/**: バグ調査と解決の記録。
+- **finance/invoices/**: クライアントへの請求書。
+- **finance/expenses/**: 経費支出の記録とカテゴリ。
+- **sales/clients/**: 顧客名簿とコンタクト履歴。
+- **sales/proposals/**: 提出した提案書のログ。
+- **creative/briefs/**: デザイン制作の要件定義書。
+- **creative/assets/**: ロゴやバナー等の素材管理リスト。
+- **hr/hiring/**: ポジションごとの採用選考状況。
+
+### 秘書室専用フォルダ
+- **secretary/inbox/**: 未整理のクイックキャプチャ。
+- **secretary/todos/**: 日次のタスクリスト。
+- **secretary/notes/**: 壁打ち・自由なメモ。
+- **secretary/idea_notes/**: アイデアの種と育成。
+- **secretary/knowledge/**: 整理された永続的ナレッジ。
+- **secretary/journal/**: 個人的な振り返り・日記。
+- **secretary/reading-list/**: インプット（書籍等）の管理。
 
 ## ファイル命名規則
 

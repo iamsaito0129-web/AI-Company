@@ -102,17 +102,41 @@ trigger: /secretary
 
 ```
 .company/secretary/
-├── CLAUDE.md
-├── inbox/
-│   └── _template.md
-├── reviews/
-│   └── _template.md
-├── todos/
-│   ├── _template.md
-│   └── {{TODAY}}.md
-├── ideas/
-│   └── _template.md
-├── ... (その他選択されたカテゴリ)
+│  GEMINI.md
+│  _template.md
+├─clients
+│      _template.md
+├─content-plan
+│      _template.md
+├─debugging
+│      _template.md
+├─finances
+│      _template.md
+├─finances
+│      _template.md
+├─idea_notes
+│      _template.md
+├─inbox
+│      _template.md
+├─journal
+│      _template.md
+├─knowledge
+│      _template.md
+├─meetings
+│      _template.md
+├─notes
+│      _template.md
+├─projects
+│      .gitkeep
+│      _template.md
+├─reading-list
+│      _template.md
+├─research
+│      _template.md
+├─reviews
+│      _template.md
+└─todos
+        _template.md
 ```
 
 4. ユーザーに確認。カテゴリの追加・削除・リネームを受け付ける:
