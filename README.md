@@ -28,10 +28,10 @@ AI-company/
 │   │   ├── inbox/              # 未整理情報の受け皿
 │   │   │   └── _template.md    # テンプレート (【白紙】)
 │   │   ├── projects/           # 進行中のプロジェクト管理
-│   │   ├── reviwes/            # 直近の振り返り (【要修正】typo: reviews, 【白紙】template)
+│   │   ├── reviews/            # 直近の振り返り (【白紙】template)
 │   │   └── todos/              # 日次のTODO管理
 │   │       └── _template.md    # テンプレート (【白紙】)
-│   └── reviwes/                # 組織全体の週次・月次レビュー (【要修正】typo: reviews, 【白紙】template)
+│   └── reviews/                # 組織全体の週次・月次レビュー (【白紙】template)
 ├── agents/                     # エージェントの人格・権限定義 (Prompt Engineering)
 │   ├── CEO/
 │   │   └── ROLE.md             # CEOの行動指針 (【要修正】旧パス 02_WORKSPACE 参照)
@@ -55,7 +55,7 @@ Antigravityのスキルやワークフローを定義しています。エージ
 ### 2. .company/ (実働データ)
 現在の組織運営におけるリアルタイムデータが格納されます。
 - **GEMINI.md**: 全体の中心となるドキュメント。ただし、`{{ORG_CHART}}` などの変数が残っており、**【要修正】** です。
-- **reviwes/****: **【要修正】** スペルが `reviews` であるべきところが `reviwes` となっています。また、中身の `_template.md` が **【白紙】** です。
+- **reviews/****: 中身の `_template.md` が **【白紙】** です。
 - **_template.md**: 各フォルダ内のテンプレートが **【白紙】** 状態なものが多く、今後定義が必要です。
 
 ### 3. agents/ (役割定義)
@@ -68,7 +68,7 @@ Antigravityのスキルやワークフローを定義しています。エージ
 
 ---
 ## 【要修正】リスト
-- [ ] 全体の typo: `reviwes` → `reviews`
+- [x] 全体の typo: `reviwes` → `reviews` (修正済み)
 - [ ] `.company/GEMINI.md`: 変数（`{{...}}`）の置換と最新化
 - [ ] `agents/*/ROLE.md`: パス指定を現在の `.company/` 基準に更新
 - [ ] `旧型：...` から `.company/` への完全移行
@@ -76,10 +76,10 @@ Antigravityのスキルやワークフローを定義しています。エージ
 ## 【白紙】リスト
 - `.company/ceo/GEMINI.md`
 - `.company/ceo/decisions/_template.md`
-- `.company/reviwes/_template.md`
+- `.company/reviews/_template.md`
 - `.company/secretary/idea_notes/_template.md`
 - `.company/secretary/inbox/_template.md`
-- `.company/secretary/reviwes/_template.md`
+- `.company/secretary/reviews/_template.md`
 - `.company/secretary/todos/_template.md`
 
 ---

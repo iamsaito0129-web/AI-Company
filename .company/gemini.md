@@ -18,7 +18,7 @@
 │  └─decisions
 │          _template.md
 │
-├─reviwes
+├─reviews
 │      _template.md
 │
 └─secretary
@@ -33,7 +33,7 @@
     ├─projects
     │      .gitkeep
     │
-    ├─reviwes
+    ├─reviews
     │      _template.md
     │
     └─todos

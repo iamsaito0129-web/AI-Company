@@ -1,7 +1,7 @@
 # Secretary テンプレート集
 
 `.secretary/` フォルダ生成時に使用するカテゴリ別テンプレート。
-オンボーディング Step 2d の言語設定に応じて、日本語版または英語版を使い分ける。
+現在は日本語版のみを管理している。
 
 ---
 
@@ -13,8 +13,6 @@ Step 2c で選択されたカテゴリに対応するテンプレートを使用
 ---
 
 ## 1. デイリーTODO
-
-### 日本語版
 
 ```markdown
 ---
@@ -40,37 +38,9 @@ type: daily
 -
 ```
 
-### English
-
-```markdown
----
-date: "{{YYYY-MM-DD}}"
-type: daily
----
-
-# {{YYYY-MM-DD}} ({{DAY_OF_WEEK}})
-
-## High Priority
-- [ ]
-
-## Normal
-- [ ]
-
-## Low Priority
-- [ ]
-
-## Completed
-- [x] (move here when done)
-
-## Notes / Reflections
--
-```
-
 ---
 
 ## 2. アイデア
-
-### 日本語版
 
 ```markdown
 ---
@@ -94,35 +64,10 @@ tags: []
 - [ ]
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-status: draft
-tags: []
----
-
-# [Idea Title]
-
-## Overview
-What is this idea about?
-
-## Problem / Background
-What problem does this solve?
-
-## Proposed Solution
-How would this work?
-
-## Next Steps
-- [ ]
-```
 
 ---
 
 ## 3. リサーチ
-
-### 日本語版
 
 ```markdown
 ---
@@ -153,42 +98,10 @@ tags: []
 -
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-status: in-progress
-tags: []
----
-
-# [Research Title]
-
-## Purpose
-Why are we researching this?
-
-## Findings
-
-### Source 1
-- URL:
-- Key points:
-
-### Source 2
-- URL:
-- Key points:
-
-## Conclusion
-Summary of findings and recommendations.
-
-## References
--
-```
 
 ---
 
 ## 4. ナレッジ
-
-### 日本語版
 
 ```markdown
 ---
@@ -212,35 +125,10 @@ tags: []
 -
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-topic: ""
-tags: []
----
-
-# [Topic]
-
-## Key Points
--
-
-## Details
-
-
-## Reference Links
--
-
-## Notes
--
-```
 
 ---
 
 ## 5. Inbox（クイックキャプチャ）
-
-### 日本語版
 
 ```markdown
 ---
@@ -255,26 +143,10 @@ type: inbox
 - **{{HH:MM}}** |
 ```
 
-### English
-
-```markdown
----
-date: "{{YYYY-MM-DD}}"
-type: inbox
----
-
-# Inbox - {{YYYY-MM-DD}}
-
-## Captures
-
-- **{{HH:MM}}** |
-```
 
 ---
 
 ## 6. 週次レビュー
-
-### 日本語版
 
 ```markdown
 ---
@@ -304,41 +176,10 @@ type: review
 - [ ]
 ```
 
-### English
-
-```markdown
----
-week: "{{YYYY}}-W{{WW}}"
-period: "{{START_DATE}} ~ {{END_DATE}}"
-type: review
----
-
-# Weekly Review: {{YYYY}}-W{{WW}}
-
-## Completed Tasks
-- [x] Gather completed items from this week's daily files
-
-## What Went Well
--
-
-## What Could Be Improved
--
-
-## Learnings
--
-
-## Next Week's Goals
-- [ ]
-
-## Carried Over (Incomplete)
-- [ ]
-```
 
 ---
 
 ## 7. 議事録
-
-### 日本語版
 
 ```markdown
 ---
@@ -362,35 +203,10 @@ tags: []
 -
 ```
 
-### English
-
-```markdown
----
-date: "{{YYYY-MM-DD}}"
-attendees: []
-tags: []
----
-
-# Meeting: [Title]
-
-## Agenda
-1.
-
-## Discussion Notes
--
-
-## Action Items
-- [ ] @who - what - by when
-
-## Decisions Made
--
-```
 
 ---
 
 ## 8. クライアント管理
-
-### 日本語版
 
 ```markdown
 ---
@@ -418,39 +234,10 @@ status: active
 -
 ```
 
-### English
-
-```markdown
----
-client: ""
-created: "{{YYYY-MM-DD}}"
-status: active
----
-
-# Client: [Name]
-
-## Contact Info
-- Name:
-- Email:
-- Company:
-
-## Projects
--
-
-## Communication Log
-
-### {{YYYY-MM-DD}}
--
-
-## Notes
--
-```
 
 ---
 
 ## 9. コンテンツ企画
-
-### 日本語版
 
 ```markdown
 ---
@@ -487,48 +274,10 @@ tags: []
 - [ ] 公開済み
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-platform: ""
-status: draft
-publish_date: ""
-tags: []
----
-
-# [Content Title]
-
-## Platform
-Blog / YouTube / Social / Other
-
-## Target Audience
-Who is this for?
-
-## Outline
-1.
-2.
-3.
-
-## Key Message
-
-
-## Draft / Script
-
-
-## Status
-- [ ] Outline
-- [ ] Draft
-- [ ] Review
-- [ ] Published
-```
 
 ---
 
 ## 10. 読書リスト
-
-### 日本語版
 
 ```markdown
 ---
@@ -554,37 +303,10 @@ type: reading-list
 |         |      |       |      |      |
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-type: reading-list
----
-
-# Reading List
-
-## Currently Reading
-| Title | Author | Started | Progress |
-|-------|--------|---------|----------|
-|       |        |         |          |
-
-## To Read
-| Title | Author | Priority | Added |
-|-------|--------|----------|-------|
-|       |        |          |       |
-
-## Finished
-| Title | Author | Finished | Rating | Notes |
-|-------|--------|----------|--------|-------|
-|       |        |          |        |       |
-```
 
 ---
 
 ## 11. 日記・ジャーナル
-
-### 日本語版
 
 ```markdown
 ---
@@ -605,32 +327,10 @@ type: journal
 -
 ```
 
-### English
-
-```markdown
----
-date: "{{YYYY-MM-DD}}"
-mood: ""
-type: journal
----
-
-# {{YYYY-MM-DD}} ({{DAY_OF_WEEK}})
-
-## Today's Highlights
--
-
-## Thoughts
--
-
-## Gratitude
--
-```
 
 ---
 
 ## 12. デバッグログ（開発者向け）
-
-### 日本語版
 
 ```markdown
 ---
@@ -665,48 +365,12 @@ tags: []
 今後どう防ぐ？
 ```
 
-### English
-
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-status: open
-tags: []
----
-
-# [Bug / Issue Title]
-
-## Symptom
-What is happening?
-
-## Expected Behavior
-What should happen?
-
-## Reproduction Steps
-1.
-
-## Investigation
-
-### Hypothesis 1
--
-
-### Findings
--
-
-## Solution
--
-
-## Prevention
-How to prevent this in the future?
-```
 
 ---
 
 ## 13. 汎用テンプレート
 
 ユーザーが追加するカスタムカテゴリ用のフォールバック。
-
-### 日本語版
 
 ```markdown
 ---
@@ -723,19 +387,4 @@ tags: []
 -
 ```
 
-### English
 
-```markdown
----
-created: "{{YYYY-MM-DD}}"
-tags: []
----
-
-# [Title]
-
-## Content
--
-
-## Notes
--
-```
