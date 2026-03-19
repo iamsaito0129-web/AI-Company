@@ -1,26 +1,87 @@
-# AI-Company (一人社長のAIチーム)
+# AI-Company (一人社長のAIチーム - Antigravity)
 
 ## 概要
-このリポジトリは、Claude Code の「ディレクトリ継承メカニズム」と「プラグイン・スキル」の思想を取り入れた、自律的AIエージェントチームの基盤です。
-`cc-company` および `cc-secretary` の最新テンプレートに基づき、秘書を窓口とし、CEOが適切な部署へ振り分ける組織運営を実現します。
+このリポジトリは、Google Antigravity の「マルチエージェント・オーケストレーション」を活用し、自律的に連携するAIチームの基盤です。
+秘書（Secretary）が窓口となり、CEOが意思決定を行って各部署（Researcher等）へ作業を割り振る組織運営を実現します。
 
-## 組織構成
-- **[Secretary/](Secretary/CLAUDE.md)**: 秘書室。全ての窓口、TODO管理、壁打ち、クイックメモ。
-- **[CEO/](CEO/CLAUDE.md)**: 意思決定機関。案件の部署振り分け、リスク管理。
-- **[Researcher/](Researcher/CLAUDE.md)**: リサーチ部門。市場調査、技術調査、分析。
-- **[reviews/](reviews/_template.md)**: 週次・月次レビュー。
+## ディレクトリ階層と役割
 
-## ワークスペース
-- **01_ABOUT_ME/**: 創業者のプロフィールと嗜好
-- **02_PROJECTS/**: プロジェクト管理資料
-- **03_TEMPLATES/**: 各部署共通の品質基準
-- **04_OUTPUTS/**: 最終成果物の出力場所
+AI-company/
+├── .agent/                     # Antigravity用の技術定義コア
+│   ├── skills/                 # 各部署・エージェントのスキル定義 (Custom Skills)
+│   │   ├── ceo/                # `ceo` スキル: 組織構築・指示振り分け
+│   │   ├── researcher/         # `researcher` スキル: 調査・分析
+│   │   └── secretary/          # `secretary` スキル: 秘書業務・TODO管理
+│   └── workflows/              # 定型業務の自動化定義
+│       ├── daily_sync.md       # 朝の同期会ワークフロー
+│       ├── deep_research.md    # 高度な調査ワークフロー
+│       └── investigate.md      # 調査支援
+├── .company/                   # 【最新】実働データ・管理ディレクトリ
+│   ├── GEMINI.md               # 組織のマスター設定・プロフィール・案内図 (【要修正】変数未置換あり)
+│   ├── ceo/                    # CEO部署のデータ
+│   │   ├── GEMINI.md           # CEO固有設定 (【白紙】)
+│   │   └── decisions/          # 意思決定ログ
+│   │       └── _template.md    # テンプレート (【白紙】)
+│   ├── secretary/              # 秘書室のデータ
+│   │   ├── idea_notes/         # アイデアの欠片
+│   │   │   └── _template.md    # テンプレート (【白紙】)
+│   │   ├── inbox/              # 未整理情報の受け皿
+│   │   │   └── _template.md    # テンプレート (【白紙】)
+│   │   ├── projects/           # 進行中のプロジェクト管理
+│   │   ├── reviwes/            # 直近の振り返り (【要修正】typo: reviews, 【白紙】template)
+│   │   └── todos/              # 日次のTODO管理
+│   │       └── _template.md    # テンプレート (【白紙】)
+│   └── reviwes/                # 組織全体の週次・月次レビュー (【要修正】typo: reviews, 【白紙】template)
+├── agents/                     # エージェントの人格・権限定義 (Prompt Engineering)
+│   ├── CEO/
+│   │   └── ROLE.md             # CEOの行動指針 (【要修正】旧パス 02_WORKSPACE 参照)
+│   ├── Researcher/
+│   │   └── ROLE.md             # リサーチャーの行動指針 (【要修正】旧パス 04_OUTPUTS 参照)
+│   └── Secretary/
+│       └── ROLE.md             # 秘書の行動指針 (【要修正】旧パス 01_KNOWLEDGE 参照)
+├── 旧型：01_KNOWLEDGE/          # 古いナレッジベース (アーカイブ扱い)
+├── 旧型：03_TEMPLATES/          # 古いテンプレート (アーカイブ扱い)
+├── 旧型：04_OUTPUTS/            # 古い成果物 (アーカイブ扱い)
+├── _archive/                   # 不要ファイルの退避先
+├── .gitignore                  # 除外設定
+└── README.md                   # このファイル (全体概要)
 
-## 運営ルール
-1. **秘書が窓口**: 何かあればまず `Secretary` フォルダのコンテキスト（または秘書の口調）で話しかけてください。
-2. **自動振り分け**: 複雑な案件は、秘書が判断し CEO が適切な部署（Researcherなど）に指示を出します。
-3. **テンプレート遵守**: 新規ファイル作成時は、各フォルダにある `_template.md` を使用してください。
-4. **日次管理**: 毎日のタスクは `Secretary/todos/` で管理します。
+
+## 各ファイルの役割・状態詳細
+
+### 1. .agent/ (技術定義)
+Antigravityのスキルやワークフローを定義しています。エージェントが「何ができるか」を司ります。
+
+### 2. .company/ (実働データ)
+現在の組織運営におけるリアルタイムデータが格納されます。
+- **GEMINI.md**: 全体の中心となるドキュメント。ただし、`{{ORG_CHART}}` などの変数が残っており、**【要修正】** です。
+- **reviwes/****: **【要修正】** スペルが `reviews` であるべきところが `reviwes` となっています。また、中身の `_template.md` が **【白紙】** です。
+- **_template.md**: 各フォルダ内のテンプレートが **【白紙】** 状態なものが多く、今後定義が必要です。
+
+### 3. agents/ (役割定義)
+各エージェントの「性格」や「権限」を定義します。
+- **ROLE.md**: **【要修正】**。以前のディレクトリ構成（`01_KNOWLEDGE`, `02_WORKSPACE` 等）を参照しており、現在の `.company/` を使った構成とパスが一致していません。
+
+### 4. 旧型：* シリーズ
+以前の `cc-company` / `Claude Code` 時代の構成です。
+- **【要修正】**: 現在のマルチエージェント構成（`.company`）に完全移行できていないため、必要に応じてデータを移行し、これらは削除または完全アーカイブ化する必要があります。
 
 ---
-*Created using cc-company & cc-secretary master templates.*
+## 【要修正】リスト
+- [ ] 全体の typo: `reviwes` → `reviews`
+- [ ] `.company/GEMINI.md`: 変数（`{{...}}`）の置換と最新化
+- [ ] `agents/*/ROLE.md`: パス指定を現在の `.company/` 基準に更新
+- [ ] `旧型：...` から `.company/` への完全移行
+
+## 【白紙】リスト
+- `.company/ceo/GEMINI.md`
+- `.company/ceo/decisions/_template.md`
+- `.company/reviwes/_template.md`
+- `.company/secretary/idea_notes/_template.md`
+- `.company/secretary/inbox/_template.md`
+- `.company/secretary/reviwes/_template.md`
+- `.company/secretary/todos/_template.md`
+
+---
+*Created using Antigravity AI-Company Architecture.*
+

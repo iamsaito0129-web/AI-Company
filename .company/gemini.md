@@ -5,18 +5,16 @@
 
 - **役割**: 大阪市小学校教諭
 - **ワークスタイル**: 小学校勤務 ,8:20~17:00の勤務 ,
-- **言語**: markdown, mermaid, html, css, javascript, python
+- **言語**: 日本語
 - **作成日**: 2026-03-18
 
 ## ディレクトリ構成
 
 ```
 .company/
-│  gemini.md
-│  
+│  GEMINI.md
 ├─ceo
-│  │  gemini.md
-│  │
+│  │  GEMINI.md
 │  └─decisions
 │          _template.md
 │
@@ -129,9 +127,9 @@
 | "カテゴリ追加 [名前]" | 新しいカテゴリフォルダを追加 |
 
 ## パーソナライズメモ
-
+```
 {{PERSONALIZATION_NOTES}}
-````
+```
 
 ---
 
