@@ -34,10 +34,7 @@ AI-company/
 │   ├── CEO/                    # 【要修正】旧パス参照(02_WORKSPACE等)が残存
 │   ├── Researcher/
 │   └── Secretary/
-├── 旧型：01_KNOWLEDGE/          # 以前の構成（アーカイブ/移行中）
-├── 旧型：03_TEMPLATES/
-├── 旧型：04_OUTPUTS/
-├── _archive/                   # 不要ファイルの退避先
+├── _archive/                   # 不要ファイルの退避先（過去の設計草案など）
 └── README.md                   # このファイル
 ```
 
@@ -59,8 +56,8 @@ AI-company/
 - [x] `.company/GEMINI.md`: 変数置換と組織図の完成
 - [x] `.company/` 以下の全テンプレート・全部署GEMINI.md配備
 - [x] 秘書室 (secretary) の全15カテゴリ拡張
-- [ ] `agents/*/ROLE.md`: パス指定を `.company/` 基準に一括更新
-- [ ] 旧型ディレクトリからのデータ完全移行とアーカイブ化
+- [x] `agents/*/ROLE.md`: パス指定を `.company/` 基準に一括更新
+- [x] 旧型ディレクトリからのデータ完全移行と削除
 
 ---
 *Created using Antigravity AI-Company Architecture.*

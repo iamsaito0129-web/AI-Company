@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L-Money | プレミアム家計管理</title>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside>
+        <div class="logo">
+          <span class="logo-icon">✨</span>
+          <span>L-Money</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#" class="active"><span class="icon">📊</span> ダッシュボード</a></li>
+            <li><a href="#"><span class="icon">📖</span> 家計簿データ</a></li>
+            <li><a href="#"><span class="icon">🏦</span> 資産・口座</a></li>
+            <li><a href="#"><span class="icon">⚙️</span> 設定</a></li>
+          </ul>
+        </nav>
+        <div style="flex: 1;"></div>
+        <div class="user-profile">
+          <div class="avatar">AO</div>
+          <div class="user-info">
+            <div style="font-size: 0.9rem; font-weight: 600;">大谷 彩人</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">新社会人モード</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main>
+        <header>
+          <h1>ダッシュボード <span style="font-size: 1.2rem; color: var(--text-muted); font-weight: normal; margin-left: 1rem;">2026年3月</span></h1>
+          <button class="btn-primary">+ 収支の追加</button>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="dashboard-grid">
+          <div class="glass-card">
+            <div class="stat-header">今月の収入</div>
+            <div class="stat-value">¥250,000</div>
+            <div class="stat-change up">↑ 初任給反映済</div>
+          </div>
+          <div class="glass-card">
+            <div class="stat-header">今月の支出</div>
+            <div class="stat-value">¥185,400</div>
+            <div class="stat-change down">↓ 前月比 -¥12,000</div>
+          </div>
+          <div class="glass-card">
+            <div class="stat-header">貯蓄・残高</div>
+            <div class="stat-value">¥64,600</div>
+            <div class="stat-change up">↑ 貯蓄率 25.8%</div>
+          </div>
+          <div class="glass-card">
+            <div class="stat-header">総資産</div>
+            <div class="stat-value">¥377,600</div>
+            <div class="stat-change up">↑ 前月比 +¥46,000</div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+          <div class="glass-card chart-container">
+            <div class="stat-header">支出の推移</div>
+            <canvas id="spendingChart"></canvas>
+          </div>
+          <div class="glass-card chart-container">
+            <div class="stat-header">カテゴリー別支出</div>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="glass-card recent-transactions">
+          <div class="stat-header" style="margin-bottom: 1.5rem;">最近の支出</div>
+          <table>
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>項目</th>
+                <th>カテゴリー</th>
+                <th>手段</th>
+                <th style="text-align: right;">金額</th>
+              </tr>
+            </thead>
+            <tbody id="transactionList">
+              <!-- JSで注入 -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
