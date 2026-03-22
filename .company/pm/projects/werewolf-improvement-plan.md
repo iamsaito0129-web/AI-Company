@@ -1,3 +1,10 @@
+---
+created: "2026-03-21"
+project: "人狼ゲーム改善計画"
+status: on-hold
+tags: ["game", "frontend", "react"]
+---
+
 # 🐺 人狼：魔導書 (The Grimoire) アップデート・改善提案書
 
 ## 1. 現状分析と市場調査に基づく考察

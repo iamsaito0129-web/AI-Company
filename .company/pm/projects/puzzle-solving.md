@@ -1,7 +1,7 @@
 ---
 created: "2026-03-21"
 project: "パズル解決プロジェクト"
-status: completed
+status: active
 tags: ["puzzle", "algorithm", "python"]
 ---
 
@@ -15,6 +15,8 @@ tags: ["puzzle", "algorithm", "python"]
 - [x] 全経由地（イエロー面）を網羅するDFS（深さ優先探索）の実装
 - [x] 解決ルートの可視化（HTML出力）
 - [x] 特定の制約（16ターンの制約など）を満たす解の特定
+- [ ] カレンダー（Notion/Google）からの詳細タスク抽出と反映 | 優先度: 高
+- [ ] パズルソルバーのさらなるブラッシュアップ | 優先度: 高
 
 ## マイルストーン
 | # | マイルストーン | 期限 | 状態 |
