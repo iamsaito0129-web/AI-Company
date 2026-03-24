@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Route Puzzle v3 - Interactive Unfolded Map</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-color: #f1f5f9;
+            --accent-pink: #d946ef;
+            --accent-indigo: #6366f1;
+            --cell-size: 55px;
+            --start-color: #22c55e;
+            --goal-color: #ef4444;
+            --yellow-color: #fbbf24;
+            --blue-color: #38bdf8;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .bg-animate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            z-index: -1;
+        }
+
+        header {
+            padding: 15px;
+            text-align: center;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(135deg, #818cf8 0%, #d946ef 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #viewport {
+            flex: 1;
+            position: relative;
+            cursor: grab;
+            overflow: hidden;
+        }
+
+        #viewport:active {
+            cursor: grabbing;
+        }
+
+        #map-container {
+            position: absolute;
+            display: grid;
+            gap: 3px;
+            padding: 200px;
+        }
+
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #64748b;
+            position: relative;
+            border-radius: 6px;
+            user-select: none;
+            transition: transform 0.1s;
+        }
+
+        .cell:hover {
+            transform: scale(1.05);
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 役割表示（左上マーク） */
+        .role-marker {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: none;
+        }
+
+        /* 各種マスの基本色 */
+        .cell.start .role-marker {
+            display: block;
+            background: var(--start-color);
+        }
+
+        .cell.goal .role-marker {
+            display: block;
+            background: var(--goal-color);
+        }
+
+        .cell.yellow .role-marker {
+            display: block;
+            background: var(--yellow-color);
+        }
+
+        .cell.start {
+            border-color: var(--start-color);
+        }
+
+        .cell.goal {
+            border-color: var(--goal-color);
+        }
+
+        .cell.yellow {
+            border-color: var(--yellow-color);
+        }
+
+        .cell.lightblue {
+            background: rgba(56, 189, 248, 0.4);
+            border-color: var(--blue-color);
+            cursor: not-allowed !important;
+            opacity: 0.6;
+        }
+
+        /* 紫の矢印 */
+        .arrow {
+            position: absolute;
+            font-size: 24px;
+            color: var(--accent-pink);
+            font-weight: 800;
+            pointer-events: none;
+            display: none;
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+        }
+
+        .cell.route .arrow {
+            display: block;
+        }
+
+        /* ワープ先番号バッジ */
+        .warp-dest {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent-indigo);
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            font-weight: 800;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            pointer-events: none;
+            display: none;
+        }
+
+        .cell.route .warp-dest {
+            display: block;
+        }
+
+        /* 曲がり角番号バッジ */
+        .turn-number {
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            background: var(--yellow-color);
+            color: #000;
+            font-size: 11px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 900;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            pointer-events: none;
+            display: none;
+        }
+
+        .cell.route.turn .turn-number {
+            display: block;
+        }
+
+        /* UIパネル */
+        .ui-overlay {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            background: var(--glass-bg);
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .mode-indicator {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        button.btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        button.btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button.btn.active {
+            background: var(--accent-indigo);
+            border-color: #818cf8;
+        }
+
+        .controls-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .control-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animate"></div>
+
+    <header>
+        <h1>3D Route Puzzle v3</h1>
+        <div style="font-size: 0.8rem; color: #94a3b8;">展開図インタラクティブ・エディタ</div>
+    </header>
+
+    <div id="mode-text" class="mode-indicator">
+        モード: 自動反映
+    </div>
+
+    <div id="viewport">
+        <div id="map-container"></div>
+    </div>
+
+    <div class="controls-panel">
+        <div class="control-btn" onclick="resetView()" title="座標リセット">🎯</div>
+        <div class="control-btn" onclick="zoomIn()">➕</div>
+        <div class="control-btn" onclick="zoomOut()">➖</div>
+    </div>
+
+    <div class="ui-overlay">
+        <button id="btn-auto" class="btn active" onclick="setMode('auto')">🤖 自動反映</button>
+        <button id="btn-manual" class="btn" onclick="setMode('manual')">🖱️ ユーザー操作</button>
+        <div style="width: 1px; background: rgba(255,255,255,0.1); margin: 0 5px;"></div>
+        <button class="btn" onclick="clearPath()">🗑️ クリア</button>
+    </div>
+
+    <script>
+        let config = null;
+        let mode = 'auto'; // 'auto' or 'manual'
+        const container = document.getElementById('map-container');
+        const viewport = document.getElementById('viewport');
+        const userPath = new Map(); // id -> direction enum
+
+        // 外部JSONの読み込み
+        // 5x5x10 の直方体マッピング
+        const W = 5, H = 5, D = 10;
+        const idToInfo = new Map();
+
+        function generateMapping() {
+            let idCnt = 1;
+            for (let x = 0; x < W; x++) {
+                for (let y = 0; y < H; y++) {
+                    for (let z = 0; z < D; z++) {
+                        if (x === 0 || x === W - 1 || y === 0 || y === H - 1 || z === 0 || z === D - 1) {
+                            for (let f = 0; f < 6; f++) {
+                                if ((f === 0 && x === W - 1) || (f === 1 && x === 0) || (f === 2 && y === H - 1) || (f === 3 && y === 0) || (f === 4 && z === D - 1) || (f === 5 && z === 0)) {
+                                    // 面ごとの配置座標 (Grid R, C)
+                                    // 側面 height=10, width=5. 上下面 5x5.
+                                    // F4(Top)  : R=0~4,   C=5~9
+                                    // F3(Front): R=5~14,  C=0~4
+                                    // F0(Right): R=5~14,  C=5~9
+                                    // F2(Back) : R=5~14,  C=10~14
+                                    // F1(Left) : R=5~14,  C=15~19
+                                    // F5(Bottom):R=15~19, C=5~9
+                                    let r, c;
+                                    if (f === 4) { r = y; c = 10 + x; } // Top (Moved 5 cols right)
+                                    else if (f === 3) { r = 5 + (D - 1 - z); c = x; } // Front side
+                                    else if (f === 0) { r = 5 + (D - 1 - z); c = 5 + y; } // Right side
+                                    else if (f === 2) { r = 5 + (D - 1 - z); c = 10 + (W - 1 - x); } // Back side
+                                    else if (f === 1) { r = 5 + (D - 1 - z); c = 15 + (H - 1 - y); } // Left side
+                                    else if (f === 5) { r = 15 + (H - 1 - y); c = 10 + x; } // Bottom (Moved 5 cols right)
+
+                                    idToInfo.set(idCnt, { x, y, z, f, r, c });
+                                    idCnt++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        async function loadConfig() {
+            generateMapping();
+            try {
+                const response = await fetch('puzzle_config.json');
+                config = await response.json();
+
+                // ユーザーの回答があれば読み込む
+                try {
+                    const ansRsp = await fetch('user_answer.json');
+                    const ansData = await ansRsp.json();
+                    if (ansData && ansData.route) {
+                        userPath.clear();
+                        ansData.route.forEach(id => {
+                            userPath.set(id, { icon: '→', angle: 0 });
+                        });
+                        console.log("Loading user answer...");
+                    }
+                } catch (e) { }
+
+                initMap();
+                if (mode === 'auto') applyAutoPath();
+                else renderUserPath();
+            } catch (e) {
+                console.error("Config load failed.", e);
+            }
+        }
+
+        function initMap() {
+            container.innerHTML = '';
+            const cols = 20;
+            const rows = 20;
+            container.style.gridTemplateColumns = `repeat(${cols}, var(--cell-size))`;
+            container.style.gridTemplateRows = `repeat(${rows}, var(--cell-size))`;
+
+            // IDマップされたセルのみ作成
+            for (let i = 1; i <= 250; i++) {
+                const info = idToInfo.get(i);
+                if (!info) continue;
+
+                const div = document.createElement('div');
+                div.className = 'cell';
+                div.dataset.id = i;
+                div.style.gridRow = info.r + 1;
+                div.style.gridColumn = info.c + 1;
+
+                const marker = document.createElement('div');
+                marker.className = 'role-marker';
+                div.appendChild(marker);
+
+                const arrow = document.createElement('div');
+                arrow.className = 'arrow';
+                arrow.textContent = '→';
+                div.appendChild(arrow);
+
+                const warpDest = document.createElement('div');
+                warpDest.className = 'warp-dest';
+                div.appendChild(warpDest);
+
+                const turnLabel = document.createElement('div');
+                turnLabel.className = 'turn-number';
+                div.appendChild(turnLabel);
+
+                const label = document.createElement('span');
+                label.textContent = i;
+                div.appendChild(label);
+
+                if (config.start.includes(i)) div.classList.add('start');
+                if (config.goal.includes(i)) div.classList.add('goal');
+                if (config.yellow.includes(i)) div.classList.add('yellow');
+                if (config.lightblue.includes(i)) div.classList.add('lightblue');
+
+                div.addEventListener('click', () => handleCellClick(i, div));
+                container.appendChild(div);
+            }
+        }
+
+        function setMode(m) {
+            mode = m;
+            document.getElementById('btn-auto').classList.toggle('active', mode === 'auto');
+            document.getElementById('btn-manual').classList.toggle('active', mode === 'manual');
+            document.getElementById('mode-text').textContent = `モード: ${mode === 'auto' ? '自動反映' : 'ユーザー操作'}`;
+
+            if (mode === 'auto') {
+                applyAutoPath();
+            } else {
+                renderUserPath();
+            }
+        }
+
+        function applyAutoPath() {
+            clearCells();
+            if (!config || !config.solved_route) return;
+
+            const route = config.solved_route;
+            let currentTurn = 0;
+            let lastV = null;
+
+            for (let i = 0; i < route.length - 1; i++) {
+                const currId = route[i];
+                const nextId = route[i + 1];
+                const dir = getDirectionLabel(currId, nextId);
+                const cell = container.querySelector(`[data-id="${currId}"]`);
+
+                if (cell) {
+                    cell.classList.add('route');
+                    const arrow = cell.querySelector('.arrow');
+                    const warpDest = cell.querySelector('.warp-dest');
+                    const turnLabel = cell.querySelector('.turn-number');
+
+                    arrow.textContent = dir.icon;
+                    arrow.style.transform = `rotate(${dir.angle}deg)`;
+
+                    // 方向転換の判定と回数表示
+                    // ワープ移動（🌀）の場合、dir.logicVはワープ前の移動方向を持つ
+                    if (lastV && dir.logicV && (dir.logicV.r !== lastV.r || dir.logicV.c !== lastV.c)) {
+                        currentTurn++;
+                        cell.classList.add('turn');
+                        turnLabel.textContent = currentTurn;
+                    } else {
+                        cell.classList.remove('turn');
+                    }
+                    lastV = dir.logicV;
+
+                    if (dir.icon === '🌀') {
+                        warpDest.textContent = nextId;
+                        warpDest.style.display = 'block';
+                    } else {
+                        warpDest.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function handleCellClick(id, element) {
+            if (mode !== 'manual' || element.classList.contains('lightblue')) return;
+
+            // マニュアルモードではクリックで「矢印の向きをサイクル」させる、または削除
+            const currentRoute = element.classList.contains('route');
+            if (!currentRoute) {
+                element.classList.add('route');
+                userPath.set(id, { icon: '→', angle: 0 });
+            } else {
+                const p = userPath.get(id);
+                if (p.angle === 270) {
+                    element.classList.remove('route');
+                    userPath.delete(id);
+                } else {
+                    p.angle += 90;
+                    userPath.set(id, p);
+                }
+            }
+            renderUserPath();
+            saveUserPath();
+        }
+
+        async function saveUserPath() {
+            // 注意: ブラウザ単体ではファイルの書き込みが制限されるため、サーバー機能（API等）が必要です。
+            // ここでは保存用のデータ構造をコンソールに出力し、将来的に保存を可能にします。
+            const routeArray = [...userPath.entries()].map(([id, data]) => ({ id }));
+            console.log("Saving user path to user_answer.json...", routeArray);
+
+            // モデルが実行している環境（VS Code 等）であれば、拡張機能を介して保存が可能。
+            // ここに保存リサーチをトリガーする特殊なイベントやコメントを残します。
+        }
+
+        function renderUserPath() {
+            clearCells();
+            for (const [id, data] of userPath) {
+                const cell = container.querySelector(`[data-id="${id}"]`);
+                if (cell) {
+                    cell.classList.add('route');
+                    const arrow = cell.querySelector('.arrow');
+                    arrow.textContent = data.icon;
+                    arrow.style.transform = `rotate(${data.angle}deg)`;
+                }
+            }
+        }
+
+        function clearCells() {
+            container.querySelectorAll('.cell').forEach(c => {
+                c.classList.remove('route');
+            });
+        }
+
+        function clearPath() {
+            userPath.clear();
+            if (mode === 'manual') renderUserPath();
+        }
+
+        // 展開図の座標(r, c)に基づいた方向判定
+        function getDirectionLabel(c, n) {
+            const curr = idToInfo.get(c);
+            const next = idToInfo.get(n);
+            if (!curr || !next) return { icon: '→', angle: 0 };
+
+            const dr = next.r - curr.r;
+            const dc = next.c - curr.c;
+
+            if (dr === 0 && dc === 1) return { icon: '→', angle: 0, logicV: { r: 0, c: 1 } };
+            if (dr === 0 && dc === -1) return { icon: '→', angle: 180, logicV: { r: 0, c: -1 } };
+            if (dr === 1 && dc === 0) return { icon: '→', angle: 90, logicV: { r: 1, c: 0 } };
+            if (dr === -1 && dc === 0) return { icon: '→', angle: 270, logicV: { r: -1, c: 0 } };
+
+            // 2D上で離れている（ワープ）が、3D的には繋がっている移動
+            // 本来の3D空間での移動方向を判別する必要があるが、簡易的に
+            // 近接移動ではないことを示しつつ、logicVを維持する（ワープ自体はカウントしないためのフラグ）
+            return { icon: '🌀', angle: 0, logicV: null };
+        }
+
+        // --- Viewport Dynamics ---
+        let scale = 1, posX = 0, posY = 0;
+        let isDragging = false, startX, startY;
+
+        viewport.onmousedown = (e) => { isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; };
+        window.onmousemove = (e) => { if (!isDragging) return; posX = e.clientX - startX; posY = e.clientY - startY; updateTransform(); };
+        window.onmouseup = () => isDragging = false;
+        viewport.onwheel = (e) => { e.preventDefault(); scale *= e.deltaY > 0 ? 0.9 : 1.1; scale = Math.min(Math.max(0.3, scale), 3); updateTransform(); };
+
+        function updateTransform() { container.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`; }
+        function resetView() { scale = 0.8; posX = 0; posY = 0; updateTransform(); }
+        function zoomIn() { scale *= 1.2; updateTransform(); }
+        function zoomOut() { scale *= 0.8; updateTransform(); }
+
+        loadConfig();
+        setTimeout(resetView, 300);
+    </script>
+</body>
+
+</html>

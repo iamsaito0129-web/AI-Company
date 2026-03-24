@@ -1,5 +1,6 @@
-
 import sys
+import json
+import os
 
 def generate_mapping(w, h, d):
     fm, rm = {}, {}
@@ -15,12 +16,11 @@ def generate_mapping(w, h, d):
                             id_cnt += 1
     return fm, rm
 
-W, H, D = 5, 5, 10
-fm, rm = generate_mapping(W, H, D)
 NORMALS = {0:(1,0,0), 1:(-1,0,0), 2:(0,1,0), 3:(0,-1,0), 4:(0,0,1), 5:(0,0,-1)}
 
-def get_adj_v3():
+def get_adj_v3(fm, rm):
     adj = {}
+    # NORMALS definitions: 0:+x, 1:-x, 2:+y, 3:-y, 4:+z, 5:-z
     pdirs = {
         0: [(0,1,0), (0,-1,0), (0,0,1), (0,0,-1)], 1: [(0,1,0), (0,-1,0), (0,0,1), (0,0,-1)],
         2: [(1,0,0), (-1,0,0), (0,0,1), (0,0,-1)], 3: [(1,0,0), (-1,0,0), (0,0,1), (0,0,-1)],
@@ -31,62 +31,132 @@ def get_adj_v3():
         adj[fid] = []
         for v in pdirs[f]:
             nx, ny, nz = x+v[0], y+v[1], z+v[2]
+            # 1. 同じ面内で隣接している場合
             if (nx, ny, nz, f) in rm:
-                # Neighbor on same face
-                adj[fid].append((rm[(nx,ny,nz,f)], v, v)) # (node, move_vector, next_expected_vector)
+                adj[fid].append((rm[(nx,ny,nz,f)], v, v))
             else:
-                nf = -1
-                if v==(1,0,0): nf=0
-                elif v==(-1,0,0): nf=1
-                elif v==(0,1,0): nf=2
-                elif v==(0,-1,0): nf=3
-                elif v==(0,0,1): nf=4
-                elif v==(0,0,-1): nf=5
-                if (x,y,z,nf) in rm:
-                    on = NORMALS[f]
-                    nv = (-on[0], -on[1], -on[2])
-                    # Cross to nf: current move is 'v'. Next step must be 'nv' to be straight.
-                    adj[fid].append((rm[(x,y,z,nf)], v, nv))
+                # 2. 面を跨ぐ移動 (nx, ny, nz は変わるが f も変わる)
+                for nf in range(6):
+                    if nf == f: continue
+                    if (nx, ny, nz, nf) in rm:
+                        # 法線が直交している場合に限り、境界をまたぐ
+                        ni, nj = NORMALS[f], NORMALS[nf]
+                        if ni[0]*nj[0] + ni[1]*nj[1] + ni[2]*nj[2] == 0:
+                            on = NORMALS[f]
+                            nv = (-on[0], -on[1], -on[2])
+                            adj[fid].append((rm[(nx,ny,nz,nf)], v, nv))
+        
+        # 3. カドでの移動 (x, y, z は同じだが f だけ変わる)
+        for nf in range(6):
+            if nf == f: continue
+            if (x, y, z, nf) in rm:
+                ni, nj = NORMALS[f], NORMALS[nf]
+                if ni[0]*nj[0] + ni[1]*nj[1] + ni[2]*nj[2] == 0:
+                    # これはカドを曲がる動作。move_v と next_exp_v を nj (新しい面の法線方向) 等で設定し、
+                    # 確実に方向転換として検知させる
+                    # 便宜上、現在の面 f の法線の逆方向から、新しい面 nf の法線の順方向へ曲がると定義
+                    adj[fid].append((rm[(x,y,z,nf)], nj, nj))
     return adj
 
-ADJ = get_adj_v3()
-START = 233
-GOAL = 77
-YELLOW_IDS = [63, 69, 235, 73, 16, 17, 33, 48, 94, 202, 199, 196, 232, 147, 154]
-YELLOWS = set(YELLOW_IDS)
-Y_BIT = {tid: 1 << i for i, tid in enumerate(YELLOW_IDS)}
-ALL_MASK = (1 << len(YELLOW_IDS)) - 1
-WALLS = set([243, 108, 79, 98, 128, 158, 226, 224, 221, 219, 214, 212, 209, 207, 231, 194, 49, 50, 51, 54, 56, 37, 38, 39, 42, 44, 2, 114])
+import time
 
-def solve():
-    memo = {}
+def solve_puzzle(config):
+    start_time = time.time()
+    TIMEOUT = 300 # 探索時間をさらに延長
+    dim = config['dimensions']
+    fm, rm = generate_mapping(dim['w'], dim['h'], dim['d'])
+    adj = get_adj_v3(fm, rm)
     
-    def dfs(curr, mask, visited_all, expected_v, turns):
-        if turns > 30: return None # Increased limit
-        if curr == GOAL and mask == ALL_MASK:
-            return [GOAL]
+    start_id = config['start'][0]
+    goal_id = config['goal'][0]
+    yellow_ids = config['yellow']
+    walls = set(config['lightblue'])
+    
+    yellows = set(yellow_ids)
+    y_bit = {tid: 1 << i for i, tid in enumerate(yellow_ids)}
+    all_mask = (1 << len(yellow_ids)) - 1
+    
+    memo = {}
+    TARGET_TURNS = 16
+
+    # 17番が「曲がり」としてカウントされることを保証する
+    # ユーザー指示: 17番が渦巻き(カド/境界)であり、そこを通るときに曲がる
+    # 現在の get_adj_v3 で同一座標の別面に移動する際は move_v != next_exp_v となり
+    # is_turn が True になる
+
+    def get_dist_to_next_target(node, mask):
+        x1, y1, z1, _ = fm[node]
+        remaining_y = [tid for tid in yellow_ids if not (mask & y_bit[tid])]
+        if not remaining_y:
+            x2, y2, z2, _ = fm[goal_id]
+        else:
+            # 最小マンハッタン距離
+            dists = []
+            for tid in remaining_y:
+                x2, y2, z2, _ = fm[tid]
+                dists.append(abs(x1-x2) + abs(y1-y2) + abs(z1-z2))
+            return min(dists)
+        return abs(x1-x2) + abs(y1-y2) + abs(z1-z2)
+
+    def dfs(curr, mask, visited_mask, last_move_v, turns):
+        if time.time() - start_time > TIMEOUT: return None
+        if turns > TARGET_TURNS: return None
         
-        for nxt, move_v, next_exp_v in ADJ[curr]:
-            if nxt in visited_all or nxt in WALLS: continue
+        # 状態圧縮: turns を含める
+        state = (curr, mask, last_move_v, turns)
+        if state in memo: return memo[state]
+        
+        if curr == goal_id:
+            if mask == all_mask and turns == TARGET_TURNS:
+                return [goal_id]
+
+        options = adj[curr][:]
+        # ヒューリスティック: 目標に近い、かつ曲がらない方向を優先
+        options.sort(key=lambda x: (get_dist_to_next_target(x[0], mask), x[1] != last_move_v if last_move_v else False))
+        
+        for nxt, move_v, next_exp_v in options:
+            if (visited_mask & (1 << nxt)) or nxt in walls: continue
             
-            is_turn = (expected_v is not None and move_v != expected_v)
-            if is_turn:
-                if curr not in YELLOWS: continue
-                new_turns = turns + 1
-            else:
-                new_turns = turns
+            # ターン判定の厳密化
+            # 1. 面内での転換 (move_v != last_move_v)
+            # 2. 面境界での転換 (move_v != next_exp_v)
+            # これを合わせると 17番(境界)での移動が 1回としてカウントされる
+            is_turn = (last_move_v is not None and move_v != last_move_v) or (move_v != next_exp_v)
+            new_turns = turns + 1 if is_turn else turns
             
-            new_mask = mask | Y_BIT.get(nxt, 0)
-            visited_all.add(nxt)
-            res = dfs(nxt, new_mask, visited_all, next_exp_v, new_turns)
-            if res: return [curr] + res
-            visited_all.remove(nxt)
+            if new_turns > TARGET_TURNS: continue
+            
+            new_mask = mask | y_bit.get(nxt, 0)
+            res = dfs(nxt, new_mask, visited_mask | (1 << nxt), next_exp_v, new_turns)
+            if res: 
+                memo[state] = [curr] + res
+                return memo[state]
+            
+        memo[state] = None
         return None
 
-    return dfs(START, Y_BIT.get(START, 0), {START}, None, 0)
+    sys.setrecursionlimit(50000)
+    start_v_mask = 1 << start_id
+    initial_mask = y_bit.get(start_id, 0)
+    return dfs(start_id, initial_mask, start_v_mask, None, 0)
 
-sys.setrecursionlimit(5000)
-print("Running Surface-Straight Hamiltonian Solver...")
-res = solve()
-if res: print("Found Solution:", res)
-else: print("No solution.")
+if __name__ == "__main__":
+    config_path = "puzzle_config.json"
+    if not os.path.exists(config_path):
+        print(f"Error: {config_path} not found.")
+        sys.exit(1)
+        
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+        
+    print("Running Optimized Puzzle Solver...")
+    result_path = solve_puzzle(config)
+    
+    if result_path:
+        print("Found Solution!")
+        config['solved_route'] = result_path
+        with open(config_path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=4, ensure_ascii=False)
+        print(f"Result saved to {config_path}")
+    else:
+        print("No solution found within constraints.")
