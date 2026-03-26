@@ -30,7 +30,7 @@ trigger: /secretary
 
 対象ディレクトリに `.company/secretary/` が存在するか確認する。
 
-- **`.company/secretary/` が存在する場合**: `.company/secretary/CLAUDE.md` を読み込み、**管理モード**へ（下記参照）
+- **`.company/secretary/` が存在する場合**: `.company/secretary/GEMINI.md` を読み込み、**管理モード**へ（下記参照）
 - **`.company/secretary/` が存在しない場合**: **Step 2: オンボーディング**へ進む
 
 ### Step 2: オンボーディング（Interactive）
@@ -155,8 +155,8 @@ trigger: /secretary
 2. **`_template.md` を配置**: 各カテゴリフォルダにテンプレートを配置
    - `references/templates.md` からテンプレートを取得
    - Step 2d の言語設定に応じて日本語版/英語版を選択
-3. **`.company/secretary/CLAUDE.md` を生成**
-   - `references/claude-md-template.md` のテンプレートを使用
+3. **`.company/secretary/GEMINI.md` を生成**
+   - `references/GEMINI-md-template.md` のテンプレートを使用
    - 全ての `{{変数}}` にオンボーディングデータを埋め込む
 4. **今日の日次ファイルを作成**（todosカテゴリが選択されている場合）
    - デイリーテンプレートに今日の日付を入れて生成
@@ -177,14 +177,14 @@ trigger: /secretary
 > - 「今日のタスク」で今日のタスクを確認
 > - 「ダッシュボード」で全体概要を表示
 >
-> パーソナライズされた CLAUDE.md が `.secretary/CLAUDE.md` に作成されました。
+> パーソナライズされた GEMINI.md が `.secretary/GEMINI.md` に作成されました。
 
 ---
 
 ## 管理モード
 
 `.secretary/` が既に存在する場合に自動で切り替わる。
-まず `.secretary/CLAUDE.md` を読み込んでユーザーの設定を理解する。
+まず `.secretary/GEMINI.md` を読み込んでユーザーの設定を理解する。
 
 その後 **「何をしますか？」** と聞き、以下の操作を受け付ける:
 
@@ -200,7 +200,7 @@ trigger: /secretary
 | "週次レビュー" / "weekly review" | 今週のデイリーファイルから完了タスクを収集し、`reviews/` にレビューファイルを生成 |
 | "ダッシュボード" / "dashboard" | 全カテゴリをスキャンし、件数と最近のアクティビティを表示 |
 | "受信箱整理" / "organize inbox" | inboxの項目を読み込み、適切なカテゴリへの振り分けを提案。ユーザー承認後に移動 |
-| "カテゴリ追加 [名前]" / "add category [name]" | 汎用 `_template.md` 付きの新規フォルダを作成し、CLAUDE.mdを更新 |
+| "カテゴリ追加 [名前]" / "add category [name]" | 汎用 `_template.md` 付きの新規フォルダを作成し、GEMINI.mdを更新 |
 
 ### ダッシュボード表示形式
 
@@ -268,7 +268,7 @@ Inbox: 5件 未整理
 ## ファイル参照
 
 - カテゴリテンプレート: `references/templates.md`
-- CLAUDE.md 生成テンプレート: `references/claude-md-template.md`
+- GEMINI.md 生成テンプレート: `references/GEMINI-md-template.md`
 
 ---
 
@@ -277,7 +277,7 @@ Inbox: 5件 未整理
 - インタラクティブなステップでは必ず `AskUserQuestion` を使い、勝手に推測しない
 - ユーザーの言語選択を生成コンテンツ全体で一貫して適用する
 - `inbox/` と `reviews/` は選択に関わらず常に含める
-- 管理モードでは必ず最初に `.secretary/CLAUDE.md` を読み込む
+- 管理モードでは必ず最初に `.secretary/GEMINI.md` を読み込む
 - 既存ファイルは上書きしない。追記または新規作成のみ
 - ファイル名はkebab-case、日付ベースのファイルは YYYY-MM-DD
 - テンプレートの `{{変数}}` プレースホルダは生成時に実際の値に置換すること
