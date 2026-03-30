@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <defs>
+    <!-- 円形でクリッピングすることで、物理的に「はみ出し」を不可能にします -->
+    <clipPath id="circleClip">
+      <circle cx="500" cy="500" r="480" />
+    </clipPath>
+  </defs>
+
+  <!-- 外円 -->
+  <circle cx="500" cy="500" r="480" fill="none" stroke="black" stroke-width="20"/>
+
+  <g clip-path="url(#preciseCircleClip)">
+    <!-- 1. メイン垂直軸 -->
+    <line x1="350" y1="46" x2="350" y2="956" stroke="black" stroke-width="20" stroke-linecap="butt"/>
+    
+    <!-- 上部「S」カーブ (アーク開始をy=46に連動) -->
+    <path d="M 350 55 A 100 120 0 0 0 350 478" fill="none" stroke="black" stroke-width="20"/>
+    <!-- 上部アーク: 右側に膨らむ -->
+    <path d="M 350 55 A 152 182 0 0 1 350 478" fill="none" stroke="black" stroke-width="20"/>
+    <!-- 下部アーク: 左側に膨らむ -->
+    <path d="M 350 478 A 303 263 0 0 1 350 956" fill="none" stroke="black" stroke-width="20"/>
+    
+    <!-- 3. 水平線 (「当たったら切れる」仕様)
+         現在のS字上部アークの最大幅は x=350+152=502 付近。
+         水平線 y=350 はアークの終点 (x=350) に重なるため、
+         「上の辺に当たる」を再現するため y=250 付近の線を想定、または
+         メイン水平線の開始位置を S字の外縁 (x=502) から開始するように調整します。 -->
+    
+    <!-- メイン水平線: 右端(956)からS字の外縁(502)まで -->
+    <line x1="195" y1="350" x2="956" y2="350" stroke="black" stroke-width="20" stroke-linecap="butt"/>
+    
+    <!-- 4. 右側の垂直構造 -->
+    <line x1="770" y1="350" x2="770" y2="897" stroke="black" stroke-width="20" stroke-linecap="butt"/>
+    <line x1="885" y1="215" x2="885" y2="785" stroke="black" stroke-width="20" stroke-linecap="butt"/>
+    
+    <!-- 水平アクセント・バー -->
+    <line x1="770" y1="680" x2="885" y2="680" stroke="black" stroke-width="20"/>
+    <line x1="770" y1="760" x2="885" y2="760" stroke="black" stroke-width="20"/>
+  </g>
+</svg>
