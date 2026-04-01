@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資産管理ダッシュボード Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>資産管理 <span>Premium</span></h1>
+                <p id="current-date"></p>
+            </div>
+            <nav>
+                <div class="user-profile">
+                    <span class="user-status"></span>
+                    <span class="user-name">SAITO</span>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- KPI Cards -->
+            <section class="kpi-grid">
+                <div class="glass-card kpi-card">
+                    <h3>純資産</h3>
+                    <div class="value" id="net-worth-val">¥0</div>
+                    <div class="trend positive">+2.4% vs 先月</div>
+                </div>
+                <div class="glass-card kpi-card">
+                    <h3>今月の収入</h3>
+                    <div class="value" id="monthly-income-val">¥0</div>
+                    <div class="trend positive" id="income-target">目標達成率 85%</div>
+                </div>
+                <div class="glass-card kpi-card">
+                    <h3>今月の支出</h3>
+                    <div class="value" id="monthly-spending-val">¥0</div>
+                    <div class="trend" id="budget-left">予算残り ¥45,000</div>
+                </div>
+            </section>
+
+            <div class="charts-row">
+                <!-- Spending Breakdown -->
+                <div class="glass-card chart-container large">
+                    <div class="card-header">
+                        <h2>支出カテゴリー</h2>
+                        <select id="spending-period">
+                            <option value="current">今月</option>
+                            <option value="last">先月</option>
+                        </select>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="spendingChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Monthly Trend -->
+                <div class="glass-card chart-container">
+                    <div class="card-header">
+                        <h2>収支推移</h2>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Tables / Actions -->
+            <section class="bottom-section">
+                <div class="glass-card data-table-card">
+                    <div class="card-header">
+                        <h2>資産ポートフォリオ</h2>
+                    </div>
+                    <div class="assets-list" id="assets-list">
+                        <!-- JS injects here -->
+                    </div>
+                </div>
+
+                <div class="glass-card actions-card">
+                    <div class="card-header">
+                        <h2>クイックアクション</h2>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="alert('Notion連携が必要です')">支出を記録</button>
+                        <button class="btn btn-secondary" onclick="alert('Notion連携が必要です')">収入を記録</button>
+                    </div>
+                    <div class="mabuchi-calc glass-inner">
+                        <h3>馬渕個別給与シミュレータ</h3>
+                        <p>直近のコマ数から概算給与を計算</p>
+                        <div class="calc-row">
+                            <span>85分コマ数:</span>
+                            <input type="number" value="12" id="koma-count" class="input-field">
+                        </div>
+                        <button class="btn btn-small btn-mabuchi" onclick="calculateMabuchi()">計算実行</button>
+                        <div id="mabuchi-result" class="result-text"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
