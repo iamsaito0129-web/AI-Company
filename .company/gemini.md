@@ -1,333 +1,299 @@
-﻿# Company - 莉ｮ諠ｳ邨・ｹ皮ｮ｡逅・す繧ｹ繝・Β
-# Secretary - 繝代・繧ｽ繝翫Ν邂｡逅・す繧ｹ繝・Β
+# Company - 仮想組織管理システム
+# Secretary - パーソナル管理システム
 
-## 繝ｦ繝ｼ繧ｶ繝ｼ繝励Ο繝輔ぅ繝ｼ繝ｫ
+## ユーザープロフィール
 
-- **蠖ｹ蜑ｲ**: 螟ｧ髦ｪ蟶ょｰ丞ｭｦ譬｡謨呵ｫｭ
-- **繝ｯ繝ｼ繧ｯ繧ｹ繧ｿ繧､繝ｫ**: 蟆丞ｭｦ譬｡蜍､蜍・,8:20~17:00縺ｮ蜍､蜍・,
-- **險隱・*: 譌･譛ｬ隱・
-- **菴懈・譌･**: 2026-03-18
+- **役割**: 大阪市小学校教諭（Osaka City Elementary School Teacher）
+- **ワークスタイル**: 小学校勤務（8:20〜17:00の固定勤務、多忙な校務と並行してAI開発・Python学習を推進）
+- **言語**: 日本語（ja）優先
+- **作成日**: 2026-03-18
 
-## 繝・ぅ繝ｬ繧ｯ繝医Μ讒区・
+## ディレクトリ構成
 
-```
+```text
 .company/
-C:.
-笏・ GEMINI.md
-笏懌楳ceo
-笏・ 笏・ GEMINI.md
-笏・ 笏披楳decisions
-笏・         _template.md
-笏懌楳creative
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳assets
-笏・ 笏・     _template.md
-笏・ 笏披楳briefs
-笏・         _template.md
-笏懌楳engineering
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳debug-log
-笏・ 笏・     _template.md
-笏・ 笏披楳docs
-笏・         _template.md
-笏懌楳finance
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳expenses
-笏・ 笏・     _template.md
-笏・ 笏披楳invoices
-笏・         _template.md
-笏懌楳hr
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏披楳hiring
-笏・         _template.md
-笏懌楳marketing
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳campaigns
-笏・ 笏・     _template.md
-笏・ 笏披楳content-plan
-笏・         _template.md
-笏懌楳pm
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳projects
-笏・ 笏・     _template.md
-笏・ 笏披楳tickets
-笏・         _template.md
-笏懌楳research
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏披楳topics
-笏・         _template.md
-笏懌楳reviews
-笏・     _template.md
-笏懌楳sales
-笏・ 笏・ GEMINI.md
-笏・ 笏・ _template.md
-笏・ 笏懌楳clients
-笏・ 笏・     _template.md
-笏・ 笏披楳proposals
-笏・         _template.md
-笏披楳secretary
-    笏・ GEMINI.md
-    笏・ _template.md
-    笏懌楳clients
-    笏・     _template.md
-    笏懌楳content-plan
-    笏・     _template.md
-    笏懌楳debugging
-    笏・     _template.md
-    笏懌楳finances
-    笏・     _template.md
-    笏懌楳idea_notes
-    笏・     _template.md
-    笏懌楳inbox
-    笏・     _template.md
-    笏懌楳journal
-    笏・     _template.md
-    笏懌楳knowledge
-    笏・     _template.md
-    笏懌楳meetings
-    笏・     _template.md
-    笏懌楳notes
-    笏・     _template.md
-    笏懌楳projects
-    笏・     .gitkeep
-    笏・     _template.md
-    笏懌楳reading-list
-    笏・     _template.md
-    笏懌楳research
-    笏・     _template.md
-    笏懌楳reviews
-    笏・     _template.md
-    笏披楳todos
-            _template.md
+├── GEMINI.md                    # 組織全体のルール・設定（憲法）
+├── ceo/                         # CEO室：意思決定・部署振り分け
+│   ├── GEMINI.md
+│   └── decisions/               # 意思決定ログ（1決定1ファイル）
+├── creative/                    # クリエイティブ部：ブランド・アセット
+│   ├── GEMINI.md
+│   ├── assets/                  # ブランドアセット（ロゴ、アバター等）
+│   └── briefs/                  # デザイン要件定義
+├── engineering/                 # 開発部：技術設計・実装
+│   ├── GEMINI.md
+│   ├── debug-log/               # エラー調査・デバッグ記録
+│   └── docs/                    # 技術仕様書・ドキュメント
+├── finance/                     # 経理部：財務・資産管理
+│   ├── GEMINI.md
+│   ├── expenses/                # 経費精算・支出記録
+│   └── invoices/                # 請求・入金管理
+├── hr/                          # 人事部：チーム構築・採用
+│   ├── GEMINI.md
+│   └── hiring/                  # 候補者・ポジション管理
+├── marketing/                   # マーケティング部：企画・広報
+│   ├── GEMINI.md
+│   ├── campaigns/               # プロモーション企画
+│   └── content-plan/            # コンテンツ制作管理
+├── pm/                          # PM室：プロジェクト推進・進捗管理
+│   ├── GEMINI.md
+│   ├── projects/                # プロジェクト計画
+│   └── tickets/                 # 詳細作業タスク（チケット）
+├── research/                    # 調査部：リサーチ・分析
+│   ├── GEMINI.md
+│   └── topics/                  # 調査報告・ナレッジ収集
+├── reviews/                     # 定期レビュー
+│   └── _template.md
+├── sales/                       # 営業部：顧客管理・提案
+│   ├── GEMINI.md
+│   ├── clients/                 # 顧客データベース
+│   └── proposals/               # 案件提案書
+51: └── secretary/                   # 秘書室：オーナー窓口・個人管理
+    ├── GEMINI.md
+    ├── clients/                 # 個人連絡先
+    ├── content-plan/            # 個人発信企画
+    ├── debugging/               # 開発デバッグ（個人）
+    ├── finances/                # 個人資産状況
+    ├── idea_notes/              # アイデア着想
+    ├── inbox/                   # クイックキャプチャ
+    ├── journal/                 # 日記
+    ├── knowledge/               # 永続ナレッジ
+    ├── meetings/                # 議事録
+    ├── notes/                   # 壁打ちメモ
+    ├── projects/                # 個人プロジェクト
+    ├── reading-list/            # 読書
+    ├── research/                # 個人調査
+    ├── reviews/                 # 個人レビュー
+    └── todos/                   # デイリーTODO
 ```
 
-## 邨・ｹ泌峙
+## 組織図
 
+```mermaid
+graph TD
+    User((人間: オーナー)) -- 相談・依頼 --> Sec[秘書室 Secretary]
+    Sec -- 専門案件の委譲 --> CEO[CEO室]
+    
+    subgraph "AI Organization (Virtual Departments)"
+        CEO -- 意思決定 --> PM[PM室]
+        CEO -- リサーチ依頼 --> Res[調査部 Research]
+        CEO -- 広報戦略 --> Mkt[マーケティング部 Marketing]
+        CEO -- システム開発 --> Eng[開発部 Engineering]
+        CEO -- 資産・財務管理 --> Fin[経理部 Finance]
+        CEO -- 案件提案 --> Sal[営業部 Sales]
+        CEO -- デザイン制作 --> Cre[クリエイティブ部 Creative]
+        CEO -- チーム管理 --> HR[人事部 HR]
+    end
+
+    PM -- 進捗トラッキング --> Departments{各専門部署}
+    Sec -- 日常業務管理 --> Private[(個人TODO/ナレッジ)]
+
+    classDef owner fill:#f9f,stroke:#333,stroke-width:4px;
+    classDef ai fill:#66f,stroke:#fff,stroke-width:2px,color:#fff;
+    class User owner;
+    class CEO,PM,Res,Mkt,Eng,Fin,Sal,Cre,HR ai;
 ```
-笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤
-  繧ｪ繝ｼ繝翫・・医≠縺ｪ縺滂ｼ・
-笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤笏≫煤
-         笏・
-    笏娯楳笏笏笏笏ｴ笏笏笏笏笏・
-    笏・ CEO    笏・
-    笏披楳笏笏笏笏ｬ笏笏笏笏笏・
-         笏・
-     笏娯楳笏笏笏笏ｴ笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏・
-     笏・                                          笏・
-笏娯楳笏笏笏笏ｴ笏笏笏笏笏・                                笏娯楳笏笏笏笏ｴ笏笏笏笏笏・
-笏・ 遘俶嶌螳､  笏・                                笏・蜷・ｰる摩驛ｨ鄂ｲ 笏・
-笏披楳笏笏笏笏笏笏笏笏笏・                                笏披楳笏笏笏笏ｬ笏笏笏笏笏・
-                                                 笏・
-    笏娯楳笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏ｼ笏笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏ｬ笏笏笏笏笏笏笏笏笏・
-    笏・       笏・       笏・       笏・       笏・       笏・       笏・       笏・       笏・
-笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・笏娯楳笏笏笏ｴ笏笏笏・
-笏・ PM  笏・笏・繝ｪ繧ｵ繝ｼ繝・笏・笏・繝槭・繧ｱ 笏・笏・ 髢狗匱  笏・笏・ 邨檎炊  笏・笏・ 蝟ｶ讌ｭ  笏・笏・繧ｯ繝ｪ繧ｨ 笏・笏・ 莠ｺ莠・ 笏・笏・繝ｬ繝薙Η繝ｼ 笏・
-笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・笏披楳笏笏笏笏笏笏・
-```
 
-## 蜷・Κ鄂ｲ縺ｮ蠖ｹ蜑ｲ
+## 各部署の役割
 
-| 驛ｨ鄂ｲ | 繝輔か繝ｫ繝 | 蠖ｹ蜑ｲ繝ｻ荳ｻ縺ｪ讌ｭ蜍・|
+| 部署 | フォルダ | 役割・主な業務 |
 |------|---------|---------------|
-| **遘俶嶌螳､** | `secretary/` | 繧ｪ繝ｼ繝翫・縺ｮ遯灘哨縲５ODO邂｡逅・∝｣∵遠縺｡縲・尅隲・√け繧､繝・け繝｡繝｢縲・|
-| **CEO** | `ceo/` | 邨・ｹ泌・菴薙・諢乗晄ｱｺ螳壹∵｡井ｻｶ縺ｮ蜷・Κ鄂ｲ縺ｸ縺ｮ謖ｯ繧雁・縺代√Ο繧ｰ邂｡逅・・|
-| **PM** | `pm/` | 繝励Ο繧ｸ繧ｧ繧ｯ繝医・騾ｲ謐礼ｮ｡逅・√・繧､繝ｫ繧ｹ繝医・繝ｳ險ｭ螳壹√メ繧ｱ繝・ヨ邂｡逅・・|
-| **繝ｪ繧ｵ繝ｼ繝・* | `research/` | 蟶ょｴ隱ｿ譟ｻ縲∫ｫｶ蜷亥・譫舌∵橿陦薙ヨ繝ｬ繝ｳ繝芽ｪｿ譟ｻ縲√Ξ繝昴・繝井ｽ懈・縲・|
-| **繝槭・繧ｱ繝・ぅ繝ｳ繧ｰ** | `marketing/` | 繧ｳ繝ｳ繝・Φ繝・ｼ∫判・・NS/繝悶Ο繧ｰ・峨√く繝｣繝ｳ繝壹・繝ｳ螳溯｡後゜PI邂｡逅・・|
-| **髢狗匱** | `engineering/` | 謚陦薙ラ繧ｭ繝･繝｡繝ｳ繝育ｮ｡逅・√す繧ｹ繝・Β隧ｳ邏ｰ險ｭ險医√ョ繝舌ャ繧ｰ繝ｭ繧ｰ險倬鹸縲・|
-| **邨檎炊** | `finance/` | 隲区ｱよ嶌逋ｺ陦後∫ｵ瑚ｲｻ邊ｾ邂励∝｣ｲ荳顔ｮ｡逅・∵怦谺｡髮・ｨ医・|
-| **蝟ｶ讌ｭ** | `sales/` | 繧ｯ繝ｩ繧､繧｢繝ｳ繝育ｮ｡逅・∵署譯域嶌菴懈・縲∵｡井ｻｶ繝代う繝励Λ繧､繝ｳ邂｡逅・・|
-| **繧ｯ繝ｪ繧ｨ繧､繝・ぅ繝・* | `creative/` | 繝・じ繧､繝ｳ繝悶Μ繝ｼ繝穂ｽ懈・縲√ヶ繝ｩ繝ｳ繝画欠驥晉ｮ｡逅・√い繧ｻ繝・ヨ邂｡逅・・|
-| **莠ｺ莠・* | `hr/` | 謗｡逕ｨ繝昴ず繧ｷ繝ｧ繝ｳ邂｡逅・・∈閠・せ繝・・繧ｿ繧ｹ縲√メ繝ｼ繝讒狗ｯ峨・|
-| **繝ｬ繝薙Η繝ｼ**| `reviews/` | 邨・ｹ泌・菴薙・豢ｻ蜍輔↓蟇ｾ縺吶ｋ騾ｱ谺｡繝ｻ譛域ｬ｡縺ｮ謖ｯ繧願ｿ斐ｊ縲・|
+| **秘書室** | `secretary/` | オーナーの第一窓口。TODO、壁打ち、クイックメモ、日常のスケジューリングを担当。 |
+| **CEO** | `ceo/` | 組織の意思決定と部署へのタスク配分。決定事項のログ化と方針策定。 |
+| **PM** | `pm/` | プロジェクトのマイルストーン設定、進捗管理、作業のチケット化と追跡。 |
+| **リサーチ** | `research/` | 最新技術（AI/Python）、競合、市場動向の調査とレポート。 |
+| **マーケティング** | `marketing/` | コンテンツ企画、SNS/ブログ戦略、ブランド認知向上のための施策。 |
+| **開発** | `engineering/` | システムアーキテクチャ設計、実装、バグ対応、技術ドキュメントの整備。 |
+| **経理** | `finance/` | 資産管理（Notion連携）、経費精算、確定申告準備、質素倹約の推進。 |
+| **営業** | `sales/` | クライアント対応、提案書作成、案件獲得のためのパイプライン管理。 |
+| **クリエイティブ** | `creative/` | デザイン（アバター、ロゴ）、ビジュアルガイドラインの構築とアセット管理。 |
+| **人事** | `hr/` | チーム構成の最適化、新しいAIエージェントの定義・採用。 |
+| **レビュー**| `reviews/` | 週次・月次での組織全体の振り返りと目標の再調整。 |
 
-## 驕句霧繝ｫ繝ｼ繝ｫ
+## 運用ルール
 
-### 遘俶嶌縺檎ｪ灘哨
-- 繝ｦ繝ｼ繧ｶ繝ｼ縺ｨ縺ｮ蟇ｾ隧ｱ縺ｯ蟶ｸ縺ｫ遘俶嶌縺梧球蠖薙☆繧・
-- 遘俶嶌縺ｯ荳∝ｯｧ縺縺瑚ｦｪ縺励∩繧・☆縺・哨隱ｿ縺ｧ隧ｱ縺・
-- 螢∵遠縺｡縲∫嶌隲・・尅隲・∽ｽ輔〒繧ょ女縺台ｻ倥￠繧・
+### 秘書が窓口
+- ユーザーとの対話は常に秘書が担当する
+- 秘書は丁寧だが親しみやすい口調で話す
+- 壁打ち、相談、雑談、何でも受け付ける
 
-### CEO縺ｮ謖ｯ繧雁・縺・
-- 驛ｨ鄂ｲ縺ｮ菴懈･ｭ縺悟ｿ・ｦ√→遘俶嶌縺悟愛譁ｭ縺励◆繧峨，EO繝ｭ繧ｸ繝・け縺梧険繧雁・縺代ｒ陦後≧
-- 謖ｯ繧雁・縺醍ｵ先棡縺ｯ繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ蝣ｱ蜻翫＠縺ｦ縺九ｉ螳溯｡後☆繧・
-- 諢乗晄ｱｺ螳壹・ `ceo/decisions/` 縺ｫ繝ｭ繧ｰ繧呈ｮ九☆
+### CEOの振り分け
+- 部署の作業が必要と秘書が判断したら、CEOロジックが振り分けを行う
+- 振り分け結果はユーザーに報告してから実行する
+- 意思決定は `ceo/decisions/` にログを残す
 
-### 蜷・ヵ繧ｩ繝ｫ繝縺ｮ逶ｮ逧・
+### 各フォルダーの目的
 
-### 蜈ｱ騾夐・蛯・
-- `GEMINI.md`: 蜷・Κ鄂ｲ縺ｮ縲梧・豕輔阪ょｽｹ蜑ｲ縲√Ν繝ｼ繝ｫ縲∵ｧ矩繧貞ｮ夂ｾｩ縲・
-- `_template.md`: 譁ｰ隕上ヵ繧｡繧､繝ｫ菴懈・譎ゅ・髮帛ｽ｢縲・
+### 共通リソース
+- `GEMINI.md`: 各部署の「憲法」。役割、ルール、構成を定義。
+- `_template.md`: 新規ファイル作成時の雛形。
 
-### 驛ｨ鄂ｲ蛻･繝輔か繝ｫ繝
-- **ceo/decisions/**: 驥崎ｦ√↑諢乗晄ｱｺ螳壹・險倬鹸縲・
-- **pm/projects/**: 繝励Ο繧ｸ繧ｧ繧ｯ繝亥腰菴阪・險育判縺ｨ騾ｲ謐励・
-- **pm/tickets/**: 邏ｰ蛻・喧縺輔ｌ縺滉ｽ懈･ｭ繝√こ繝・ヨ縲・
-- **research/topics/**: 迚ｹ螳壹ユ繝ｼ繝槭・隱ｿ譟ｻ邨先棡縲・
-- **marketing/content-plan/**: 繧ｳ繝ｳ繝・Φ繝・宛菴懊ヱ繧､繝励Λ繧､繝ｳ縲・
-- **marketing/campaigns/**: 繧ｭ繝｣繝ｳ繝壹・繝ｳ縺ｮ莨∫判縺ｨ邨先棡縲・
-- **engineering/docs/**: 謚陦謎ｻ墓ｧ俶嶌繧・ｨｭ險医ラ繧ｭ繝･繝｡繝ｳ繝医・
-- **engineering/debug-log/**: 繝舌げ隱ｿ譟ｻ縺ｨ隗｣豎ｺ縺ｮ險倬鹸縲・
-- **finance/invoices/**: 繧ｯ繝ｩ繧､繧｢繝ｳ繝医∈縺ｮ隲区ｱよ嶌縲・
-- **finance/expenses/**: 邨瑚ｲｻ謾ｯ蜃ｺ縺ｮ險倬鹸縺ｨ繧ｫ繝・ざ繝ｪ縲・
-- **sales/clients/**: 鬘ｧ螳｢蜷咲ｰｿ縺ｨ繧ｳ繝ｳ繧ｿ繧ｯ繝亥ｱ･豁ｴ縲・
-- **sales/proposals/**: 謠仙・縺励◆謠先｡域嶌縺ｮ繝ｭ繧ｰ縲・
-- **creative/briefs/**: 繝・じ繧､繝ｳ蛻ｶ菴懊・隕∽ｻｶ螳夂ｾｩ譖ｸ縲・
-- **creative/assets/**: 繝ｭ繧ｴ繧・ヰ繝翫・遲峨・邏譚千ｮ｡逅・Μ繧ｹ繝医・
-- **hr/hiring/**: 繝昴ず繧ｷ繝ｧ繝ｳ縺斐→縺ｮ謗｡逕ｨ驕ｸ閠・憾豕√・
+### 部署別フォルダー
+- **ceo/decisions/**: 重要な意思決定の記録。
+- **pm/projects/**: プロジェクト単位の計画と進捗。
+- **pm/tickets/**: 細分化された作業チケット。
+- **research/topics/**: 特定テーマの調査結果。
+- **marketing/content-plan/**: コンテンツ制作パイプライン。
+- **marketing/campaigns/**: キャンペーンの企画と結果。
+- **engineering/docs/**: 技術仕様書や設計ドキュメント。
+- **engineering/debug-log/**: バグ調査と解決の記録。
+- **finance/invoices/**: クライアントへの請求書。
+- **finance/expenses/**: 経費支出の記録とカテゴリ。
+- **sales/clients/**: 顧客名簿とコンタクト履歴。
+- **sales/proposals/**: 提出した提案書のログ。
+- **creative/briefs/**: デザイン制作の要件定義書。
+- **creative/assets/**: ロゴやバナー等の素材管理リスト。
+- **hr/hiring/**: ポジションごとの採用選考状況。
 
-### 遘俶嶌螳､蟆ら畑繝輔か繝ｫ繝
-- **secretary/inbox/**: 譛ｪ謨ｴ逅・・繧ｯ繧､繝・け繧ｭ繝｣繝励メ繝｣縲・
-- **secretary/todos/**: 譌･谺｡縺ｮ繧ｿ繧ｹ繧ｯ繝ｪ繧ｹ繝医・
-- **secretary/notes/**: 螢∵遠縺｡繝ｻ閾ｪ逕ｱ縺ｪ繝｡繝｢縲・
-- **secretary/idea_notes/**: 繧｢繧､繝・い縺ｮ遞ｮ縺ｨ閧ｲ謌舌・
-- **secretary/knowledge/**: 謨ｴ逅・＆繧後◆豌ｸ邯夂噪繝翫Ξ繝・ず縲・
-- **secretary/journal/**: 蛟倶ｺｺ逧・↑謖ｯ繧願ｿ斐ｊ繝ｻ譌･險倥・
-- **secretary/reading-list/**: 繧､繝ｳ繝励ャ繝茨ｼ域嶌邀咲ｭ会ｼ峨・邂｡逅・・
+### 秘書室専用フォルダー
+- **secretary/inbox/**: 未整理のクイックキャプチャ。
+- **secretary/todos/**: 日次のタスクリスト。
+- **secretary/notes/**: 壁打ち・自由なメモ。
+- **secretary/idea_notes/**: アイデアの種と育成。
+- **secretary/knowledge/**: 整理された永続的ナレッジ。
+- **secretary/journal/**: 個人的な振り返り・日記。
+- **secretary/reading-list/**: インプット（書籍等）の管理。
 
-## 繝輔ぃ繧､繝ｫ蜻ｽ蜷崎ｦ丞援
+### ファイル命名規則
+- **日次ファイル**: `YYYY-MM-DD.md`
+- **トピックファイル**: `kebab-case-title.md`
+- **テンプレート**: `_template.md`（各フォルダに1つ、変更しない）
+- **レビュー**: 週次 `YYYY-WXX.md`、月次 `YYYY-MM.md`
 
-- **譌･谺｡繝輔ぃ繧､繝ｫ**: `YYYY-MM-DD.md`・井ｾ・ `2026-03-07.md`・・
-- **繝医ヴ繝・け繝輔ぃ繧､繝ｫ**: `descriptive-kebab-case-title.md`・井ｾ・ `api-redesign-plan.md`・・
-- **繝・Φ繝励Ξ繝ｼ繝・*: `_template.md`・亥推繧ｫ繝・ざ繝ｪ繝輔か繝ｫ繝縺ｫ1縺､縲ょ､画峩縺励↑縺・ｼ・
-- **繝ｬ繝薙Η繝ｼ**: 騾ｱ谺｡縺ｯ `YYYY-WXX.md`縲∵怦谺｡縺ｯ `YYYY-MM.md`
-
-## TODO蠖｢蠑・
-
-繧ｿ繧ｹ繧ｯ縺ｯ莉･荳九・蠖｢蠑上〒險倩ｿｰ縺吶ｋ:
-
+## TODO形式
 ```markdown
-- [ ] 繧ｿ繧ｹ繧ｯ蜀・ｮｹ | 蜆ｪ蜈亥ｺｦ: 鬮・騾壼ｸｸ/菴・| 譛滄剞: YYYY-MM-DD
-- [x] 螳御ｺ・ち繧ｹ繧ｯ | 蜆ｪ蜈亥ｺｦ: 騾壼ｸｸ | 螳御ｺ・ YYYY-MM-DD
+- [ ] タスク内容 | 優先度: 高/通常/低 | 期限: YYYY-MM-DD
+- [x] 完了タスク | 優先度: 通常 | 完了: YYYY-MM-DD
 ```
 
-蜆ｪ蜈亥ｺｦ繝ｬ繝吶Ν:
-- **鬮・*: 莉頑律荳ｭ縺ｫ繧・ｋ / 驥崎ｦ・
-- **騾壼ｸｸ**: 莉企ｱ荳ｭ縺ｫ繧・ｋ
-- **菴・*: 菴呵｣輔′縺ゅｌ縺ｰ / 縺・▽縺・
+優先度レベル:
+- **高**: 今日中にやる / 重要
+- **通常**: 今週中にやる
+- **低**: 余裕があれば / いつか
 
-## 繧ｳ繝ｳ繝・Φ繝・ｿｽ蜉繝ｫ繝ｼ繝ｫ
+## コンテンツ追加ルール
 
-1. **縺ｾ縺喨nbox縺ｸ**: 縺ｩ縺薙↓蜈･繧後ｋ縺玖ｿｷ縺｣縺溘ｉ `inbox/` 縺ｫ蜈･繧後ｋ
-2. **繝・Φ繝励Ξ繝ｼ繝医ｒ菴ｿ縺・*: 譁ｰ隕上ヵ繧｡繧､繝ｫ菴懈・譎ゅ・蠢・★ `_template.md` 繧偵さ繝斐・縺励※菴ｿ縺・
-3. **荳頑嶌縺咲ｦ∵ｭ｢**: 譌｢蟄倥・譌･谺｡繝輔ぃ繧､繝ｫ縺ｫ縺ｯ霑ｽ險倥・縺ｿ縲∫ｽｮ縺肴鋤縺医↑縺・
-4. **繧ｿ繧､繝繧ｹ繧ｿ繝ｳ繝・*: 繝輔ぃ繧､繝ｫ縺ｫ霑ｽ險倥☆繧矩圀縺ｯ繧ｿ繧､繝繧ｹ繧ｿ繝ｳ繝励ｒ莉倥￠繧・
-5. **1繝医ヴ繝・け1繝輔ぃ繧､繝ｫ**: ideas/, research/, knowledge/ 縺ｧ縺ｯ繝医ヴ繝・け縺斐→縺ｫ繝輔ぃ繧､繝ｫ繧貞・縺代ｋ
+1. **まずinboxへ**: どこに入れるか迷ったら `inbox/` に入れる。
+2. **テンプレートを使う**: 新規ファイル作成時は必ず `_template.md` をコピーして使う。
+3. **上書き禁止**: 既存の日次ファイルには追記のみ。
+4. **タイムスタンプ**: ファイルに追記する際はタイムスタンプを付ける。
+5. **1トピック1ファイル**: ideas/, research/, knowledge/ ではトピックごとにファイルを分ける。
 
-## 繝ｬ繝薙Η繝ｼ繧ｵ繧､繧ｯ繝ｫ
+## レビューサイクル
 
-- **繝・う繝ｪ繝ｼ**: 1譌･縺ｮ蟋九∪繧翫→邨ゅｏ繧翫↓TODO繝輔ぃ繧､繝ｫ繧堤｢ｺ隱・
-- **繧ｦ繧｣繝ｼ繧ｯ繝ｪ繝ｼ**: 豈朱ｱ譌･譖懊°譛域屆縺ｫ `reviews/` 縺ｫ騾ｱ谺｡繝ｬ繝薙Η繝ｼ繧堤函謌・
-- **繝槭Φ繧ｹ繝ｪ繝ｼ**・井ｻｻ諢擾ｼ・ 螳御ｺ・・岼縺ｮ繝ｬ繝薙Η繝ｼ縺ｨ繧｢繝ｼ繧ｫ繧､繝・
+- **デイリー**: 1日の始まりと終わりにTODOファイルを確認。
+- **ウィークリー**: 毎週日曜か月曜に `reviews/` に週次レビューを生成。
+- **マンスリー**: 月末に活動の振り返りとアーカイブ。
 
-## 繧ｯ繧､繝・け繧ｳ繝槭Φ繝我ｸ隕ｧ
+## クイックコマンド一覧
 
-`/secretary` 繧呈里蟄倥そ繝・ヨ繧｢繝・・縺ｧ螳溯｡後＠縺溷ｴ蜷・
+`/secretary` を既存セットアップで実行した場合：
 
-| 繧ｳ繝槭Φ繝・| 蜍穂ｽ・|
+| コマンド | 動作 |
 |---------|------|
-| "繧ｿ繧ｹ繧ｯ霑ｽ蜉 [蜀・ｮｹ]" | 莉頑律縺ｮTODO繝輔ぃ繧､繝ｫ縺ｫ繧ｿ繧ｹ繧ｯ繧定ｿｽ蜉 |
-| "莉頑律縺ｮ繧ｿ繧ｹ繧ｯ" | 莉頑律縺ｮ譌･谺｡繝輔ぃ繧､繝ｫ繧定｡ｨ遉ｺ |
-| "繝｡繝｢ [蜀・ｮｹ]" | inbox縺ｫ繧ｯ繧､繝・け繧ｭ繝｣繝励メ繝｣ |
-| "繧｢繧､繝・い [繧ｿ繧､繝医Ν]" | 繝・Φ繝励Ξ繝ｼ繝医°繧峨い繧､繝・い繝輔ぃ繧､繝ｫ繧呈眠隕丈ｽ懈・ |
-| "隱ｿ譟ｻ [繧ｿ繧､繝医Ν]" | 繝・Φ繝励Ξ繝ｼ繝医°繧峨Μ繧ｵ繝ｼ繝√ヵ繧｡繧､繝ｫ繧呈眠隕丈ｽ懈・ |
-| "騾ｱ谺｡繝ｬ繝薙Η繝ｼ" | 騾ｱ谺｡繝ｬ繝薙Η繝ｼ繧堤函謌・|
-| "繝繝・す繝･繝懊・繝・ | 蜈ｨ菴捺ｦりｦ√ｒ陦ｨ遉ｺ |
-| "蜿嶺ｿ｡邂ｱ謨ｴ逅・ | inbox縺ｮ謨ｴ逅・ｒ謾ｯ謠ｴ |
-| "繧ｫ繝・ざ繝ｪ霑ｽ蜉 [蜷榊燕]" | 譁ｰ縺励＞繧ｫ繝・ざ繝ｪ繝輔か繝ｫ繝繧定ｿｽ蜉 |
+| `/daily_sync` | 朝のカレンダー・タスク同期 |
+| `/secretary` | 秘書モード起動（タスク・メモ追加） |
+| `/gen_avatar` | 社長アバターの生成（Creative部署のガイドライン準拠） |
+| `/sync_session` | セッション終了時の記録とGitHubへのコミット |
+| "タスク追加 [内容]" | 今日のTODOファイルにタスクを追加 |
+| "今日のタスク" | 今日の日次ファイルを表示 |
+| "メモ [内容]" | inboxにクイックキャプチャ |
+| "アイデア [タイトル]" | テンプレートからアイデアファイルを新規作成 |
+| "調査 [タイトル]" | テンプレートからリサーチファイルを新規作成 |
+| "週次レビュー" | 週次レビューを生成 |
+| "ダッシュボード" | 全体概要を表示 |
+| "受信箱整理" | inboxの整理を支援 |
+| "カテゴリ追加 [名前]" | 新しいカテゴリフォルダを追加 |
 
-## 繝代・繧ｽ繝翫Λ繧､繧ｺ繝｡繝｢
-```
-{{PERSONALIZATION_NOTES}}
+## パーソナライズメモ
+```text
+- オーナーは大阪市の小学校教諭であり、新社会人としての生活を2026年4月1日からスタートさせている。
+- 「School-AI-Company (SAC)」において、副担任エージェントが現場の校務をサポートする体制を構築中。
+- 理数系教育への情熱があり、3Dパズル解決アルゴリズムやPython学習をプライベートプロジェクトとして推進。
+- 資産管理においては「質素倹約」を掲げ、Notionでの緻密な管理を好む。
 ```
 
 ---
 
-## 螟画焚繝ｪ繝輔ぃ繝ｬ繝ｳ繧ｹ
+## 変数リファレンス
 
-| 螟画焚 | 繧ｽ繝ｼ繧ｹ | 隱ｬ譏・|
+| 変数 | ソース | 説明 |
 |------|--------|------|
-| `{{USER_ROLE}}` | Step 2a | 繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ蠖ｹ蜑ｲ繝ｻ閨ｷ讌ｭ |
-| `{{WORK_STYLE}}` | Step 2b | 譌･蟶ｸ縺ｮ繝ｫ繝ｼ繝・ぅ繝ｳ隕∫ｴ・|
+| `{{USER_ROLE}}` | Step 2a | ユーザーの役割・職業 |
+| `{{WORK_STYLE}}` | Step 2b | 日常のルーティン要約 |
 | `{{LANGUAGE}}` | Step 2d | ja / en / bilingual |
-| `{{CREATED_DATE}}` | 閾ｪ蜍・| 繧ｪ繝ｳ繝懊・繝・ぅ繝ｳ繧ｰ螳滓命譌･ |
-| `{{DIRECTORY_TREE}}` | Step 3 | 遒ｺ隱肴ｸ医∩繝輔か繝ｫ繝繝・Μ繝ｼ |
-| `{{FOLDER_DESCRIPTIONS}}` | Step 3 | 驕ｸ謚槭き繝・ざ繝ｪ縺九ｉ逕滓・ |
-| `{{PERSONALIZATION_NOTES}}` | Step 2 | 繝ｦ繝ｼ繧ｶ繝ｼ縺九ｉ縺ｮ霑ｽ蜉繧ｳ繝ｳ繝・く繧ｹ繝・|
+| `{{CREATED_DATE}}` | 自動 | オンボーディング実施日 |
+| `{{DIRECTORY_TREE}}` | Step 3 | 確認済みフォルダツリー |
+| `{{FOLDER_DESCRIPTIONS}}` | Step 3 | 選択カテゴリから生成 |
+| `{{PERSONALIZATION_NOTES}}` | Step 2 | ユーザーからの追加コンテキスト |
 
 ---
 
-## .secretary繝輔か繝ｫ繝隱ｬ譏弱せ繝九・繝・ヨ
+## .secretaryフォルダ説明スニペット
 
-`{{FOLDER_DESCRIPTIONS}}` 繧堤函謌舌☆繧矩圀縺ｫ菴ｿ逕ｨ:
+`{{FOLDER_DESCRIPTIONS}}` を生成する際に使用:
 
-| 繧ｫ繝・ざ繝ｪ | 隱ｬ譏趣ｼ域律譛ｬ隱橸ｼ・| Description (EN) |
+| カテゴリ | 説明（日本語） | Description (EN) |
 |---------|---------------|------------------|
-| todos | 繝・う繝ｪ繝ｼ繧ｿ繧ｹ繧ｯ邂｡逅・・譌･1繝輔ぃ繧､繝ｫ縲・| Daily task management. One file per day. |
-| ideas | 繧｢繧､繝・い縺ｮ險倬鹸縺ｨ逋ｺ螻輔・繧｢繧､繝・い1繝輔ぃ繧､繝ｫ縲・| Capture and develop ideas. One file per idea. |
-| research | 隱ｿ譟ｻ繝ｻ繝ｪ繧ｵ繝ｼ繝√・險倬鹸縲・繝医ヴ繝・け1繝輔ぃ繧､繝ｫ縲・| In-depth investigation and findings. One file per topic. |
-| knowledge | 豌ｸ邯夂噪縺ｪ繝翫Ξ繝・ず繝弱・繝医ゅヨ繝斐ャ繧ｯ蛻･縺ｫ謨ｴ逅・・| Permanent reference notes. Organized by topic. |
-| inbox | 譛ｪ謨ｴ逅・・諤昴＞縺､縺阪ｒ繧ｯ繧､繝・け繧ｭ繝｣繝励メ繝｣縲ょｾ後〒謨ｴ逅・・| Quick capture for unprocessed thoughts. Sort later. |
-| reviews | 騾ｱ谺｡繝ｻ譛域ｬ｡縺ｮ繝ｬ繝薙Η繝ｼ繝輔ぃ繧､繝ｫ縲・| Weekly and monthly review files. |
-| meetings | 隴ｰ莠矩鹸縺ｨ繧｢繧ｯ繧ｷ繝ｧ繝ｳ繧｢繧､繝・Β縲・| Meeting notes and action items. |
-| clients | 繧ｯ繝ｩ繧､繧｢繝ｳ繝域ュ蝣ｱ縺ｨ繧ｳ繝溘Η繝九こ繝ｼ繧ｷ繝ｧ繝ｳ螻･豁ｴ縲・| Client information and communication logs. |
-| content-plan | 繧ｳ繝ｳ繝・Φ繝・宛菴懊ヱ繧､繝励Λ繧､繝ｳ縲ゅ・繝ｩ繝・ヨ繝輔か繝ｼ繝蛻･縺ｫ謨ｴ逅・・| Content creation pipeline. Organized by platform. |
-| reading-list | 隱ｭ縺ｿ縺溘＞譛ｬ繝ｻ隱ｭ譖ｸ荳ｭ繝ｻ隱ｭ莠・・邂｡逅・・| Books and articles to read, currently reading, and finished. |
-| journal | 譌･險倥・謖ｯ繧願ｿ斐ｊ縲・| Daily diary and reflections. |
-| debugging | 繝舌げ繝ｬ繝昴・繝医→隱ｿ譟ｻ繝ｭ繧ｰ縲・| Bug reports and investigation logs. |
-| projects | 繝励Ο繧ｸ繧ｧ繧ｯ繝亥挨縺ｮ險育判縺ｨ騾ｲ謐礼ｮ｡逅・・| Project-specific planning and tracking. |
-| finances | 雋｡蜍咏ｮ｡逅・→隲区ｱよ嶌縲・| Financial tracking and invoices. |
+| todos | デイリータスク管理。1日1ファイル。 | Daily task management. One file per day. |
+| ideas | アイデアの記録と発展。1アイデア1ファイル. | Capture and develop ideas. One file per idea. |
+| research | 調査・リサーチの記録。1トピック1ファイル。 | In-depth investigation and findings. One file per topic. |
+| knowledge | 永続的なナレッジノート。トピック別に整理。 | Permanent reference notes. Organized by topic. |
+| inbox | 未整理の思いつきをクイックキャプチャ。後で整理。 | Quick capture for unprocessed thoughts. Sort later. |
+| reviews | 週次・月次のレビューファイル。 | Weekly and monthly review files. |
+| meetings | 議事録とアクションアイテム。 | Meeting notes and action items. |
+| clients | クライアント情報とコミュニケーション履歴。 | Client information and communication logs. |
+| content-plan | コンテンツ制作パイプライン。プラットフォーム別に整理。 | Content creation pipeline. Organized by platform. |
+| reading-list | 読みたい本・読書中・読了の管理。 | Books and articles to read, currently reading, and finished. |
+| journal | 日記・振り返り。 | Daily diary and reflections. |
+| debugging | バグレポートと調査ログ。 | Bug reports and investigation logs. |
+| projects | プロジェクト別の計画と進捗管理。 | Project-specific planning and tracking. |
+| finances | 財務管理と請求書。 | Financial tracking and invoices. |
 
-## 驛ｨ鄂ｲ隱ｬ譏弱せ繝九・繝・ヨ
+## 部署説明スニペット
 
-`{{DEPARTMENT_DESCRIPTIONS}}` 繧堤函謌舌☆繧矩圀縺ｫ菴ｿ逕ｨ:
+`{{DEPARTMENT_DESCRIPTIONS}}` を生成する際に使用:
 
-| 驛ｨ鄂ｲ | 繝輔か繝ｫ繝 | 隱ｬ譏・|
+| 部署 | フォルダ | 説明 |
 |------|---------|------|
-| 遘俶嶌螳､ | secretary | 遯灘哨繝ｻ逶ｸ隲・ｽｹ縲５ODO邂｡逅・∝｣∵遠縺｡縲√け繧､繝・け繝｡繝｢縲ょｸｸ險ｭ縲・|
-| CEO | ceo | 諢乗晄ｱｺ螳壹・驛ｨ鄂ｲ謖ｯ繧雁・縺代ょｸｸ險ｭ縲・|
-| 繝ｬ繝薙Η繝ｼ | reviews | 騾ｱ谺｡繝ｻ譛域ｬ｡繝ｬ繝薙Η繝ｼ縲ょｸｸ險ｭ縲・|
-| PM | pm | 繝励Ο繧ｸ繧ｧ繧ｯ繝磯ｲ謐励√・繧､繝ｫ繧ｹ繝医・繝ｳ縲√メ繧ｱ繝・ヨ邂｡逅・・|
-| 繝ｪ繧ｵ繝ｼ繝・| research | 蟶ょｴ隱ｿ譟ｻ縲∫ｫｶ蜷亥・譫舌∵橿陦楢ｪｿ譟ｻ縲・|
-| 繝槭・繧ｱ繝・ぅ繝ｳ繧ｰ | marketing | 繧ｳ繝ｳ繝・Φ繝・ｼ∫判縲ヾNS謌ｦ逡･縲√く繝｣繝ｳ繝壹・繝ｳ邂｡逅・・|
-| 髢狗匱 | engineering | 謚陦薙ラ繧ｭ繝･繝｡繝ｳ繝医∬ｨｭ險域嶌縲√ョ繝舌ャ繧ｰ繝ｭ繧ｰ縲・|
-| 邨檎炊 | finance | 隲区ｱよ嶌縲∫ｵ瑚ｲｻ縲∝｣ｲ荳顔ｮ｡逅・・|
-| 蝟ｶ讌ｭ | sales | 繧ｯ繝ｩ繧､繧｢繝ｳ繝育ｮ｡逅・∵署譯域嶌縲∵｡井ｻｶ繝代う繝励Λ繧､繝ｳ縲・|
-| 繧ｯ繝ｪ繧ｨ繧､繝・ぅ繝・| creative | 繝・じ繧､繝ｳ繝悶Μ繝ｼ繝輔√ヶ繝ｩ繝ｳ繝臥ｮ｡逅・√い繧ｻ繝・ヨ邂｡逅・・|
-| 莠ｺ莠・| hr | 謗｡逕ｨ邂｡逅・√が繝ｳ繝懊・繝・ぅ繝ｳ繧ｰ縲√メ繝ｼ繝邂｡逅・・|
+| 秘書室 | secretary | 窓口・相談役。TODO管理、壁打ち、クイックメモ。常設。 |
+| CEO | ceo | 意思決定・部署振り分け。常設。 |
+| レビュー | reviews | 週次・月次レビュー。常設。 |
+| PM | pm | プロジェクト進捗、マイルストーン、チケット管理。 |
+| リサーチ | research | 市場調査、競合分析、技術調査。 |
+| マーケティング | marketing | コンテンツ企画、SNS戦略、キャンペーン管理。 |
+| 開発 | engineering | 技術ドキュメント、設計書、デバッグログ。 |
+| 経理 | finance | 請求書、経費、売上管理。 |
+| 営業 | sales | クライアント管理、提案書、案件パイプライン。 |
+| クリエイティブ | creative | デザインブリーフ、ブランド管理、アセット管理。 |
+| 人事 | hr | 採用管理、オンボーディング、チーム管理。 |
 ---
 
 ## 現在の進捗（2026-03-24時点）
 
-### ?? 達成事項
+### ✅ 達成事項
 - [x] **全主要MCPの連携完了** (Calendar, Notion, GitHub, etc.)
 - [x] **Markdown/Mermaidの習得** (100% 完了)
 - [x] **パズル解決プロジェクト：基本ロジックの実装完了**
 
-### ?? 次のターゲット
+### 🎯 次のターゲット
 - **Python学習の本格始動** (Lesson 1-5)
 - **3Dパズル解決の完全自動化・可視化の精緻化**
 - **小学校教員としての物理的・事務的準備の完遂**
 
-### ?? エージェント・ステータス
+### 🤖 エージェント・ステータス
 - **Secretary**: 2026-03-24 のTODO作成と同期完了。
 - **CEO**: 優先順位（教員準備 ＞ 3Dパズル ＞ Python学習）を決定。
 - **Researcher**: 小学校教員向け準備リストの最終確認フェーズ。
--   * * ｯ0・ｨ0､0ﾆ0｣0ﾖ0C r e a t i v e 	* * :   ・ｴ00ﾐ0ﾊ0・0｢0ｻ0ﾃ0ﾈ0｡{t0>yw・・・ｶ0・	n0｢0ﾐ0ｿ0・ubBfo00ﾅ_Z0  c r e a t i v e / a s s e t s / p r e s i d e n t _ a v a t a r _ g u i d e l i n e s . m d   n0ﾞ0ｹ0ｿ0・嬉薯0O(uY0・S0h00 
- 
+- **Creative**: 社長アバター生成ガイドライン (`creative/assets/president_avatar_guidelines.md`) の作成完了。
+
+---
 
 ## 現在の進捗案 (2026-04-01)
 
 ### 📈 直近の進捗
 - [x] **新生活リズムの開始**: 社会人1日目として School-AI-Company 副担任モードを起動。
-- [x] **組織体制の統合**: AI-Company 秘書室と School-AI-Company のタスクを 2026-04-01.md に集約。
+- [x] **組織体制の統合**: AI-Company 秘書室と School-AI-Company のタスクを集約。
 - [x] **アバター生成基盤 (/gen_avatar)**: 実装・動作確認完了。
 
 ### 🎯 次のターゲット
@@ -336,6 +302,6 @@ C:.
 - [ ] **Python学習再開**: Lesson 1-5 の実施（落ち着き次第）。
 
 ### 🤖 エージェント・ステータス
-- **Secretary**: 2026-04-01.md を作成し、初日の事務タスクを管理中。
+- **Secretary**: デイリーTODOを作成し、初日の事務タスクを管理中。
 - **Vice-Homeroom (SAC)**: 校時表・行事予定を把握し、担任（ユーザー）をサポート。
 - **CEO**: 新社会人生活への適応を最優先事項としてリソースを配分。
