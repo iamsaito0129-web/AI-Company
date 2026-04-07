@@ -1,0 +1,19 @@
+---
+name: "Yりょーや"
+category: "友人"
+tags: ["誕生日"]
+last_updated: "2026-04-05"
+birthday: "05-27"
+cssclasses: ["profile-card"]
+---
+
+# 👤 Yりょーや
+
+> [!ABSTRACT] プロファイル要約
+> 友人。5月27日が誕生日。
+
+## 🔗 ネットワーク (Mermaid)
+```mermaid
+graph LR
+    Owner((オーナー)) <--> |友人| Member[(Yりょーや)]
+```
