@@ -10,54 +10,40 @@
 AI-company/
 ├── .agent/                     # Antigravity用の技術定義コア
 │   ├── skills/                 # 各部署・エージェントのスキル定義 (Custom Skills)
-│   │   ├── ceo/                # `ceo` スキル: 組織構築・意思決定・指示振り分け
-│   │   ├── researcher/         # `researcher` スキル: 調査・分析・レポート
-│   │   └── secretary/          # `secretary` スキル: 秘書業務・TODO・ナレッジ管理
 │   └── workflows/              # 定型業務の自動化定義
-│       ├── daily_sync.md       # 朝の同期会ワークフロー
-│       ├── deep_research.md    # 高度な調査ワークフロー
-│       └── investigate.md      # 調査支援
-├── .company/                   # 【最新】実働データ・管理ディレクトリ
-│   ├── GEMINI.md               # 組織のマスター設定・プロフィール・組織図（完成）
-│   ├── ceo/                    # CEO（意思決定ログ、振り分け基準）
-│   ├── secretary/              # 秘書室（TODO、アイデア、ナレッジ等 15カテゴリ）
-│   ├── reviews/                # 組織全体の週次・月次レビュー
-│   ├── pm/                     # PM（プロジェクト、チケット管理）
-│   ├── research/               # リサーチ（調査トピック、レポート）
-│   ├── marketing/              # マーケティング（コンテンツ企画、キャンペーン）
-│   ├── engineering/            # 開発（技術ドキュメント、デバッグログ）
-│   ├── finance/                # 経理（請求書、経費管理）
-│   ├── sales/                  # 営業（クライアント管理、提案書）
-│   ├── creative/               # クリエイティブ（デザインブリーフ、アセット）
-│   └── hr/                     # 人事（採用管理、オンボーディング）
-├── agents/                     # エージェントの人格・権限定義 (Prompt Engineering)
-│   ├── CEO/                    # 【要修正】旧パス参照(02_WORKSPACE等)が残存
-│   ├── Researcher/
-│   └── Secretary/
-├── _archive/                   # 不要ファイルの退避先（過去の設計草案など）
+├── .company/                   # 【最新】実働データ・管理ディレクトリ（全14部署）
+│   ├── GEMINI.md               # 組織のマスター設定・プロフィール・組織図
+│   ├── hr/agents/              # AIエージェントの人格・権限定義（移動済み）
+│   ├── creative/assets/        # ブランドアセット・ロゴ（移動済み）
+│   ├── sac/                    # SAC部：校務・教育支援
+│   ├── lifestyle/              # ライフスタイル部：生活・資産管理
+│   └── career/                 # キャリア部：将来設計
+├── projects/                   # 実装プロジェクト（ソースコード・実行環境）
+│   ├── puzzle-solver/          # 3Dパズル解決アルゴリズム
+│   ├── lifestyle-app/          # 生活管理ツール
+│   └── insta-analyzer/         # Instagram分析ツール
+├── _archive/                   # 不要ファイルの退避先
 └── README.md                   # このファイル
 ```
 
 ## 各コンポーネントの進捗状況
 
 ### 1. .company/ (実働データ) - 【完了】
-- **組織構築**: 基本11部署すべてのフォルダ構築とサブディレクトリの作成が完了しました。
-- **GEMINI.md**: 組織マスタードキュメント。変数の置換、組織図（ASCIIアート）、部署役割、フォルダ目的のすべてを現在のフル構成に合わせて完成させました。
-- **テンプレート**: 秘書室の15カテゴリ、各部署の専門カテゴリすべてに `_template.md` を配備し、内容の流し込みも完了しています。
-- **GEMINI.md (部署別)**: 各部署ルートに、役割とルールを定義した部署別「憲法」を配備しました。
+- **組織再編**: SAC（校務）、Lifestyle（生活）、Career（経歴）の3部署を統合し、全14部署体制へ拡張。
+- **配置最適化**: ルートにあった `agents/` を `hr/agents/` へ、`assets/` を `creative/assets/` へ移動し、管理を一本化。
+- **GEMINI.md**: 2026-04-12時点の最新ステータスに更新完了。
 
 ### 2. .agent/ (技術定義) - 【運用中】
 - CEO、秘書、リサーチャーの3つのコアスキルが定義されており、Antigravity上で自律的に動作可能です。
 
-### 3. agents/ (役割定義) - 【要修正予定】
-- **ROLE.md**: 現在、人格定義内のパス指定が旧ディレクトリ構成（`01_KNOWLEDGE` 等）を参照しています。今後、新設した `.company/` 基準へのパス書き換えが必要です。
+### 3. projects/ (実装) - 【拡大中】
+- 単体で動いていたプロジェクトを `projects/` 下に集約。各部署のドキュメントからこれらを参照する構造を構築。
 
 ## 今後のタスク
-- [x] `.company/GEMINI.md`: 変数置換と組織図の完成
-- [x] `.company/` 以下の全テンプレート・全部署GEMINI.md配備
-- [x] 秘書室 (secretary) の全15カテゴリ拡張
-- [x] `agents/*/ROLE.md`: パス指定を `.company/` 基準に一括更新
-- [x] 旧型ディレクトリからのデータ完全移行と削除
+- [x] ルートディレクトリの整理とプロジェクトの移動
+- [x] `.company/GEMINI.md` の全14部署対応
+- [ ] 各部署の `_template.md` に基づいた詳細ドキュメントの拡充
+- [ ] 2026年度（令和8年度）新学期データのSAC部への流し込み
 
 ---
-*Created using Antigravity AI-Company Architecture.*
+*Last Update: 2026-04-12 | AI-Company Secretary Office*
