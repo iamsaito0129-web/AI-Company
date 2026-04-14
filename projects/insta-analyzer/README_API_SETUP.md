@@ -1,4 +1,13 @@
 ---
+title: "Readme Api Setup"
+date: 1776169340.1416795
+tags:
+  - project
+status: active
+obsidian-skills: optimized
+---
+
+---
 title: Readme Api Setup
 date: 2026-04-14
 tags:
