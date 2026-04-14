@@ -1,21 +1,24 @@
 ---
 date: "{{YYYY-MM-DD}}"
 type: daily
+status: open
+priority: 
+tags: [daily, secretary]
 ---
 
-# {{YYYY-MM-DD}} ({{DAY_OF_WEEK}})
+# 🗓️ {{YYYY-MM-DD}} ({{DAY_OF_WEEK}})
 
-## 最優先
-- [ ]
+## 🚀 今日の最優先 (Critical)
+- [ ] 
 
-## 通常
-- [ ]
+## 📋 通常タスク (Tasks)
+- [ ] 
 
-## 余裕があれば
-- [ ]
+## ☕ 余裕があれば (Optional)
+- [ ] 
 
-## 完了
-- [x]
+## ✅ 完了 (Completed)
+- [x] 
 
-## メモ・振り返り
--
+## 📝 メモ・振り返り (Notes)
+- 
