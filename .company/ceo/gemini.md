@@ -1,3 +1,11 @@
+---
+title: CEO 部署憲法
+date: 2026-04-14
+tags:
+  - ceo
+status: active
+---
+
 # CEO
 
 ## 役割

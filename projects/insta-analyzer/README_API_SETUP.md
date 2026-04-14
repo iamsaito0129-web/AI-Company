@@ -1,3 +1,11 @@
+---
+title: Readme Api Setup
+date: 2026-04-14
+tags:
+  - project
+status: active
+---
+
 # Instagram API セットアップ手順書 (2026年版)
 
 このプロジェクトを動かすには、Meta(Facebook)の開発者アカウントを介してAPIキーを取得し、`backend/.env` に反映させる必要があります。

@@ -1,3 +1,13 @@
+---
+title: AI-Company 憲法
+date: 2026-04-14
+tags:
+  - organization
+  - governance
+  - roadmap
+status: active
+---
+
 # Company - 仮想組織管理システム
 # Secretary - パーソナル管理システム
 

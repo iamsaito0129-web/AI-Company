@@ -1,3 +1,11 @@
+---
+title: CREATIVE 部署憲法
+date: 2026-04-14
+tags:
+  - creative
+status: active
+---
+
 # クリエイティブ
 
 ## 役割

@@ -1,3 +1,11 @@
+---
+title: SALES 部署憲法
+date: 2026-04-14
+tags:
+  - sales
+status: active
+---
+
 # 営業
 
 ## 役割

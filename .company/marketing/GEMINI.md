@@ -1,3 +1,11 @@
+---
+title: MARKETING 部署憲法
+date: 2026-04-14
+tags:
+  - marketing
+status: active
+---
+
 # マーケティング
 
 ## 役割

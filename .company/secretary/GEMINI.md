@@ -1,3 +1,11 @@
+---
+title: SECRETARY 部署憲法
+date: 2026-04-14
+tags:
+  - secretary
+status: active
+---
+
 # 秘書室
 
 ## 役割

@@ -1,3 +1,11 @@
+---
+title: ENGINEERING 部署憲法
+date: 2026-04-14
+tags:
+  - engineering
+status: active
+---
+
 # 開発
 
 ## 役割

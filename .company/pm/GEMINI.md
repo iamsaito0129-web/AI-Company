@@ -1,3 +1,11 @@
+---
+title: PM 部署憲法
+date: 2026-04-14
+tags:
+  - pm
+status: active
+---
+
 # PM（プロジェクト管理）
 
 ## 役割

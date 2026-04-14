@@ -1,3 +1,11 @@
+---
+title: RESEARCH 部署憲法
+date: 2026-04-14
+tags:
+  - research
+status: active
+---
+
 # リサーチ
 
 ## 役割

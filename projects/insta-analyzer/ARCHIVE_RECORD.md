@@ -1,3 +1,11 @@
+---
+title: Archive Record
+date: 2026-04-14
+tags:
+  - project
+status: active
+---
+
 # プロジェクトアーカイブ記録: Instagram分析アプリ (2026-03-23)
 
 ## 📑 プロジェクト状況

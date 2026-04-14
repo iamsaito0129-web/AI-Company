@@ -1,3 +1,11 @@
+---
+title: FINANCE 部署憲法
+date: 2026-04-14
+tags:
+  - finance
+status: active
+---
+
 # 経理
 
 ## 役割

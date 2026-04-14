@@ -1,3 +1,11 @@
+---
+title: LIFESTYLE 部署憲法
+date: 2026-04-14
+tags:
+  - lifestyle
+status: active
+---
+
 # 家計管理室 (Lifestyle Finance)
 
 ## 役割

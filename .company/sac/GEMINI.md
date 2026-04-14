@@ -1,3 +1,11 @@
+---
+title: SAC 部署憲法
+date: 2026-04-14
+tags:
+  - sac
+status: active
+---
+
 # 💼 SAC (School-AI-Company) 経営・教育コンサルティング憲法
 
 ## 1. 組織の定義と役割 (Consulting Scope)
