@@ -188,6 +188,7 @@
   },
   "active": "f4516cc4ec11892e",
   "lastOpenFiles": [
+    "company/secretary/logs/2026-04-17_1952_sync.md",
     "company/secretary/todos/2026-04-17.md",
     "無題のファイル.base",
     "company/hr/members/line_logs",
@@ -222,7 +223,6 @@
     "company/hr/agents/Secretary/ROLE.md",
     "company/hr/agents/CEO/ROLE.md",
     "company/finance/data/master/test_raw.txt",
-    "company/finance/data/records/assets_2026_03.md",
     "company/finance/data/master/processed_settlement.json",
     "company/finance/data/master/notion_settlement_space.json",
     "company/finance/data/master/notion_settlement_replace.json",
