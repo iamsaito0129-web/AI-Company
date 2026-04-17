@@ -2,3 +2,14 @@ _archive/
 .git/
 .claude/
 node_modules/
+
+# Secrets and Configs
+.antigravity/
+.gemini/
+*.json
+!package.json
+!tsconfig.json
+!composer.json
+.vcode/
+.env*
+*.log
