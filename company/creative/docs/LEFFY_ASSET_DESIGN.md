@@ -3,11 +3,14 @@
 ## 🎯 1. ビジョン
 弊社のマスコットキャラクター「れっふぃー」を、あらゆる状況（ポジティブ・ネガティブ・対話）において一貫した品質と親しみやすさで提供する。ユーザーに寄り添う「優しさと知性」を視覚的に表現する。
 
-## 🎨 2. プレミアム・ビジュアル (Character DNA)
-- **カラー**: 
-    - メイン: 柔らかいペールブルー (HSL: 200, 70%, 85%)
-    - アクセント: 温かみのあるオレンジ (HSL: 30, 90%, 65%)
-- **質感**: 3Dクレイアニメーション風。柔らかい影と、マットな質感。
+## 🎨 キャラクター・プロファイル
+- **名前**: れっふぃー (Reffy)
+- **種族**: レッサーパンダ (Red Panda)
+- **外見**: 
+  - もふもふとした質感、丸っこい体型。
+  - **装備: 黒とシルバーの大きなヘッドホンを常に着用（必須）。**
+  - 体色: 鮮やかなオレンジレッドとクリーム色。
+- **スタイル**: Pixar風 3Dレンダー、温かみのあるライティング。
 - **背景**: すべて透過背景（Transparent background）または、非常にシンプルな幾何学模様の背景。
 
 ## 🏗️ 3. アセット構成 (12種セット)
@@ -32,7 +35,8 @@
 
 ## ⚙️ 4. 実装プロトコル (AIエージェントへの指示)
 1. **プロンプト固定**: `generate_image` を使用する際、必ず以下のフレーズを接頭辞として含めよ。
-   - `Style: Consistent 3D claymation character, cute, round shapes, soft lighting, pastel colors, high detail, high resolution.`
+  ### 🎨 Style Prefix (共通プロンプト)
+> `A cute, fluffy red panda character named Reffy. Round body, soft fur texture, expressive big eyes. **Wearing large black and silver headphones.** Pixar style 3D animation, warm lighting, high detail, high quality, masterpiece, transparent background.`
 2. **一貫性チェック**: 各ポーズを生成するたびに、前回のポーズと「顔のパーツ」「色の彩度」が一致しているか確認せよ。
 3. **保存先**: `company/creative/assets/leffy/` に `pose_01_greet.webp` 形式で保存せよ。
 

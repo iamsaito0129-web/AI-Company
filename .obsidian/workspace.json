@@ -21,10 +21,14 @@
             "id": "9eb275d8ba7fcc4d",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "グラフビュー"
+              "type": "markdown",
+              "state": {
+                "file": "company/secretary/todos/2026-04-17.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-04-17"
             }
           }
         ],
@@ -101,6 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "company/secretary/todos/2026-04-17.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "バックリンク"
+              "title": "2026-04-17へのバックリンク"
             }
           },
           {
@@ -186,8 +191,18 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "f4516cc4ec11892e",
+  "active": "395aec25454180f5",
   "lastOpenFiles": [
+    "company/sac/resources/assets/leffy/pose_01_greet.png",
+    "company/sac/resources/assets/leffy",
+    "company/sac/resources/assets",
+    "company/ceo/governance/ENTITY_SEPARATION_RULES.md",
+    "company/ceo/governance",
+    "scratch/leffy_status.md",
+    "company/creative/assets/leffy/pose_01_greet.png",
+    "company/creative/assets/leffy",
+    "company/reviews/2026-W16.md",
+    "company/ceo/decisions/2026-04-19-identity-separation.md",
     "company/secretary/logs/2026-04-17_1952_sync.md",
     "company/secretary/todos/2026-04-17.md",
     "無題のファイル.base",
@@ -217,17 +232,8 @@
     "company/sac/resources/prompts/exam_generation_v1.md",
     "company/sac/resources/docs/teams_advanced_use_case.md",
     "company/sac/resources/exams/2026-04-05_001_team_mgmt_ag.md",
-    "company/sac/hr/staff/_template.md",
-    "company/sac/hr/students/_template.md",
-    "company/hr/agents/Researcher/ROLE.md",
-    "company/hr/agents/Secretary/ROLE.md",
-    "company/hr/agents/CEO/ROLE.md",
     "company/finance/data/master/test_raw.txt",
     "company/finance/data/master/processed_settlement.json",
-    "company/finance/data/master/notion_settlement_space.json",
-    "company/finance/data/master/notion_settlement_replace.json",
-    "company/finance/data/master/notion_settlement_replace_final.json",
-    "company/finance/data/master/notion_settlement_replace_all.json",
     "company/creative/assets/Dashboard/background.png",
     "company/creative/assets/ロゴ・アイコン作成.png",
     "company/creative/assets/teacher-logo.svg"
