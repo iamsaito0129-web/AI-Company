@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/secretary/todos/2026-04-17.md",
+                "file": "company/secretary/todos/2026-04-19.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-04-17"
+              "title": "2026-04-19"
             }
           }
         ],
@@ -105,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "company/secretary/todos/2026-04-17.md",
+                "file": "company/secretary/todos/2026-04-19.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "2026-04-17へのバックリンク"
+              "title": "2026-04-19へのバックリンク"
             }
           },
           {
@@ -191,8 +191,11 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "395aec25454180f5",
+  "active": "9eb275d8ba7fcc4d",
   "lastOpenFiles": [
+    "company/secretary/logs/2026-04-19_1700_sync.md",
+    "company/secretary/todos/2026-04-19.md",
+    "company/secretary/todos/2026-04-17.md",
     "company/sac/resources/assets/leffy/pose_01_greet.png",
     "company/sac/resources/assets/leffy",
     "company/sac/resources/assets",
@@ -204,7 +207,6 @@
     "company/reviews/2026-W16.md",
     "company/ceo/decisions/2026-04-19-identity-separation.md",
     "company/secretary/logs/2026-04-17_1952_sync.md",
-    "company/secretary/todos/2026-04-17.md",
     "無題のファイル.base",
     "company/hr/members/line_logs",
     "company/secretary/projects/旅行パッケージ/images/summer_okinawa_beach_sunset.png",
@@ -231,7 +233,6 @@
     "company/secretary/projects/旅行パッケージ/images",
     "company/sac/resources/prompts/exam_generation_v1.md",
     "company/sac/resources/docs/teams_advanced_use_case.md",
-    "company/sac/resources/exams/2026-04-05_001_team_mgmt_ag.md",
     "company/finance/data/master/test_raw.txt",
     "company/finance/data/master/processed_settlement.json",
     "company/creative/assets/Dashboard/background.png",
