@@ -8,11 +8,11 @@
 
 | スタイル名 | キーワード | 主な用途 | 詳細リンク |
 | :--- | :--- | :--- | :--- |
-| **Pastel Fan Support** | 推し活, パステル, かわいい | イベント、個人のお祝い | [分析レポート](../analysis/report_fan_support.md) |
-| **Kids Hand-Drawn** | 手書き, 温かみ, 感覚遊び | 育児支援、YouTube Kids | [分析レポート](../analysis/report_kids_education.md) |
-| **Modern Tech 3D** | 3D, クリーン, 先進的 | SaaS導入、Tech系資料 | [分析レポート](../analysis/report_modern_tech.md) |
-| **Academic EdTech** | 知的, 整理, ユーモア | 教材作成、学生向けアプリ | [分析レポート](../analysis/report_academic_edtech.md) |
-| **Educational Quiz** | 黒板, 直感, ゲーム性 | 知育クイズ、授業支援 | [分析レポート](../analysis/report_educational_quiz.md) |
+| **Pastel Fan Support** | 推し活, パステル, かわいい | イベント、個人のお祝い | [DESIGN.md](./FAN_SUPPORT_DESIGN.md) |
+| **Kids Hand-Drawn** | 手書き, 温かみ, 感覚遊び | 育児支援、YouTube Kids | [DESIGN.md](./KIDS_EDUCATION_DESIGN.md) |
+| **Modern Tech 3D** | 3D, クリーン, 先進的 | SaaS導入、Tech系資料 | [DESIGN.md](./MODERN_TECH_DESIGN.md) |
+| **Academic EdTech** | 知的, 整理, ユーモア | 教材作成、学生向けアプリ | [DESIGN.md](./ACADEMIC_EDTECH_DESIGN.md) |
+| **Educational Quiz** | 黒板, 直感, ゲーム性 | 知育クイズ、授業支援 | [DESIGN.md](./EDUCATIONAL_QUIZ_DESIGN.md) |
 
 ---
 
