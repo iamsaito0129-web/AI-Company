@@ -4,11 +4,12 @@ description: セッション内容を記録・同期し、TODOと書類を最新
 
 1.  **セッション分析**: 現在のセッションにおける「決定事項」「実施内容」「未完了タスク」をチャット履歴から洗い出す。
 2.  **ナレッジ同期**: 関連するノート（`.company/secretary/notes/` 等）に新しい知識や詳細な調査結果を追記・修正する。
-3.  **TODO更新**: 本日のTODOファイル（`.company/secretary/todos/YYYY-MM-DD.md`）の完了項目にチェックを入れ、未完了分を翌日へ送る。
-4.  **歴史ログ作成**: `.secretary/logs/` に `YYYY-MM-DD_HHMM_sync.md` を作成し、本日の「成果と感情（学び）」を要約した日記形式で記録する。
+3.  **インボックスの仕分け**: 本日の `inbox/YYYY-MM-DD.md` を確認し、`INBOX_WORKFLOW.md` のプロトコルに従って適切な部署やTODOへ情報を振り分ける。
+4.  **TODO更新**: 本日のTODOファイル（`.company/secretary/todos/YYYY-MM-DD.md`）の完了項目にチェックを入れ、未完了分を翌日へ送る。
+5.  **歴史ログ作成**: `.secretary/logs/` に `YYYY-MM-DD_HHMM_sync.md` を作成し、本日の「成果と感情（学び）」を要約した日記形式で記録する。
     *   この際、作成されたアーティファクト、画像、重要なリンクも紐付ける。
 // turbo
-5.  **Git履歴への刻印 (Life Commit)**: 
+6.  **Git履歴への刻印 (Life Commit)**: 
     *   ワークスペース全体で `git add .` を実行。
     *   `git commit -m "daily sync: YYYY-MM-DD HH:MM - [実施内容の簡潔な要約]"` を実行し、人生の歴史として固定する。
 
