@@ -6,66 +6,269 @@
     <title>Finance Dash | AI-Company</title>
     <meta name="description" content="AI-Company 自律型金融エージェント・ダッシュボード。行動経済学に基づいた資産管理を実現。">
     
-    <!-- Fonts -->
+    <!-- Google Fonts: Space Grotesk & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Hero Section: Safe-to-Spend -->
-        <section class="hero-section animate-fade-in" id="hero">
-            <div class="safe-to-spend-card" id="sts-card">
-                <div class="act-badge">
-                    <span>✨</span> ACT 950
-                </div>
-                <h2 class="label-main">Safe-to-Spend</h2>
-                <div class="amount-main" id="safe-to-spend-amount">
-                    <span class="currency">¥</span>0
-                </div>
-                <p style="color: var(--text-muted); margin-top: 1rem;">今月あとこれだけ使えます</p>
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="accent">FIN</span>_DASH <span class="dim">v2.0</span>
             </div>
-        </section>
+            <nav class="mt-8">
+                <a class="nav-link active" data-view="dashboard">
+                    <i class="fas fa-th-large"></i> <span>Dashboard</span>
+                </a>
+                <a class="nav-link" data-view="audit">
+                    <i class="fas fa-chart-line"></i> <span>Analysis</span>
+                </a>
+                <a class="nav-link" data-view="history">
+                    <i class="fas fa-list"></i> <span>History</span>
+                </a>
+                <a class="nav-link" data-view="entry">
+                    <i class="fas fa-keyboard"></i> <span>Speed Entry</span>
+                </a>
+            </nav>
+            <div class="flex-grow"></div>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="text-xs uppercase opacity-50">System Live</span>
+            </div>
+        </aside>
 
-        <!-- Stats Grid -->
-        <section class="stats-grid animate-fade-in" style="animation-delay: 0.2s;">
-            <div class="stat-card" id="card-networth">
-                <div class="stat-label">純資産 (Net Worth)</div>
-                <div class="stat-value" id="stat-networth">¥ 0</div>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Global Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="global-search" placeholder="取引、支払いの検索、またはコマンドを入力... (⌘K)" class="search-input">
+                <span class="search-kbd">⌘K</span>
             </div>
-            <div class="stat-card" id="card-bank">
-                <div class="stat-label">銀行残高 (Bank Main)</div>
-                <div class="stat-value" id="stat-bank">¥ 0</div>
-            </div>
-            <div class="stat-card" id="card-digital">
-                <div class="stat-label">デジタル資産 (Digital)</div>
-                <div class="stat-value" id="stat-digital">¥ 0</div>
-            </div>
-        </section>
 
-        <!-- Main Chart Section -->
-        <section class="content-section animate-fade-in" style="animation-delay: 0.4s;">
-            <h3 class="section-header"><span>📈</span> Asset Trajectory</h3>
-            <div class="chart-wrapper">
-                <canvas id="mainChart"></canvas>
-            </div>
-        </section>
+            <!-- View: Portal (Financial Command Center) -->
+            <section id="view-dashboard" class="view active">
+                <!-- Quick Actions Grid (Bento Style) -->
+                <div class="quick-actions-grid mt-6">
+                    <div class="bento-card action-btn" onclick="switchView('entry')">
+                        <div class="bento-icon"><i class="fas fa-plus"></i></div>
+                        <div class="bento-title">Speed Entry</div>
+                        <div class="bento-desc">即座に支出を記録</div>
+                    </div>
+                    <div class="bento-card action-btn" onclick="switchView('audit')">
+                        <div class="bento-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="bento-title">Audit Check</div>
+                        <div class="bento-desc">理論値と実績の照合</div>
+                    </div>
+                    <div class="bento-card action-btn" onclick="switchView('history')">
+                        <div class="bento-icon"><i class="fas fa-history"></i></div>
+                        <div class="bento-title">History</div>
+                        <div class="bento-desc">全取引履歴の閲覧</div>
+                    </div>
+                    <div class="bento-card action-btn" id="btn-salary-portal">
+                        <div class="bento-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="bento-title">Salary</div>
+                        <div class="bento-desc">給与明細の監査</div>
+                    </div>
+                </div>
+
+                <!-- Core Metrics Grid -->
+                <div class="matrix-grid mt-6">
+                    <div class="matrix-card">
+                        <div class="dim text-xs uppercase">Net Income (今月)</div>
+                        <div class="text-3xl font-bold" id="metric-net-income">¥0</div>
+                        <div class="text-xs mt-2" id="trend-net-income">---</div>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="dim text-xs uppercase">Allowance (自由費)</div>
+                        <div class="text-3xl font-bold" id="metric-allowance">¥0</div>
+                        <div class="progress-mini mt-2"><div class="progress-fill" style="width: 0%"></div></div>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="dim text-xs uppercase">Budget Ratio</div>
+                        <div class="text-3xl font-bold" id="metric-budget-ratio">0%</div>
+                        <div class="text-xs mt-2 dim" id="budget-status">Within limit</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity & Services Split -->
+                <div class="dashboard-split mt-6">
+                    <div class="matrix-card flex-2">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="flex items-center gap-2"><i class="fas fa-clock"></i> Recent Activity</h3>
+                            <a href="#" class="text-xs dim hover:text-white" onclick="switchView('history')">View all</a>
+                        </div>
+                        <div id="portal-recent-list" class="space-y-3">
+                            <!-- Dynamic Content -->
+                        </div>
+                    </div>
+                    <div class="matrix-card flex-1">
+                        <h3 class="mb-4">Quick Views</h3>
+                        <div class="space-y-2">
+                            <div class="service-item" id="view-saved-1">
+                                <div class="service-icon"><i class="fas fa-star"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">食費・日用品</div>
+                                    <div class="text-xs dim">Saved Filter</div>
+                                </div>
+                            </div>
+                            <div class="service-item" id="view-saved-2">
+                                <div class="service-icon"><i class="fas fa-car"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">交通費合計</div>
+                                    <div class="text-xs dim">Saved Filter</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Audit (New) -->
+            <section id="view-audit" class="view">
+                <div class="hero-stats">
+                    <div class="hero-label">System Audit Result (今月)</div>
+                    <div class="hero-value" id="audit-diff">¥0</div>
+                    <div class="text-sm mt-2" id="audit-status">CHECKING SYSTEM INTEGRITY...</div>
+                </div>
+                
+                <div class="matrix-grid mt-6">
+                    <div class="matrix-card">
+                        <h3>Three-Point Check</h3>
+                        <div class="mt-4 space-y-4">
+                            <div class="flex justify-between border-b border-white/5 pb-2">
+                                <span class="dim">Theoretical Balance</span>
+                                <span id="audit-theory">¥0</span>
+                            </div>
+                            <div class="flex justify-between border-b border-white/5 pb-2">
+                                <span class="dim">Actual Balance</span>
+                                <span id="audit-actual">¥0</span>
+                            </div>
+                            <div class="flex justify-between text-xl font-bold pt-2">
+                                <span>Discrepancy</span>
+                                <span id="audit-delta" class="text-red-500">¥0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matrix-card">
+                        <h3>Category Trend (今月 vs 前2ヶ月)</h3>
+                        <div class="overflow-x-auto mt-2">
+                            <table class="w-full text-xs text-left" id="trend-table">
+                                <thead>
+                                    <tr class="dim border-b border-white/10">
+                                        <th class="py-2">Category</th>
+                                        <th>Current</th>
+                                        <th>Prev 1</th>
+                                        <th>Prev 2</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Analysis -->
+            <section id="view-analysis" class="view">
+                <div class="matrix-card w-full">
+                    <h3>Asset Matrix / Distribution</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="analysisChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: History -->
+            <section id="view-history" class="view">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Transaction History</h2>
+                    <div class="flex gap-4">
+                        <button class="bg-red-900 px-4 py-2 text-sm" onclick="saveCurrentView()">Save Current View</button>
+                    </div>
+                </div>
+                <div id="history-list">
+                    <!-- Dynamic Content -->
+                </div>
+            </section>
+
+            <!-- View: Speed Entry -->
+            <section id="view-entry" class="view">
+                <div class="entry-container">
+                    <div class="hero-label text-center">Speed Entry Mode</div>
+                    <div class="entry-display" id="numpad-display">0</div>
+                    <div class="numpad">
+                        <button class="num-btn" onclick="pressNum(7)">7</button>
+                        <button class="num-btn" onclick="pressNum(8)">8</button>
+                        <button class="num-btn" onclick="pressNum(9)">9</button>
+                        <button class="num-btn" onclick="pressNum(4)">4</button>
+                        <button class="num-btn" onclick="pressNum(5)">5</button>
+                        <button class="num-btn" onclick="pressNum(6)">6</button>
+                        <button class="num-btn" onclick="pressNum(1)">1</button>
+                        <button class="num-btn" onclick="pressNum(2)">2</button>
+                        <button class="num-btn" onclick="pressNum(3)">3</button>
+                        <button class="num-btn" onclick="clearNum()">C</button>
+                        <button class="num-btn" onclick="pressNum(0)">0</button>
+                        <button class="num-btn" style="background: var(--accent-red);" onclick="submitNum()">ENT</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Salary Audit Modal -->
+    <div id="salary-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 class="modal-title">Salary Audit (2026-04)</h3>
+            <form id="salary-form">
+                <div class="form-group">
+                    <label>基本給 (Base Pay)</label>
+                    <input type="number" name="base_pay" placeholder="¥ 0">
+                </div>
+                <div class="form-group">
+                    <label>地域手当 (Area Allowance)</label>
+                    <input type="number" name="area_allowance" placeholder="¥ 0">
+                </div>
+                <div class="form-group">
+                    <label>教職調整額 (Adjustments)</label>
+                    <input type="number" name="teaching_adj" placeholder="¥ 0">
+                </div>
+                <div class="form-group">
+                    <label>所得税・保険料 (Deductions)</label>
+                    <input type="number" name="deductions" placeholder="¥ 0">
+                </div>
+                <button type="submit" class="action-btn primary" style="width: 100%; margin-top: 1rem;">Verify & Save</button>
+            </form>
+        </div>
     </div>
 
-    <!-- Floating Quick Actions -->
+    <!-- Floating Quick Actions (Mobile Primary Nav) -->
     <nav class="quick-actions" id="main-nav">
-        <button class="action-btn" onclick="location.reload()">Home</button>
-        <button class="action-btn">History</button>
-        <button class="action-btn primary" id="btn-add">Add Entry</button>
-        <button class="action-btn">Audit</button>
-        <button class="action-btn">Import</button>
+        <button class="action-btn active" data-view="dashboard" onclick="switchView('dashboard')">
+            <i class="fas fa-home"></i><br>Home
+        </button>
+        <button class="action-btn" data-view="history" onclick="switchView('history')">
+            <i class="fas fa-history"></i><br>History
+        </button>
+        <button class="action-btn primary" data-view="entry" onclick="switchView('entry')">
+            <i class="fas fa-plus"></i><br>Add
+        </button>
+        <button class="action-btn" data-view="audit" onclick="switchView('audit')">
+            <i class="fas fa-shield-alt"></i><br>Audit
+        </button>
+        <button class="action-btn" id="btn-salary">
+            <i class="fas fa-file-invoice-dollar"></i><br>Salary
+        </button>
     </nav>
 
     <!-- Scripts -->

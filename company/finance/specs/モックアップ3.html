@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Speed Entry - Asset Core</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "primary": "#c6c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-surface-variant": "#cfc4c5",
+                        "inverse-primary": "#5e5e5e",
+                        "surface-variant": "#333535",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4a8",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-high": "#282a2b",
+                        "on-secondary": "#2f3131",
+                        "surface-dim": "#121414",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container-low": "#1a1c1c",
+                        "background": "#121414",
+                        "on-primary": "#303030",
+                        "outline": "#988e90",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-container": "#1e2020",
+                        "surface-container-highest": "#333535",
+                        "surface-tint": "#c6c6c6",
+                        "on-surface": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#690100",
+                        "outline-variant": "#4c4546",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-bright": "#38393a",
+                        "secondary-container": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "secondary": "#c6c6c7",
+                        "on-tertiary-container": "#ec0000",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#ffdad4",
+                        "primary-container": "#000000",
+                        "tertiary-container": "#000000",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-primary-container": "#757575",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin": "32px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md overflow-hidden antialiased selection:bg-white selection:text-black">
+    <!-- Task-Focused Header (Suppresses global navigation per rules) -->
+    <header class="flex justify-between items-center px-6 h-16 w-full border-b border-white/10 shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-on-tertiary-container rounded-full animate-pulse"></div>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Speed Entry Mode</span>
+        </div>
+        <a href="モックアップ2.html"
+            class="h-10 w-10 flex items-center justify-center border border-white/10 rounded-full hover:bg-white hover:text-black transition-colors duration-200">
+            <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+        </a>
+    </header>
+    <!-- Main Entry Canvas -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 w-full max-w-md mx-auto gap-8">
+        <!-- Display Area -->
+        <div class="w-full flex flex-col gap-2">
+            <div class="flex justify-between items-center px-1">
+                <span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Input Amount</span>
+                <span class="font-label-sm text-label-sm text-outline font-mono">SEQ_0042</span>
+            </div>
+            <!-- Simulated Dot-Matrix Display Container -->
+            <div
+                class="w-full bg-surface-container-highest border border-white/10 rounded-lg p-6 relative overflow-hidden flex items-end justify-between backdrop-blur-sm shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+                <!-- Decorative grid lines for tech feel -->
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4px_4px] pointer-events-none mix-blend-overlay">
+                </div>
+                <span class="font-headline-md text-headline-md text-outline relative z-10">$</span>
+                <div
+                    class="font-headline-lg text-headline-lg text-white tabular-nums tracking-tighter relative z-10 flex items-baseline">
+                    4,050<span class="text-outline text-[32px]">.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- Quick Entry Pills -->
+        <div class="flex gap-4 w-full justify-center">
+            <button
+                class="px-5 py-2.5 rounded-full border border-white/10 bg-surface-container hover:bg-white hover:text-black hover:border-white transition-all duration-200 font-label-sm text-label-sm tracking-widest flex items-center gap-1">
+                <span class="text-outline hover:text-inherit">+</span>100
+            </button>
+            <button
+                class="px-5 py-2.5 rounded-full border border-white/10 bg-surface-container hover:bg-white hover:text-black hover:border-white transition-all duration-200 font-label-sm text-label-sm tracking-widest flex items-center gap-1">
+                <span class="text-outline hover:text-inherit">+</span>500
+            </button>
+            <button
+                class="px-5 py-2.5 rounded-full border border-white/10 bg-surface-container hover:bg-white hover:text-black hover:border-white transition-all duration-200 font-label-sm text-label-sm tracking-widest flex items-center gap-1">
+                <span class="text-outline hover:text-inherit">+</span>1000
+            </button>
+        </div>
+        <!-- Industrial Numeric Keypad -->
+        <div class="grid grid-cols-3 gap-3 w-full">
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">1</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">2</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">3</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">4</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">5</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">6</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">7</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">8</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">9</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">.</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-white hover:text-black transition-colors font-headline-md text-headline-md rounded-DEFAULT backdrop-blur-md">0</button>
+            <button
+                class="h-16 flex items-center justify-center border border-white/10 bg-surface hover:bg-primary-container hover:text-white transition-colors text-outline rounded-DEFAULT backdrop-blur-md">
+                <span class="material-symbols-outlined">backspace</span>
+            </button>
+        </div>
+        <!-- Action Bar -->
+        <div class="w-full mt-2 flex flex-col gap-4">
+            <div
+                class="flex items-center justify-between p-4 border border-white/10 rounded-lg bg-surface-container/50">
+                <div class="flex items-center gap-3">
+                    <!-- Industrial Toggle Switch (Active State) -->
+                    <div
+                        class="relative w-12 h-6 rounded-full border border-outline-variant bg-surface-container-highest cursor-pointer flex items-center p-0.5">
+                        <div
+                            class="w-4 h-4 bg-on-tertiary-container rounded-full transform translate-x-6 transition-transform shadow-[0_0_8px_rgba(236,0,0,0.5)]">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm uppercase text-primary">Continuous</span>
+                        <span class="font-label-sm text-[10px] text-outline opacity-70">Auto-commit enabled</span>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline">sync</span>
+            </div>
+            <a href="モックアップ4.html"
+                class="w-full h-14 bg-white text-black flex items-center justify-center gap-2 rounded-DEFAULT hover:bg-primary transition-colors border border-transparent">
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase font-bold">Commit Entry</span>
+                <span class="material-symbols-outlined" style="font-size: 18px;">subdirectory_arrow_left</span>
+            </a>
+        </div>
+    </main>
+</body>
+
+</html>

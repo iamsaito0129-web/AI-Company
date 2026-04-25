@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Reports &amp; Analysis - System_Ctrl</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&amp;family=Inter:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "primary": "#c6c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-surface-variant": "#cfc4c5",
+                        "inverse-primary": "#5e5e5e",
+                        "surface-variant": "#333535",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4a8",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-high": "#282a2b",
+                        "on-secondary": "#2f3131",
+                        "surface-dim": "#121414",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container-low": "#1a1c1c",
+                        "background": "#121414",
+                        "on-primary": "#303030",
+                        "outline": "#988e90",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-container": "#1e2020",
+                        "surface-container-highest": "#333535",
+                        "surface-tint": "#c6c6c6",
+                        "on-surface": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#690100",
+                        "outline-variant": "#4c4546",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-bright": "#38393a",
+                        "secondary-container": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "secondary": "#c6c6c7",
+                        "on-tertiary-container": "#ec0000",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#ffdad4",
+                        "primary-container": "#000000",
+                        "tertiary-container": "#000000",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-primary-container": "#757575",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin": "32px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "dot-matrix": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "dot": ["10px", { "letterSpacing": "0.2em" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .dot-bg {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+
+        .crt-scanline {
+            background: linear-gradient(rgba(18, 20, 20, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        input[type="checkbox"].switch {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background-color: var(--color-surface-variant);
+            border: 1px solid var(--color-outline-variant);
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+
+        input[type="checkbox"].switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            background-color: var(--color-on-surface-variant);
+            transition: left 0.2s, background-color 0.2s;
+        }
+
+        input[type="checkbox"].switch:checked {
+            background-color: var(--color-primary-container);
+            border-color: var(--color-primary);
+        }
+
+        input[type="checkbox"].switch:checked::after {
+            left: 22px;
+            background-color: var(--color-primary);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden relative min-h-screen">
+    <div class="fixed inset-0 crt-scanline z-50"></div>
+    <!-- SideNavBar (WEB) -->
+    <nav
+        class="hidden md:flex bg-black dark:bg-black font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold text-white dark:text-white h-screen w-64 border-r border-white/10 flex-col py-8 z-40 fixed left-0 top-0">
+        <div class="px-6 mb-12">
+            <h1 class="text-lg font-black text-white dark:text-white">SYSTEM_CTRL</h1>
+            <p class="text-[10px] text-white/50 tracking-[0.2em] mt-1">V2.0.4-LOCKED</p>
+        </div>
+        <ul class="flex flex-col gap-2 flex-grow px-2">
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 duration-300 rounded-sm"
+                    href="モックアップ2.html">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">grid_view</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a class="bg-white text-black flex items-center gap-4 px-4 py-3 rounded-sm transition-all" href="#">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">package_2</span>
+                    Inventory
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 duration-300 rounded-sm"
+                    href="#">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">hub</span>
+                    Nodes
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 duration-300 rounded-sm"
+                    href="モックアップ4.html">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">sync_alt</span>
+                    Transfers
+                </a>
+            </li>
+            <li>
+                <a class="bg-white text-black flex items-center gap-4 px-4 py-3 rounded-sm transition-all"
+                    href="モックアップ1.html">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">database</span>
+                    Archive
+                </a>
+            </li>
+        </ul>
+        <div class="px-2 mt-auto border-t border-white/10 pt-4">
+            <ul class="flex flex-col gap-2">
+                <li>
+                    <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 duration-300 rounded-sm"
+                        href="#">
+                        <span class="material-symbols-outlined"
+                            style="font-variation-settings: 'FILL' 0;">settings</span>
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 duration-300 rounded-sm"
+                        href="#">
+                        <span class="material-symbols-outlined"
+                            style="font-variation-settings: 'FILL' 0;">help_center</span>
+                        Support
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- TopAppBar (MOBILE) -->
+    <header
+        class="md:hidden fixed top-0 w-full border-b border-white/10 bg-black/60 backdrop-blur-2xl dark:bg-black/60 text-white dark:text-white font-['Space_Grotesk'] tracking-tighter uppercase text-xs font-bold flex justify-between items-center px-4 h-16 z-50">
+        <div class="text-xl font-black tracking-widest text-white dark:text-white font-['Space_Grotesk']">ASSET_CORE
+        </div>
+        <div class="flex items-center gap-4">
+            <span
+                class="material-symbols-outlined text-white/40 hover:text-white transition-colors duration-200">notifications</span>
+            <a href="モックアップ2.html"
+                class="material-symbols-outlined text-white/40 hover:text-white transition-colors duration-200">grid_view</a>
+            <div class="w-8 h-8 bg-white/10 border border-white/20 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-sm">person</span>
+            </div>
+        </div>
+    </header>
+    <!-- Main Canvas -->
+    <main class="md:ml-64 pt-20 md:pt-8 p-4 md:p-8 min-h-screen dot-bg">
+        <!-- Header -->
+        <header
+            class="mb-12 border-b border-outline-variant pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">ANALYSIS_REP</h2>
+                <p class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em] mt-2">SYS_TICK: 1459.23
+                    // LAST_SYNC: 00:00:00</p>
+            </div>
+            <div class="flex gap-2">
+                <button
+                    class="bg-transparent border border-outline-variant text-on-surface px-4 py-2 font-label-sm text-label-sm uppercase tracking-widest hover:bg-on-surface hover:text-surface transition-colors duration-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px]">download</span>
+                    Export
+                </button>
+            </div>
+        </header>
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+            <!-- Summary Row -->
+            <div class="col-span-1 md:col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-gutter mb-4">
+                <!-- Net Worth -->
+                <div
+                    class="bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined">account_balance</span>
+                    </div>
+                    <span
+                        class="font-dot-matrix text-[10px] text-primary tracking-widest uppercase mb-2">Net_Worth</span>
+                    <h3 class="font-headline-lg text-headline-md text-on-surface">$2,459,000.00</h3>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">arrow_upward</span>
+                        <span class="font-label-sm text-label-sm text-tertiary">+12.4% YTD</span>
+                    </div>
+                </div>
+                <!-- Assets -->
+                <div
+                    class="bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined">trending_up</span>
+                    </div>
+                    <span
+                        class="font-dot-matrix text-[10px] text-primary tracking-widest uppercase mb-2">Total_Assets</span>
+                    <h3 class="font-headline-lg text-headline-md text-on-surface">$3,100,500.00</h3>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_forward</span>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">NOMINAL</span>
+                    </div>
+                </div>
+                <!-- Liabilities -->
+                <div
+                    class="bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6 flex flex-col relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined">trending_down</span>
+                    </div>
+                    <span
+                        class="font-dot-matrix text-[10px] text-error tracking-widest uppercase mb-2">Liabilities</span>
+                    <h3 class="font-headline-lg text-headline-md text-error">$641,500.00</h3>
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[14px] text-error">warning</span>
+                        <span class="font-label-sm text-label-sm text-error">CAP_REACHED</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Chart Area -->
+            <div
+                class="col-span-1 md:col-span-8 bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6 min-h-[400px] flex flex-col">
+                <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                    <span
+                        class="font-dot-matrix text-[10px] text-primary tracking-widest uppercase">Asset_Allocation_Matrix</span>
+                    <div class="flex gap-2">
+                        <button
+                            class="bg-white/10 text-on-surface px-2 py-1 font-label-sm text-[10px] uppercase">1M</button>
+                        <button
+                            class="bg-transparent border border-white/20 text-on-surface-variant px-2 py-1 font-label-sm text-[10px] uppercase">6M</button>
+                        <button
+                            class="bg-transparent border border-white/20 text-on-surface-variant px-2 py-1 font-label-sm text-[10px] uppercase">YTD</button>
+                    </div>
+                </div>
+                <!-- Placeholder for high-tech chart -->
+                <div class="flex-grow relative flex items-end justify-between gap-2 py-4">
+                    <!-- Grid Lines -->
+                    <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+                        <div class="w-full h-px bg-white"></div>
+                        <div class="w-full h-px bg-white"></div>
+                        <div class="w-full h-px bg-white"></div>
+                        <div class="w-full h-px bg-white"></div>
+                        <div class="w-full h-px bg-white"></div>
+                    </div>
+                    <!-- Bars -->
+                    <div class="w-full bg-white/20 border border-white/40 h-[60%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] opacity-0 group-hover:opacity-100">
+                            60%</div>
+                    </div>
+                    <div class="w-full bg-white/10 border border-white/20 h-[30%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] opacity-0 group-hover:opacity-100">
+                            30%</div>
+                    </div>
+                    <div class="w-full bg-white/30 border border-white/50 h-[85%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] opacity-0 group-hover:opacity-100">
+                            85%</div>
+                    </div>
+                    <div class="w-full bg-white/5 border border-white/10 h-[15%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] opacity-0 group-hover:opacity-100">
+                            15%</div>
+                    </div>
+                    <div class="w-full bg-error/40 border border-error/60 h-[45%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] text-error opacity-0 group-hover:opacity-100">
+                            45%</div>
+                    </div>
+                    <div class="w-full bg-white/20 border border-white/40 h-[70%] relative group">
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 font-dot-matrix text-[10px] opacity-0 group-hover:opacity-100">
+                            70%</div>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-2 font-dot-matrix text-[10px] text-on-surface-variant">
+                    <span>EQT</span>
+                    <span>BND</span>
+                    <span>CRY</span>
+                    <span>RE</span>
+                    <span>CMD</span>
+                    <span>CSH</span>
+                </div>
+            </div>
+            <!-- Budget Tracking Sidebar -->
+            <div class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+                <div class="bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6 flex-grow">
+                    <span
+                        class="font-dot-matrix text-[10px] text-primary tracking-widest uppercase mb-6 block border-b border-white/10 pb-4">Flow_Limits</span>
+                    <div class="space-y-6">
+                        <!-- Progress Item -->
+                        <div>
+                            <div class="flex justify-between font-label-sm text-[10px] uppercase mb-2">
+                                <span class="text-on-surface">OPEX</span>
+                                <span class="text-on-surface-variant">45%</span>
+                            </div>
+                            <div class="h-1 w-full bg-surface-variant relative">
+                                <div class="absolute top-0 left-0 h-full bg-white/80 w-[45%]"></div>
+                            </div>
+                        </div>
+                        <!-- Progress Item -->
+                        <div>
+                            <div class="flex justify-between font-label-sm text-[10px] uppercase mb-2">
+                                <span class="text-on-surface">CAPEX</span>
+                                <span class="text-on-surface-variant">82%</span>
+                            </div>
+                            <div class="h-1 w-full bg-surface-variant relative">
+                                <div class="absolute top-0 left-0 h-full bg-white/80 w-[82%]"></div>
+                            </div>
+                        </div>
+                        <!-- Progress Item (Over Limit) -->
+                        <div>
+                            <div class="flex justify-between font-label-sm text-[10px] uppercase mb-2">
+                                <span class="text-error flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]">warning</span>
+                                    R&amp;D_BURN
+                                </span>
+                                <span class="text-error">115%</span>
+                            </div>
+                            <div class="h-1 w-full bg-surface-variant relative overflow-visible">
+                                <div
+                                    class="absolute top-0 left-0 h-full bg-error w-full shadow-[0_0_10px_rgba(255,0,0,0.8)]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Toggles -->
+                <div class="bg-surface-container/50 backdrop-blur-xl border border-white/10 p-6">
+                    <span
+                        class="font-dot-matrix text-[10px] text-primary tracking-widest uppercase mb-4 block">Sys_Preferences</span>
+                    <div class="flex justify-between items-center py-2 border-b border-white/5">
+                        <span class="font-label-sm text-[10px] uppercase text-on-surface">Auto_Rebalance</span>
+                        <input checked="" class="switch" type="checkbox" />
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-white/5">
+                        <span class="font-label-sm text-[10px] uppercase text-on-surface">Alert_Thresholds</span>
+                        <input class="switch" type="checkbox" />
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-label-sm text-[10px] uppercase text-on-surface">Data_Anonymize</span>
+                        <input checked="" class="switch" type="checkbox" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

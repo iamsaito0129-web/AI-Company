@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Transaction History - SYSTEM_CTRL</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "primary": "#c6c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-surface-variant": "#cfc4c5",
+                        "inverse-primary": "#5e5e5e",
+                        "surface-variant": "#333535",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4a8",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-high": "#282a2b",
+                        "on-secondary": "#2f3131",
+                        "surface-dim": "#121414",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container-low": "#1a1c1c",
+                        "background": "#121414",
+                        "on-primary": "#303030",
+                        "outline": "#988e90",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-container": "#1e2020",
+                        "surface-container-highest": "#333535",
+                        "surface-tint": "#c6c6c6",
+                        "on-surface": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#690100",
+                        "outline-variant": "#4c4546",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-bright": "#38393a",
+                        "secondary-container": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "secondary": "#c6c6c7",
+                        "on-tertiary-container": "#ec0000",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#ffdad4",
+                        "primary-container": "#000000",
+                        "tertiary-container": "#000000",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-primary-container": "#757575",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin": "32px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dot-matrix {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen overflow-hidden selection:bg-white selection:text-black">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full border-b border-white/10 bg-black/60 backdrop-blur-2xl dark:bg-black/60 flex justify-between items-center px-8 h-16 w-full z-50">
+        <div class="flex items-center gap-6">
+            <h1 class="text-xl font-black tracking-widest text-white dark:text-white font-['Space_Grotesk']">ASSET_CORE
+            </h1>
+        </div>
+        <div class="flex items-center gap-6">
+            <span
+                class="material-symbols-outlined text-white/40 hover:text-white transition-colors duration-200 cursor-pointer">notifications</span>
+            <a href="モックアップ2.html"
+                class="material-symbols-outlined text-white/40 hover:text-white transition-colors duration-200 cursor-pointer">grid_view</a>
+            <div
+                class="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center cursor-pointer ml-2">
+                <span class="material-symbols-outlined text-white text-sm">person</span>
+            </div>
+        </div>
+    </header>
+    <!-- SideNavBar -->
+    <nav
+        class="hidden md:flex fixed left-0 top-0 h-full flex-col py-8 z-40 bg-black dark:bg-black h-screen w-64 border-r border-white/10 mt-16 pt-8">
+        <div class="px-6 mb-8">
+            <p class="font-headline-md text-headline-md text-white">SYSTEM_CTRL</p>
+            <p class="font-label-sm text-label-sm text-white/50 tracking-[0.2em] uppercase mt-1">V2.0.4-LOCKED</p>
+        </div>
+        <ul class="flex flex-col gap-2 px-2 flex-grow">
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="モックアップ2.html">
+                    <span class="material-symbols-outlined text-lg">grid_view</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="#">
+                    <span class="material-symbols-outlined text-lg">package_2</span>
+                    Inventory
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="#">
+                    <span class="material-symbols-outlined text-lg">hub</span>
+                    Nodes
+                </a>
+            </li>
+            <li>
+                <a class="bg-white text-black flex items-center gap-4 px-4 py-3 rounded-sm transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="モックアップ4.html">
+                    <span class="material-symbols-outlined text-lg">sync_alt</span>
+                    Transfers
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="モックアップ1.html">
+                    <span class="material-symbols-outlined text-lg">database</span>
+                    Archive
+                </a>
+            </li>
+        </ul>
+        <ul class="flex flex-col gap-2 px-2 mt-auto border-t border-white/10 pt-4">
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="#">
+                    <span class="material-symbols-outlined text-lg">settings</span>
+                    Settings
+                </a>
+            </li>
+            <li>
+                <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold"
+                    href="#">
+                    <span class="material-symbols-outlined text-lg">help_center</span>
+                    Support
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="md:ml-64 mt-16 h-[calc(100vh-64px)] flex flex-col relative overflow-hidden bg-surface dot-matrix">
+        <!-- Canvas Header -->
+        <div
+            class="px-8 py-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shrink-0 bg-surface/80 backdrop-blur-md z-10">
+            <div>
+                <h2 class="font-headline-md text-headline-md text-white uppercase">Transfers</h2>
+                <p class="font-label-sm text-label-sm text-white/50 tracking-widest mt-1">TRANSACTION_LEDGER_VIEW</p>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <div class="relative w-full sm:w-64 glass-panel rounded-sm">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm">search</span>
+                    <input
+                        class="w-full bg-transparent border-none text-white font-label-sm text-label-sm placeholder:text-white/30 py-2 pl-9 pr-3 focus:ring-0 focus:outline-none"
+                        placeholder="QUERY_RECORDS..." type="text" />
+                </div>
+                <button class="glass-panel p-2 rounded-sm hover:bg-white hover:text-black transition-colors text-white">
+                    <span class="material-symbols-outlined text-sm">filter_list</span>
+                </button>
+                <a href="モックアップ3.html" class="glass-panel px-4 py-2 rounded-sm bg-white text-black flex items-center gap-2 hover:bg-primary transition-colors font-['Space_Grotesk'] uppercase tracking-[0.1em] text-[10px] font-bold">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    ADD_TX
+                </a>
+            </div>
+        </div>
+        <!-- Transaction List Area -->
+        <div class="flex-grow overflow-y-auto px-8 py-6 pb-24">
+            <!-- Summary Stats Bento -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="glass-panel p-6 rounded-sm flex flex-col justify-between h-32 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="material-symbols-outlined text-4xl">arrow_downward</span>
+                    </div>
+                    <p class="font-label-sm text-label-sm text-white/50 uppercase tracking-widest">Inflow_30D</p>
+                    <p class="font-headline-md text-headline-md text-white">+$42,050.00</p>
+                </div>
+                <div
+                    class="glass-panel p-6 rounded-sm flex flex-col justify-between h-32 relative overflow-hidden border-l-2 border-l-[#ec0000]">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="material-symbols-outlined text-4xl">arrow_upward</span>
+                    </div>
+                    <p class="font-label-sm text-label-sm text-white/50 uppercase tracking-widest">Outflow_30D</p>
+                    <p class="font-headline-md text-headline-md text-[#ec0000]">-$14,320.55</p>
+                </div>
+                <div class="glass-panel p-6 rounded-sm flex flex-col justify-between h-32 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="material-symbols-outlined text-4xl">account_balance</span>
+                    </div>
+                    <p class="font-label-sm text-label-sm text-white/50 uppercase tracking-widest">Net_Position</p>
+                    <p class="font-headline-md text-headline-md text-white">$27,729.45</p>
+                </div>
+            </div>
+            <!-- List -->
+            <div class="space-y-8 max-w-4xl">
+                <!-- Date Group: Today -->
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <h3 class="font-label-sm text-label-sm text-white/60 tracking-[0.2em] uppercase">TODAY // OCT 24
+                        </h3>
+                        <div class="h-[1px] flex-grow bg-white/10"></div>
+                    </div>
+                    <div class="flex flex-col border border-white/10 rounded-sm bg-surface-container-low/50">
+                        <!-- Transaction Item (Expense) -->
+                        <div
+                            class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-[#ec0000]/50 transition-colors">
+                                    <span class="material-symbols-outlined text-white/70 text-lg"
+                                        style="font-variation-settings: 'FILL' 0, 'wght' 200;">shopping_cart</span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-body-md text-white">AWS_Infrastructure_Q3</p>
+                                    <p class="font-label-sm text-label-sm text-white/40 mt-1 uppercase">Cloud Services •
+                                        14:32</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-body-lg text-body-lg text-[#ec0000] font-mono tracking-tight">-$1,240.00
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Transaction Item (Income) -->
+                        <div
+                            class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-white/50 transition-colors">
+                                    <span class="material-symbols-outlined text-white/70 text-lg"
+                                        style="font-variation-settings: 'FILL' 0, 'wght' 200;">payments</span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-body-md text-white">Client_Retainer_Alpha</p>
+                                    <p class="font-label-sm text-label-sm text-white/40 mt-1 uppercase">Inbound Transfer
+                                        • 09:15</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-body-lg text-body-lg text-white font-mono tracking-tight">+$5,000.00</p>
+                            </div>
+                        </div>
+                        <!-- Transaction Item (Expense) -->
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors group">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-[#ec0000]/50 transition-colors">
+                                    <span class="material-symbols-outlined text-white/70 text-lg"
+                                        style="font-variation-settings: 'FILL' 0, 'wght' 200;">bolt</span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-body-md text-white">Energy_Grid_Allocation</p>
+                                    <p class="font-label-sm text-label-sm text-white/40 mt-1 uppercase">Utilities •
+                                        08:00</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-body-lg text-body-lg text-[#ec0000] font-mono tracking-tight">-$345.50
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Date Group: Yesterday -->
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <h3 class="font-label-sm text-label-sm text-white/60 tracking-[0.2em] uppercase">YESTERDAY //
+                            OCT 23</h3>
+                        <div class="h-[1px] flex-grow bg-white/10"></div>
+                    </div>
+                    <div class="flex flex-col border border-white/10 rounded-sm bg-surface-container-low/50">
+                        <!-- Transaction Item (Income) -->
+                        <div
+                            class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-white/50 transition-colors">
+                                    <span class="material-symbols-outlined text-white/70 text-lg"
+                                        style="font-variation-settings: 'FILL' 0, 'wght' 200;">account_balance_wallet</span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-body-md text-white">Dividend_Yield_Distribution</p>
+                                    <p class="font-label-sm text-label-sm text-white/40 mt-1 uppercase">Investment •
+                                        16:45</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-body-lg text-body-lg text-white font-mono tracking-tight">+$850.25</p>
+                            </div>
+                        </div>
+                        <!-- Transaction Item (Expense) -->
+                        <div
+                            class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-[#ec0000]/50 transition-colors">
+                                    <span class="material-symbols-outlined text-white/70 text-lg"
+                                        style="font-variation-settings: 'FILL' 0, 'wght' 200;">devices</span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-body-md text-white">Hardware_Procurement</p>
+                                    <p class="font-label-sm text-label-sm text-white/40 mt-1 uppercase">Equipment •
+                                        11:20</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-body-lg text-body-lg text-[#ec0000] font-mono tracking-tight">-$2,100.00
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

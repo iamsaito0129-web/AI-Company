@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ASSET_CORE - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&amp;family=Inter:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#121414",
+                        "on-background": "#e2e2e2",
+                        "primary": "#c6c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-surface-variant": "#cfc4c5",
+                        "inverse-primary": "#5e5e5e",
+                        "surface-variant": "#333535",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4a8",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-container-high": "#282a2b",
+                        "on-secondary": "#2f3131",
+                        "surface-dim": "#121414",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container-low": "#1a1c1c",
+                        "background": "#121414",
+                        "on-primary": "#303030",
+                        "outline": "#988e90",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-container": "#1e2020",
+                        "surface-container-highest": "#333535",
+                        "surface-tint": "#c6c6c6",
+                        "on-surface": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#690100",
+                        "outline-variant": "#4c4546",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-bright": "#38393a",
+                        "secondary-container": "#454747",
+                        "inverse-surface": "#e2e2e2",
+                        "secondary": "#c6c6c7",
+                        "on-tertiary-container": "#ec0000",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#ffdad4",
+                        "primary-container": "#000000",
+                        "tertiary-container": "#000000",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-primary-container": "#757575",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin": "32px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": [
+                            "Inter"
+                        ],
+                        "label-sm": [
+                            "Inter"
+                        ],
+                        "headline-md": [
+                            "Space Grotesk"
+                        ],
+                        "headline-lg": [
+                            "Space Grotesk"
+                        ],
+                        "body-md": [
+                            "Inter"
+                        ]
+                    },
+                    "fontSize": {
+                        "body-lg": [
+                            "18px",
+                            {
+                                "lineHeight": "1.6",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-md": [
+                            "32px",
+                            {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "headline-lg": [
+                            "48px",
+                            {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-md": [
+                            "16px",
+                            {
+                                "lineHeight": "1.5",
+                                "letterSpacing": "0",
+                                "fontWeight": "400"
+                            }
+                        ]
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+
+        .dot-matrix {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.1em;
+            background: radial-gradient(circle, #fff 20%, transparent 20%);
+            background-size: 4px 4px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            /* Fallback */
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background font-body-md h-screen overflow-hidden flex selection:bg-white selection:text-black">
+    <!-- SideNavBar (WEB) -->
+    <nav
+        class="hidden md:flex bg-black dark:bg-black text-white dark:text-white h-screen w-64 border-r border-white/10 border-r border-white/10 flex flex-col py-8 z-40 fixed left-0 top-0">
+        <div class="px-6 mb-12">
+            <h1 class="text-lg font-black text-white dark:text-white mb-2">SYSTEM_CTRL</h1>
+            <p class="font-['Space_Grotesk'] uppercase tracking-[0.2em] text-[10px] font-bold text-white/50">
+                V2.0.4-LOCKED</p>
+        </div>
+        <div class="flex-1 flex flex-col gap-2 px-2">
+            <!-- Active Tab -->
+            <a class="bg-white text-black flex items-center gap-4 px-4 py-3 rounded-sm transition-all" href="モックアップ2.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Dashboard</span>
+            </a>
+            <!-- Inactive Tabs -->
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="#">
+                <span class="material-symbols-outlined">package_2</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Inventory</span>
+            </a>
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="#">
+                <span class="material-symbols-outlined">hub</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Nodes</span>
+            </a>
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="モックアップ4.html">
+                <span class="material-symbols-outlined">sync_alt</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Transfers</span>
+            </a>
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="モックアップ1.html">
+                <span class="material-symbols-outlined">database</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Archive</span>
+            </a>
+        </div>
+        <div class="px-2 mt-auto flex flex-col gap-2">
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Settings</span>
+            </a>
+            <a class="text-white/30 flex items-center gap-4 px-4 py-3 hover:text-white/80 transition-all hover:bg-white/5 transition-all duration-300"
+                href="#">
+                <span class="material-symbols-outlined">help_center</span>
+                <span class="font-label-sm text-label-sm tracking-[0.2em] uppercase">Support</span>
+            </a>
+        </div>
+    </nav>
+    <!-- TopAppBar (MOBILE) -->
+    <header
+        class="md:hidden bg-black/60 backdrop-blur-2xl dark:bg-black/60 text-white dark:text-white fixed top-0 w-full border-b border-white/10 flex justify-between items-center px-8 h-16 w-full z-50">
+        <div class="text-xl font-black tracking-widest text-white dark:text-white font-['Space_Grotesk']">ASSET_CORE
+        </div>
+        <div class="flex items-center gap-6">
+            <button class="hover:text-white transition-colors duration-200 text-white/40"><span
+                    class="material-symbols-outlined">notifications</span></button>
+            <a href="モックアップ2.html" class="hover:text-white transition-colors duration-200 text-white/40"><span
+                    class="material-symbols-outlined">grid_view</span></a>
+            <div class="w-[1px] h-4 bg-white/20 mx-2"></div>
+            <button class="hover:text-white transition-colors duration-200 text-white/40"><span
+                    class="material-symbols-outlined">settings</span></button>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="flex-1 md:ml-64 relative overflow-y-auto grid-bg pt-16 md:pt-0">
+        <!-- TopAppBar Header (WEB version equivalent for title area if needed, but we integrated side nav. Let's add a subtle header for desktop content) -->
+        <div
+            class="hidden md:flex justify-between items-center px-8 h-16 w-full border-b border-white/10 bg-black/40 backdrop-blur-md sticky top-0 z-30">
+            <div class="text-xl font-black tracking-widest text-white dark:text-white font-['Space_Grotesk']">ASSET_CORE
+            </div>
+            <div class="flex items-center gap-6">
+                <button class="hover:text-white transition-colors duration-200 text-white/40"><span
+                        class="material-symbols-outlined">notifications</span></button>
+                <button class="hover:text-white transition-colors duration-200 text-white/40"><span
+                        class="material-symbols-outlined">settings</span></button>
+            </div>
+        </div>
+        <div class="p-4 md:p-8 max-w-[1440px] mx-auto space-y-8">
+            <!-- Hero Section: Remaining Budget -->
+            <section
+                class="h-[307px] min-h-[250px] border border-white/10 bg-surface-container/30 backdrop-blur-2xl rounded-DEFAULT flex flex-col justify-center items-center relative overflow-hidden group p-8">
+                <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50"></div>
+                <div class="absolute top-4 left-4 flex items-center gap-2">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-white/60">SYS_STATUS:
+                        NOMINAL</span>
+                </div>
+                <h2 class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-white/50 mb-4 z-10">Remaining
+                    Budget</h2>
+                <div
+                    class="font-headline-lg text-headline-lg md:text-[80px] font-black tracking-tighter dot-matrix z-10 leading-none">
+                    $1,402,903.00
+                </div>
+                <div class="absolute bottom-4 right-4 flex gap-2">
+                    <span
+                        class="px-2 py-1 bg-white/10 text-white text-[10px] font-mono rounded-sm border border-white/20">CTRL_Z</span>
+                    <a href="モックアップ3.html"
+                        class="px-2 py-1 bg-white/10 text-white text-[10px] font-mono rounded-sm border border-white/20 hover:bg-white hover:text-black transition-colors">OP_ACT</a>
+                </div>
+            </section>
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Spending by Category (Industrial Progress Bars) -->
+                <section
+                    class="col-span-1 md:col-span-5 border border-white/10 bg-surface-container/20 backdrop-blur-xl p-6 rounded-DEFAULT flex flex-col gap-6">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                        <h3 class="font-headline-md text-headline-md text-xl uppercase tracking-widest">Allocation</h3>
+                        <span class="material-symbols-outlined text-white/40">bar_chart</span>
+                    </div>
+                    <div class="space-y-6 flex-1">
+                        <!-- Item 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-mono mb-2 text-white/80">
+                                <span>INFRASTRUCTURE</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-variant/50 border border-white/10 flex">
+                                <div class="h-full bg-white w-[45%]"></div>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-mono mb-2 text-white/80">
+                                <span>R&amp;D_LABS</span>
+                                <span>30%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-variant/50 border border-white/10 flex">
+                                <div class="h-full bg-white/60 w-[30%]"></div>
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-mono mb-2 text-white/80">
+                                <span>MARKETING_OP</span>
+                                <span>15%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-variant/50 border border-white/10 flex">
+                                <div class="h-full bg-white/40 w-[15%]"></div>
+                            </div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-mono mb-2 text-white/80">
+                                <span>RESERVE_CASH</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="h-2 w-full bg-surface-variant/50 border border-white/10 flex">
+                                <div class="h-full bg-white/20 w-[10%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Cash Flow Visualization -->
+                <section
+                    class="col-span-1 md:col-span-7 border border-white/10 bg-surface-container/20 backdrop-blur-xl p-6 rounded-DEFAULT flex flex-col">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+                        <h3 class="font-headline-md text-headline-md text-xl uppercase tracking-widest">Flow_Dynamics
+                        </h3>
+                        <div class="flex gap-2">
+                            <span
+                                class="px-2 py-1 text-[10px] font-mono border border-white/20 text-white bg-white/10">IN:
+                                $4M</span>
+                            <span class="px-2 py-1 text-[10px] font-mono border border-white/20 text-white/60">OUT:
+                                $2.6M</span>
+                        </div>
+                    </div>
+                    <!-- Minimalist Grid Visualization Mockup -->
+                    <div
+                        class="flex-1 relative border border-white/5 bg-black/40 p-4 font-mono text-[10px] text-white/30 flex items-end overflow-hidden">
+                        <!-- Y-Axis labels -->
+                        <div class="absolute left-2 top-2 bottom-2 flex flex-col justify-between">
+                            <span>MAX</span>
+                            <span>MID</span>
+                            <span>MIN</span>
+                        </div>
+                        <!-- Grid lines -->
+                        <div class="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-20 pointer-events-none">
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-r border-white"></div>
+                            <div class="border-b border-white"></div>
+                            <div class="border-r border-white"></div>
+                            <div class="border-r border-white"></div>
+                            <div class="border-r border-white"></div>
+                            <div class="border-r border-white"></div>
+                            <div class="border-r border-white"></div>
+                            <div></div>
+                        </div>
+                        <!-- Bar Chart Mockup (Industrial style) -->
+                        <div class="relative w-full h-[80%] ml-8 flex items-end justify-around gap-2 z-10">
+                            <div class="w-full bg-white border border-white/50 h-[40%] hover:h-[45%] transition-all">
+                            </div>
+                            <div class="w-full bg-white/60 border border-white/50 h-[60%] hover:h-[65%] transition-all">
+                            </div>
+                            <div class="w-full bg-white/30 border border-white/50 h-[30%] hover:h-[35%] transition-all">
+                            </div>
+                            <div class="w-full bg-white/80 border border-white/50 h-[90%] hover:h-[95%] transition-all">
+                            </div>
+                            <div class="w-full bg-white/40 border border-white/50 h-[50%] hover:h-[55%] transition-all">
+                            </div>
+                            <div class="w-full bg-white border border-white/50 h-[70%] hover:h-[75%] transition-all">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Recent Transactions (Spans full width below) -->
+                <section
+                    class="col-span-1 md:col-span-12 border border-white/10 bg-surface-container/20 backdrop-blur-xl rounded-DEFAULT overflow-hidden">
+                    <div class="flex justify-between items-center border-b border-white/10 p-6 bg-white/5">
+                        <h3 class="font-headline-md text-headline-md text-xl uppercase tracking-widest">TX_LOG</h3>
+                        <a href="モックアップ4.html"
+                            class="font-label-sm text-label-sm uppercase tracking-[0.2em] border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition-colors">VIEW_ALL</a>
+                    </div>
+                    <div class="flex flex-col divide-y divide-white/5">
+                        <!-- TX 1 -->
+                        <div
+                            class="p-4 md:px-6 flex items-center justify-between hover:bg-white/5 transition-colors group cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 border border-white/20 flex items-center justify-center bg-black/40 group-hover:border-white transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-white/60 group-hover:text-white">dns</span>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-sm text-white">AWS_SERVER_CLUSTER_01</div>
+                                    <div class="font-mono text-[10px] text-white/40">ID: TX-9021A · 14:02:44 UTC</div>
+                                </div>
+                            </div>
+                            <div class="text-right font-mono text-sm text-white/80">
+                                -$12,450.00
+                            </div>
+                        </div>
+                        <!-- TX 2 -->
+                        <div
+                            class="p-4 md:px-6 flex items-center justify-between hover:bg-white/5 transition-colors group cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 border border-white/20 flex items-center justify-center bg-black/40 group-hover:border-white transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-white/60 group-hover:text-white">arrow_downward</span>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-sm text-white">CLIENT_INBOUND_Q3</div>
+                                    <div class="font-mono text-[10px] text-white/40">ID: TX-9022B · 11:15:00 UTC</div>
+                                </div>
+                            </div>
+                            <div class="text-right font-mono text-sm text-white">
+                                +$450,000.00
+                            </div>
+                        </div>
+                        <!-- TX 3 -->
+                        <div
+                            class="p-4 md:px-6 flex items-center justify-between hover:bg-white/5 transition-colors group cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 border border-white/20 flex items-center justify-center bg-black/40 group-hover:border-white transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-white/60 group-hover:text-white">engineering</span>
+                                </div>
+                                <div>
+                                    <div class="font-mono text-sm text-white">CONTRACTOR_PAYOUT_BATCH</div>
+                                    <div class="font-mono text-[10px] text-white/40">ID: TX-9023C · 09:00:12 UTC</div>
+                                </div>
+                            </div>
+                            <div class="text-right font-mono text-sm text-white/80">
+                                -$34,200.00
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Bottom padding for mobile scrolling past absolute elements if needed -->
+            <div class="h-8"></div>
+        </div>
+    </main>
+</body>
+
+</html>
