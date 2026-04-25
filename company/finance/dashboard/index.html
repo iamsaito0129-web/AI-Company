@@ -3,203 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Company Financial Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Finance Dash | AI-Company</title>
+    <meta name="description" content="AI-Company 自律型金融エージェント・ダッシュボード。行動経済学に基づいた資産管理を実現。">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --bg-color: #FFFFFF;
-            --secondary-bg: #F7F6F3;
-            --text-primary: #37352F;
-            --text-secondary: #787774;
-            --border-color: #EDEDED;
-            --accent-blue: #2383E2;
-            --hover-bg: rgba(55, 53, 47, 0.08);
-            --sidebar-width: 240px;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-primary); display: flex; min-height: 100vh; }
-        .sidebar { width: var(--sidebar-width); background: var(--secondary-bg); border-right: 1px solid var(--border-color); padding: 24px 12px; display: flex; flex-direction: column; gap: 4px; }
-        .sidebar-header { padding: 0 8px 20px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .sidebar-item { padding: 6px 8px; border-radius: 3px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-primary); text-decoration: none; }
-        .sidebar-item:hover { background: var(--hover-bg); }
-        .sidebar-item.active { background: rgba(55, 53, 47, 0.12); font-weight: 500; }
-        main { flex: 1; padding: 48px 64px; max-width: 1200px; margin: 0 auto; width: 100%; }
-        .view-content { display: none; }
-        .view-content.active { display: block; }
-        header { margin-bottom: 40px; }
-        h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
-        .description { color: var(--text-secondary); font-size: 16px; margin-bottom: 24px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .card { border: 1px solid var(--border-color); border-radius: 4px; padding: 20px; background: white; transition: background 0.2s; }
-        .card-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-        .card-value { font-size: 24px; font-weight: 600; }
-        .card-subtext { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
-        .up { color: #529E72; } .down { color: #D44C47; }
-        .section-title { font-size: 18px; font-weight: 600; margin: 32px 0 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-        .chart-container { border: 1px solid var(--border-color); border-radius: 4px; padding: 24px; height: 350px; margin-bottom: 40px; }
-        .form-block { background: var(--secondary-bg); border-radius: 4px; padding: 24px; margin-bottom: 32px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
-        label { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
-        input { border: 1px solid var(--border-color); border-radius: 3px; padding: 6px 10px; font-size: 14px; width: 100%; }
-        .btn { background: white; border: 1px solid var(--border-color); border-radius: 3px; padding: 6px 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
-        .btn:hover { background: var(--hover-bg); }
-        .btn-primary { color: var(--accent-blue); font-weight: 600; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        th { text-align: left; border-bottom: 1px solid var(--border-color); padding: 10px 8px; color: var(--text-secondary); }
-        td { padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
-    </style>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="loader" class="loading-overlay">Saving...</div>
-    <div class="sidebar">
-        <div class="sidebar-header">🚀 AI-Company</div>
-        <a href="#" class="sidebar-item active" onclick="switchView(event, 'dashboard')">📊 Dashboard</a>
-        <a href="#" class="sidebar-item" onclick="switchView(event, 'records')">📝 Records</a>
-        <a href="#" class="sidebar-item" onclick="switchView(event, 'settings')">⚙️ Settings</a>
+
+    <div class="app-container">
+        <!-- Hero Section: Safe-to-Spend -->
+        <section class="hero-section animate-fade-in" id="hero">
+            <div class="safe-to-spend-card" id="sts-card">
+                <div class="act-badge">
+                    <span>✨</span> ACT 950
+                </div>
+                <h2 class="label-main">Safe-to-Spend</h2>
+                <div class="amount-main" id="safe-to-spend-amount">
+                    <span class="currency">¥</span>0
+                </div>
+                <p style="color: var(--text-muted); margin-top: 1rem;">今月あとこれだけ使えます</p>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid animate-fade-in" style="animation-delay: 0.2s;">
+            <div class="stat-card" id="card-networth">
+                <div class="stat-label">純資産 (Net Worth)</div>
+                <div class="stat-value" id="stat-networth">¥ 0</div>
+            </div>
+            <div class="stat-card" id="card-bank">
+                <div class="stat-label">銀行残高 (Bank Main)</div>
+                <div class="stat-value" id="stat-bank">¥ 0</div>
+            </div>
+            <div class="stat-card" id="card-digital">
+                <div class="stat-label">デジタル資産 (Digital)</div>
+                <div class="stat-value" id="stat-digital">¥ 0</div>
+            </div>
+        </section>
+
+        <!-- Main Chart Section -->
+        <section class="content-section animate-fade-in" style="animation-delay: 0.4s;">
+            <h3 class="section-header"><span>📈</span> Asset Trajectory</h3>
+            <div class="chart-wrapper">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </section>
     </div>
 
-    <main>
-        <div id="view-dashboard" class="view-content active">
-            <header>
-                <h1>📈 Finance Dashboard</h1>
-                <p class="description">Asset Trajectory & Financial Status</p>
-            </header>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-label">🏦 Total Net Worth</div>
-                    <div class="card-value" id="stat-total">¥ 0</div>
-                    <div class="card-subtext" id="stat-change">--</div>
-                </div>
-                <div class="card">
-                    <div class="card-label">💳 Bank Balance</div>
-                    <div class="card-value" id="stat-bank">¥ 0</div>
-                    <div class="card-subtext" id="stat-cash">Calculating...</div>
-                </div>
-                <div class="card">
-                    <div class="card-label">📱 Digital Funds</div>
-                    <div class="card-value" id="stat-digital">¥ 0</div>
-                    <div class="card-subtext" id="stat-paypay">PayPay & Suica</div>
-                </div>
-            </div>
-            <div class="section-title">Asset Growth</div>
-            <div class="chart-container"><canvas id="chart"></canvas></div>
-            <div class="section-title">Create Entry</div>
-            <div class="form-block">
-                <div class="form-grid">
-                    <div class="input-group"><label>DATE</label><input type="date" id="f-date"></div>
-                    <div class="input-group"><label>BANK</label><input type="number" id="f-bank" placeholder="0"></div>
-                    <div class="input-group"><label>PAYPAY</label><input type="number" id="f-paypay" placeholder="0"></div>
-                    <button class="btn btn-primary" onclick="onAdd()">Add Block</button>
-                </div>
-            </div>
-        </div>
+    <!-- Floating Quick Actions -->
+    <nav class="quick-actions" id="main-nav">
+        <button class="action-btn" onclick="location.reload()">Home</button>
+        <button class="action-btn">History</button>
+        <button class="action-btn primary" id="btn-add">Add Entry</button>
+        <button class="action-btn">Audit</button>
+        <button class="action-btn">Import</button>
+    </nav>
 
-        <div id="view-records" class="view-content">
-            <header><h1>📝 Records</h1></header>
-            <table>
-                <thead><tr><th>Date</th><th>Total</th><th>Bank</th><th>PayPay</th><th>Action</th></tr></thead>
-                <tbody id="table-body"></tbody>
-            </table>
-        </div>
-
-        <div id="view-settings" class="view-content">
-            <header><h1>⚙️ Settings</h1></header>
-            <p>Database: <b>Local Persistent JSON</b></p>
-        </div>
-    </main>
-
-    <script>
-        let currentData = [];
-        let chartInstance = null;
-
-        const fetchData = async () => {
-            const res = await fetch('/api/data');
-            currentData = await res.json();
-            updateUI();
-        };
-
-        const updateUI = () => {
-            if (currentData.length === 0) return;
-            const latest = currentData[currentData.length - 1];
-            const prev = currentData.length > 1 ? currentData[currentData.length - 2] : null;
-
-            document.getElementById('stat-total').innerText = ¥ ;
-            document.getElementById('stat-bank').innerText = ¥ ;
-            document.getElementById('stat-digital').innerText = ¥ ;
-            document.getElementById('stat-cash').innerText = Cash: ¥ ;
-            document.getElementById('stat-paypay').innerText = PayPay: ¥ , Suica: ¥ ;
-
-            if(prev) {
-                const diff = latest.total - prev.total;
-                const pct = (diff / prev.total * 100).toFixed(1);
-                const el = document.getElementById('stat-change');
-                el.innerHTML = <span class="">¥  (%)</span> since last month;
-            }
-
-            // Table
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
-            [...currentData].reverse().forEach((d, idx) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = <td></td><td>¥ </td><td>¥ </td><td>¥ </td>
-                    <td><button class="btn" style="color:red;border:none" onclick="onDelete()">Remove</button></td>;
-                tbody.appendChild(tr);
-            });
-
-            // Chart
-            if(chartInstance) chartInstance.destroy();
-            const ctx = document.getElementById('chart').getContext('2d');
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: currentData.map(d => d.date),
-                    datasets: [{ data: currentData.map(d => d.total), borderColor: '#37352F', tension: 0.1, fill: false }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-        };
-
-        window.switchView = (e, id) => {
-            if(e) e.preventDefault();
-            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-            document.querySelector([onclick*='']).classList.add('active');
-            document.querySelectorAll('.view-content').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + id).classList.add('active');
-        };
-
-        window.onAdd = async () => {
-            const date = document.getElementById('f-date').value;
-            const bank = parseInt(document.getElementById('f-bank').value) || 0;
-            const paypay = parseInt(document.getElementById('f-paypay').value) || 0;
-            if(!date) return alert('Input date');
-
-            const latest = currentData[currentData.length -1];
-            const newEntry = { ...latest, date, bank, paypay, total: bank + paypay + (latest.wallet_blue || 0) + (latest.wallet_black || 0) + (latest.suica || 0) + (latest.hesokuri || 0) };
-            currentData.push(newEntry);
-            currentData.sort((a,b) => a.date.localeCompare(b.date));
-            await saveAndRefresh();
-        };
-
-        window.onDelete = async (idx) => {
-            if(!confirm('Delete?')) return;
-            currentData.splice(idx, 1);
-            await saveAndRefresh();
-        };
-
-        const saveAndRefresh = async () => {
-            document.getElementById('loader').style.display = 'flex';
-            await fetch('/api/save', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(currentData)
-            });
-            document.getElementById('loader').style.display = 'none';
-            updateUI();
-        };
-
-        fetchData();
-    </script>
+    <!-- Scripts -->
+    <script src="main.js"></script>
 </body>
 </html>

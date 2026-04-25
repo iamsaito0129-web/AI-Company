@@ -1,0 +1,207 @@
+:root {
+    /* Harmony Color Palette */
+    --bg-dark: #0a0a0c;
+    --bg-card: rgba(23, 23, 26, 0.7);
+    --accent-primary: #8b5cf6; /* Violet */
+    --accent-secondary: #3b82f6; /* Blue */
+    --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    
+    --font-main: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Animated Gradient Background */
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0a0a0c 100%);
+}
+
+/* Glassmorphism Container */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header & Safe-to-Spend Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.safe-to-spend-card {
+    display: inline-block;
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    border-radius: 2rem;
+    padding: 3rem 5rem;
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
+}
+
+.safe-to-spend-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.label-main {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.amount-main {
+    font-size: 5rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3));
+}
+
+.currency {
+    font-size: 2.5rem;
+    margin-right: 0.5rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-glass);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-primary);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Quick Actions (Floating) */
+.quick-actions {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3rem;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.action-btn.primary {
+    background: var(--accent-gradient);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+/* Charts Section */
+.content-section {
+    margin-top: 4rem;
+}
+
+.section-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chart-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 2rem;
+    padding: 2rem;
+    height: 400px;
+}
+
+/* ACT Badge */
+.act-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
