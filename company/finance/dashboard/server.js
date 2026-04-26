@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
-const DB_FILE = path.join(__dirname, '../data/master/finance_master.json');
+const DB_FILE = path.join(__dirname, '../data/finance_db.json');
 const LOG_FILE = path.join(__dirname, 'server_debug.log');
 
 function log(msg) {
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
         pathname = pathname.slice(0, -1);
     }
 
-    log(`${req.method} ${pathname} (Host: ${req.headers.host})`);
+    log(`${req.method} ${pathname}`);
 
     // CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,83 +32,17 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // API Routes
-    if (pathname.startsWith('/api/finance/records') && req.method === 'GET') {
-        log('Handling /api/finance/records');
+    // API: GET Records
+    if (pathname === '/api/finance/records' && req.method === 'GET') {
         try {
-            const recordsDir = path.join(__dirname, '../data/records');
-            if (!fs.existsSync(recordsDir)) {
-                log(`Error: Records dir not found at ${recordsDir}`);
+            if (!fs.existsSync(DB_FILE)) {
                 res.writeHead(404, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: 'Records directory not found' }));
+                res.end(JSON.stringify({ error: 'Database file not found' }));
                 return;
             }
-
-            const files = fs.readdirSync(recordsDir);
-            const expFile = files.find(f => f.startsWith('資産管理_支出マスター'));
-            const incFile = files.find(f => f.startsWith('資産管理_収入マスター'));
-            const setFile = files.find(f => f.startsWith('決済'));
-
-            const parseCSV = (filePath) => {
-                const fullPath = path.join(recordsDir, filePath);
-                log(`Parsing ${filePath}`);
-                const content = fs.readFileSync(fullPath, 'utf8');
-                const lines = content.split(/\r?\n/);
-                if (lines.length <= 1) return [];
-                
-                const splitLine = (line) => {
-                    const result = [];
-                    let cur = '';
-                    let inQuote = false;
-                    for (let i = 0; i < line.length; i++) {
-                        const char = line[i];
-                        if (char === '"') {
-                            if (inQuote && line[i+1] === '"') { // Double quote
-                                cur += '"'; i++;
-                            } else {
-                                inQuote = !inQuote;
-                            }
-                        } else if (char === ',' && !inQuote) {
-                            result.push(cur.trim());
-                            cur = '';
-                        } else {
-                            cur += char;
-                        }
-                    }
-                    result.push(cur.trim());
-                    return result;
-                };
-
-                const headers = splitLine(lines[0]);
-                return lines.slice(1).filter(l => l.trim()).map(line => {
-                    const values = splitLine(line);
-                    const obj = {};
-                    headers.forEach((header, i) => {
-                        let val = values[i] || '';
-                        if (val.startsWith('"') && val.endsWith('"')) val = val.substring(1, val.length - 1);
-                        if (typeof val === 'string' && (val.includes('￥') || val.includes('¥'))) {
-                            val = val.replace(/[￥¥\s,]/g, '');
-                            if (val.startsWith('+')) val = val.substring(1);
-                        }
-                        if (val !== '' && !isNaN(val) && !val.includes('/') && !val.includes('-') && !val.includes('年')) {
-                            obj[header] = Number(val);
-                        } else {
-                            obj[header] = val;
-                        }
-                    });
-                    return obj;
-                });
-            };
-
-            const data = {
-                expenditure: expFile ? parseCSV(expFile) : [],
-                income: incFile ? parseCSV(incFile) : [],
-                settlement: setFile ? parseCSV(setFile) : []
-            };
-
-            log(`Successfully loaded records: Exp=${data.expenditure.length}, Inc=${data.income.length}, Set=${data.settlement.length}`);
+            const data = fs.readFileSync(DB_FILE, 'utf8');
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(data));
+            res.end(data);
         } catch (e) {
             log(`API Error: ${e.message}`);
             res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -117,30 +51,51 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    if (pathname === '/api/data' && req.method === 'GET') {
-        try {
-            if (!fs.existsSync(DB_FILE)) {
-                fs.mkdirSync(path.dirname(DB_FILE), { recursive: true });
-                fs.writeFileSync(DB_FILE, JSON.stringify({ savedViews: [] }), 'utf8');
-            }
-            const data = fs.readFileSync(DB_FILE, 'utf8');
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(data);
-        } catch (e) {
-            res.writeHead(500); res.end(JSON.stringify({ error: e.message }));
-        }
-        return;
-    }
-
-    if (pathname === '/api/save' && req.method === 'POST') {
+    // API: POST Add Record (Supports Expenditure and Income)
+    if ((pathname === '/api/finance/add' || pathname === '/api/income/add') && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
         req.on('end', () => {
             try {
-                fs.writeFileSync(DB_FILE, body, 'utf8');
-                res.writeHead(200); res.end(JSON.stringify({ success: true }));
+                const input = JSON.parse(body);
+                if (!fs.existsSync(DB_FILE)) throw new Error('Database file not found');
+                
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                const isIncome = pathname === '/api/income/add';
+                
+                const now = new Date();
+                const dateStr = input.日付 || `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
+                const dateTimeStr = `${dateStr} ${now.getHours()}:${now.getMinutes()}`;
+                const settlementDate = `${now.getFullYear()}年${now.getMonth()+1}月${new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()}日`;
+
+                const newRecord = {
+                    "項目名": input.用途 || '新規入力',
+                    "支払日": dateStr,
+                    "カテゴリー": input.カテゴリ || 'その他',
+                    "金額": Number(input.金額),
+                    "備考": input.備考 || '',
+                    "決算日": settlementDate,
+                    "最終更新日時": dateTimeStr,
+                    "中間DateBase": 'Dashboard App'
+                };
+
+                if (isIncome) {
+                    if (!db.income) db.income = [];
+                    db.income.unshift(newRecord);
+                } else {
+                    if (!db.expenditure) db.expenditure = [];
+                    db.expenditure.unshift(newRecord);
+                }
+
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                log(`Added ${isIncome ? 'Income' : 'Expense'}: ${newRecord["項目名"]} = ¥${newRecord["金額"]}`);
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, record: newRecord }));
             } catch (e) {
-                res.writeHead(500); res.end(JSON.stringify({ error: e.message }));
+                log(`Add Record Error: ${e.message}`);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: e.message }));
             }
         });
         return;
@@ -166,7 +121,6 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': contentType });
         fs.createReadStream(filePath).pipe(res);
     } else {
-        console.log(`[404] ${pathname} -> looked at ${filePath}`);
         res.writeHead(404);
         res.end('Not Found');
     }
@@ -174,6 +128,5 @@ const server = http.createServer((req, res) => {
 
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-    console.log(`Also listening on all interfaces at port ${PORT}`);
+    console.log(`[AI-FINANCE] Dashboard active at http://localhost:${PORT}`);
 });
