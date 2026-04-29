@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "company/hr/members/member_input_sheet.md",
+                "file": "company/hr/members/name_regex_mapping.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "member_input_sheet"
+              "title": "name_regex_mapping"
             }
           }
         ],
@@ -105,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "company/hr/members/member_input_sheet.md",
+                "file": "company/hr/members/name_regex_mapping.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "member_input_sheetへのバックリンク"
+              "title": "name_regex_mappingへのバックリンク"
             }
           },
           {
@@ -178,7 +178,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -193,23 +194,33 @@
   },
   "active": "9eb275d8ba7fcc4d",
   "lastOpenFiles": [
+    "company/hr/members/line_name_regex.md",
+    "company/hr/members/member_input_sheet.md",
+    "company/hr/members/fix_yaml_speakers.py",
+    "company/hr/members/finalize_logs_execution.py",
+    "company/hr/members/final_conversion_map.json",
+    "company/hr/members/prepare_conversion.py",
+    "company/hr/members/mapping_debug.json",
+    "company/hr/members/analyze_mapping.py",
+    "Pasted image 20260429141846.png",
+    "company/hr/members/line_logs/replace_names_in_logs.py",
+    "company/hr/members/user_c_column.txt",
+    "Pasted image 20260429141209.png",
+    "Pasted image 20260429141043.png",
+    "company/hr/members/name_regex_mapping.md",
+    "gen_line_regex.py",
+    "reprocess_lines.py",
     "company/secretary/todos/2026-04-19.md",
     "company/secretary/logs/2026-04-19_1714_sync.md",
     "company/secretary/logs/2026-04-19_1700_sync.md",
     "company/secretary/todos/2026-04-17.md",
     "company/sac/resources/assets/leffy/pose_01_greet.png",
-    "company/sac/resources/assets/leffy",
-    "company/sac/resources/assets",
     "company/ceo/governance/ENTITY_SEPARATION_RULES.md",
-    "company/ceo/governance",
     "scratch/leffy_status.md",
     "company/creative/assets/leffy/pose_01_greet.png",
-    "company/creative/assets/leffy",
     "company/reviews/2026-W16.md",
     "company/ceo/decisions/2026-04-19-identity-separation.md",
     "company/secretary/logs/2026-04-17_1952_sync.md",
-    "無題のファイル.base",
-    "company/hr/members/line_logs",
     "company/secretary/projects/旅行パッケージ/images/summer_okinawa_beach_sunset.png",
     "company/secretary/projects/旅行パッケージ/templates/package_template.md",
     "company/secretary/projects/旅行パッケージ/images/autumn_kochi_shimanto_river_bridge.png",
@@ -227,16 +238,6 @@
     "company/secretary/projects/旅行パッケージ/夏_沖縄_旅行パッケージ.md",
     "company/secretary/projects/旅行パッケージ/夏_滋賀_琵琶湖グランピング.md",
     "company/secretary/projects/旅行パッケージ/冬_長野_スキー・スノボ1泊2日.md",
-    "company/secretary/projects/旅行パッケージ/冬_石川・加賀_美食旅1泊2日.md",
-    "company/secretary/projects/旅行パッケージ/冬_北海道_旅行パッケージ.md",
-    "company/secretary/projects/旅行パッケージ/冬_滋賀_スキー日帰り弾丸.md",
-    "company/secretary/projects/旅行パッケージ/templates",
-    "company/secretary/projects/旅行パッケージ/images",
-    "company/sac/resources/prompts/exam_generation_v1.md",
-    "company/finance/data/master/test_raw.txt",
-    "company/finance/data/master/processed_settlement.json",
-    "company/creative/assets/Dashboard/background.png",
-    "company/creative/assets/ロゴ・アイコン作成.png",
-    "company/creative/assets/teacher-logo.svg"
+    "company/creative/assets/Dashboard/background.png"
   ]
 }
