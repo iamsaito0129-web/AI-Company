@@ -21,10 +21,14 @@
             "id": "79dbef50ad8183f4",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "グラフビュー"
+              "type": "markdown",
+              "state": {
+                "file": "company/hr/members/三宅莉瑠.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "三宅莉瑠"
             }
           }
         ],
@@ -190,6 +194,12 @@
   },
   "active": "79dbef50ad8183f4",
   "lastOpenFiles": [
+    "company/secretary/logs/2026-05-01_1855_sync.md",
+    "company/secretary/logs/2026-05-01_1848_sync.md",
+    "整理済み]北陸行きました.md",
+    "company/hr/members/三宅莉瑠.md",
+    "yuna.md",
+    "scratch/cleanup_links.py",
     "company/secretary/logs/2026-05-01_1842_sync.md",
     "company/hr/members/_archive/user_c_column.txt",
     "company/hr/members/_archive/unknown_line_names.csv",
@@ -200,7 +210,6 @@
     "company/hr/members/_archive/integrate_members.py",
     "company/hr/members/_archive/fix_yaml_speakers.py",
     "company/hr/members/_archive/fix_table_v3.py",
-    "company/hr/members/_archive/finalize_logs_execution.py",
     "company/hr/members/大谷彩人.md",
     "company/secretary/todos/2026-05-01.md",
     "company/secretary/logs/2026-05-01_0708_sync.md",
@@ -229,12 +238,7 @@
     "company/secretary/todos/2026-04-19.md",
     "company/secretary/logs/2026-04-19_1714_sync.md",
     "company/secretary/logs/2026-04-19_1700_sync.md",
-    "company/secretary/todos/2026-04-17.md",
     "company/sac/resources/assets/leffy/pose_01_greet.png",
-    "company/ceo/governance/ENTITY_SEPARATION_RULES.md",
-    "scratch/leffy_status.md",
-    "company/creative/assets/leffy/pose_01_greet.png",
-    "company/reviews/2026-W16.md",
-    "company/ceo/decisions/2026-04-19-identity-separation.md"
+    "company/creative/assets/leffy/pose_01_greet.png"
   ]
 }
