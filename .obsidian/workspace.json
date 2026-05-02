@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "6132dc95e9983bee",
+            "id": "79dbef50ad8183f4",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -16,23 +16,8 @@
               "icon": "lucide-git-fork",
               "title": "グラフビュー"
             }
-          },
-          {
-            "id": "79dbef50ad8183f4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "company/hr/members/三宅莉瑠.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "三宅莉瑠"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,22 +179,23 @@
   },
   "active": "79dbef50ad8183f4",
   "lastOpenFiles": [
+    "company/hr/members/三宅莉瑠.md",
+    "company/hr/members/EA127F10",
+    "company/hr/members/FA027F10",
+    "company/hr/members/community_management.csv",
+    "company/hr/members/line_logs/82B56F10",
+    "company/hr/members/line_logs/48DD4F10",
+    "company/hr/members/line_logs/line_member_mapping.csv",
+    "company/secretary/inbox/2026-05-01.md",
     "company/secretary/logs/2026-05-01_1855_sync.md",
     "company/secretary/logs/2026-05-01_1848_sync.md",
     "整理済み]北陸行きました.md",
-    "company/hr/members/三宅莉瑠.md",
     "yuna.md",
     "scratch/cleanup_links.py",
     "company/secretary/logs/2026-05-01_1842_sync.md",
     "company/hr/members/_archive/user_c_column.txt",
     "company/hr/members/_archive/unknown_line_names.csv",
     "company/hr/members/_archive/mapping_debug.json",
-    "company/hr/members/_archive/final_conversion_map.json",
-    "company/hr/members/_archive/sync_members.py",
-    "company/hr/members/_archive/prepare_conversion.py",
-    "company/hr/members/_archive/integrate_members.py",
-    "company/hr/members/_archive/fix_yaml_speakers.py",
-    "company/hr/members/_archive/fix_table_v3.py",
     "company/hr/members/大谷彩人.md",
     "company/secretary/todos/2026-05-01.md",
     "company/secretary/logs/2026-05-01_0708_sync.md",
@@ -236,8 +222,6 @@
     "Pasted image 20260429141209.png",
     "Pasted image 20260429141043.png",
     "company/secretary/todos/2026-04-19.md",
-    "company/secretary/logs/2026-04-19_1714_sync.md",
-    "company/secretary/logs/2026-04-19_1700_sync.md",
     "company/sac/resources/assets/leffy/pose_01_greet.png",
     "company/creative/assets/leffy/pose_01_greet.png"
   ]

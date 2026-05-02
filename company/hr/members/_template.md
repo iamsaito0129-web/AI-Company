@@ -5,6 +5,7 @@ tags: ["タグ1", "タグ2"]
 last_updated: "{{YYYY-MM-DD}}"
 birthday: "{{MM-DD}}"
 cssclasses: ["profile-card"]
+community: []
 ---
 
 # 👤 {{名前}}
