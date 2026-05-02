@@ -12,7 +12,9 @@
 
 ## 📝 決定事項
 - **「名前が不足」の排除ルール**: 記号や特定不能な一文字は発言者リストに含めない。
-- **GitHub Mobile Inbox の運用**: 発見次第、ローカル `company/secretary/inbox/` へ転送し Issue を閉じる。
+- **GitHub Mobile Inbox の運用**: 発見次第、ローカル `company/secretary/inbox/` へ轉送し Issue を閉じる。
+- **2026年ガジェット計画**: Amazonリンク付きの最新リストを `company/lifestyle/shopping/wishlist_2026.md` に保存。
+- **資産管理の統合**: 全体の財務状況と目標を管理する `company/lifestyle/finance/asset_dashboard.md` を新設。
 
 ## ⏳ 未完了タスク
 - [ ] **AIブリッジ (スマホ連携) 構築**: 外部からのDB参照・更新ワークフローの実装。

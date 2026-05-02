@@ -14,8 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <div class="grid-bg"></div>
     <div class="vignette"></div>
+    <div class="scanline"></div>
 
     <div class="app-container">
         <!-- Sidebar -->
@@ -23,218 +25,218 @@
             <div class="logo">AI-FINANCE</div>
             <nav class="nav-menu">
                 <div class="nav-link active" data-view="dashboard">
-                    <i class="fa-solid fa-gauge-high"></i> <span>DASHBOARD</span>
+                    <i class="fa-solid fa-gauge-high"></i> <span>ダッシュボード</span>
                 </div>
                 <div class="nav-link" data-view="entry">
-                    <i class="fa-solid fa-plus-circle"></i> <span>INPUT TERMINAL</span>
+                    <i class="fa-solid fa-bolt"></i> <span>SPEED_ENTRY</span>
                 </div>
                 <div class="nav-link" data-view="history">
-                    <i class="fa-solid fa-list-ul"></i> <span>DATA LEDGER</span>
+                    <i class="fa-solid fa-list-ul"></i> <span>入出金履歴</span>
                 </div>
                 <div class="nav-link" data-view="analysis">
-                    <i class="fa-solid fa-chart-pie"></i> <span>ASSET MATRIX</span>
+                    <i class="fa-solid fa-chart-pie"></i> <span>資産分析</span>
                 </div>
             </nav>
 
             <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--border-glass);">
                 <div class="nav-link" id="sync-btn">
-                    <i class="fa-solid fa-rotate"></i> <span>SYNC DATA</span>
+                    <i class="fa-solid fa-rotate"></i> <span>データ同期</span>
                 </div>
             </div>
         </aside>
 
-        <!-- Top Bar -->
-        <header class="top-bar">
-            <button class="hamburger" id="hamburger">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="system-status">
-                <span id="system-clock" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--secondary);">00:00:00</span>
-            </div>
-            <div class="user-profile">
-                <span style="font-size: 0.7rem; color: var(--text-dim); margin-right: 10px;">USER: SAITO</span>
-                <i class="fa-solid fa-circle-user"></i>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content" id="main-content">
-            
-            <!-- VIEW: DASHBOARD -->
-            <section id="dashboard" class="view active">
-                <header class="view-header">
-                    <div class="view-title-wrap">
-                        <span class="view-subtitle">ANALYSIS_REP</span>
-                        <h1 class="view-title">DASHBOARD</h1>
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-inner">
+                    <button class="hamburger" id="hamburger">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                    <div class="system-status">
+                        <span class="view-subtitle">システム稼働中: READY</span>
+                        <span id="system-clock" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--on-surface);">00:00:00</span>
                     </div>
-                </header>
-
-                <div class="bento-grid">
-                    <!-- Total Balance -->
-                    <div class="glass-panel col-span-6">
-                        <span class="view-subtitle">Total Assets</span>
-                        <div class="dot-matrix" id="total-balance">¥0</div>
-                        <div style="color: #00ffaa; font-size: 0.8rem; margin-top: 0.5rem;">
-                            <i class="fa-solid fa-caret-up"></i> <span id="balance-trend">+0.0% vs Last Month</span>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <span class="label-id">ID: SAITO_01</span>
+                            <span class="label-status">認証済み</span>
                         </div>
-                    </div>
-
-                    <!-- Safe to Spend -->
-                    <div class="glass-panel col-span-6" style="border: 1px solid rgba(0, 255, 170, 0.3);">
-                        <span class="view-subtitle" style="color: #00ffaa;">Safe-to-Spend (Daily)</span>
-                        <div class="dot-matrix" style="color: #00ffaa;" id="safe-to-spend">¥0</div>
-                        <div style="color: var(--text-dim); font-size: 0.8rem; margin-top: 0.5rem;">
-                            <i class="fa-solid fa-calendar-day"></i> <span id="days-left">0 days left in month</span>
-                        </div>
-                    </div>
-
-                    <!-- Monthly Income -->
-                    <div class="glass-panel col-span-3">
-                        <span class="view-subtitle">Monthly Income</span>
-                        <div class="dot-matrix" style="font-size: 2rem;" id="monthly-income">¥0</div>
-                    </div>
-
-                    <!-- Monthly Expense -->
-                    <div class="glass-panel col-span-3">
-                        <span class="view-subtitle">Monthly Expense</span>
-                        <div class="dot-matrix" style="font-size: 2rem; color: var(--accent);" id="monthly-expense">¥0</div>
-                    </div>
-
-                    <!-- Chart: Asset Trend -->
-                    <div class="glass-panel col-span-8">
-                        <span class="view-subtitle">Asset Performance</span>
-                        <div style="height: 300px; margin-top: 1rem;">
-                            <canvas id="assetChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Quick Action -->
-                    <div class="glass-panel col-span-4">
-                        <span class="view-subtitle">Operation</span>
-                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
-                            <button class="num-btn" style="font-size: 0.9rem; padding: 1rem;" onclick="app.switchView('entry')">
-                                <i class="fa-solid fa-bolt"></i> NEW RECORD
-                            </button>
-                            <button class="num-btn" style="font-size: 0.9rem; padding: 1rem;" onclick="app.switchView('history')">
-                                <i class="fa-solid fa-search"></i> SEARCH LOGS
-                            </button>
-                        </div>
+                        <i class="fa-solid fa-circle-user"></i>
                     </div>
                 </div>
-            </section>
+            </header>
 
-            <!-- VIEW: SPEED ENTRY -->
-            <section id="entry" class="view">
-                <header class="view-header">
-                    <div class="view-title-wrap">
-                        <span class="view-subtitle">ENTRY_SYS_V2</span>
-                        <h1 class="view-title">SPEED ENTRY</h1>
-                    </div>
-                </header>
+            <!-- Main Content -->
+            <main class="main-content" id="main-content">
+                
+                <!-- VIEW: DASHBOARD -->
+                <section id="dashboard" class="view active">
+                    <header class="view-header">
+                        <span class="view-subtitle">分析レポート / CORE_ASSET_METRICS</span>
+                        <h1 class="view-title">ダッシュボード</h1>
+                    </header>
 
-                <div class="bento-grid">
-                    <!-- Input Form -->
-                    <div class="glass-panel col-span-8">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span class="view-subtitle" id="label-income" style="opacity: 1;">INCOME</span>
-                                <div class="toggle-switch" id="type-toggle">
-                                    <div class="toggle-thumb"></div>
-                                </div>
-                                <span class="view-subtitle" id="label-expense" style="opacity: 0.4;">EXPENSE</span>
+                    <div class="dashboard-grid">
+                        <!-- Total Assets Widget -->
+                        <div class="glass-card col-4" data-id="CORE_ASSET_01">
+                            <span class="stat-label">総資産保有額</span>
+                            <div class="stat-value" id="total-assets-val">¥0</div>
+                            <div class="stat-diff diff-plus">
+                                <i class="fa-solid fa-arrow-trend-up"></i> <span id="balance-trend">+0.0% / 前月比</span>
                             </div>
                         </div>
 
-                        <div style="display: flex; flex-direction: column; gap: 2.5rem;">
-                            <div>
-                                <span class="view-subtitle" style="display: block; margin-bottom: 0.5rem;">Category selection</span>
-                                <div class="custom-select-wrap">
-                                    <select id="category-select">
-                                        <option value="食費">食費 / FOOD</option>
-                                        <option value="日用品">日用品 / DAILY</option>
-                                        <option value="娯楽">娯楽 / HOBBY</option>
-                                        <option value="交通費">交通費 / TRANSPORT</option>
-                                        <option value="住宅">住宅 / HOUSING</option>
-                                        <option value="給与">給与 / SALARY</option>
-                                        <option value="その他">その他 / OTHER</option>
-                                    </select>
+                        <!-- Salary Allocation Simulator -->
+                        <div class="glass-card col-8" data-id="SIM_ENGINE_02">
+                            <span class="stat-label">給与分配シミュレーター</span>
+                            <div style="margin-top: 1.5rem;">
+                                <input type="range" id="allocation-slider" min="0" max="100" value="30" class="industrial-slider" style="width: 100%;">
+                                <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+                                    <div class="allocation-node">
+                                        <span class="view-subtitle" style="color: var(--text-dim);">貯蓄・投資</span>
+                                        <span id="label-savings" class="stat-value" style="font-size: 1.25rem;">30%</span>
+                                    </div>
+                                    <div id="allocation-result" class="stat-value" style="font-size: 1.5rem; color: var(--primary);">
+                                        ¥0 / ¥0
+                                    </div>
+                                    <div class="allocation-node" style="text-align: right;">
+                                        <span class="view-subtitle" style="color: var(--text-dim);">生活費・消費</span>
+                                        <span id="label-consumption" class="stat-value" style="font-size: 1.25rem;">70%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Asset Growth Chart -->
+                        <div class="glass-card col-8" data-id="CHART_GROWTH_03">
+                            <span class="stat-label">資産推移ログ</span>
+                            <div class="chart-container" style="margin-top: 1.5rem;">
+                                <canvas id="assetChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Category Breakdown -->
+                        <div class="glass-card col-4" data-id="CHART_CAT_04">
+                            <span class="stat-label">資産構成マトリクス</span>
+                            <div class="chart-container" style="margin-top: 1.5rem;">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: SPEED ENTRY -->
+                <section id="entry" class="view">
+                    <header class="view-header">
+                        <span class="view-subtitle">手動入力システム / V2.0</span>
+                        <h1 class="view-title">SPEED_ENTRY</h1>
+                    </header>
+
+                    <div class="dashboard-grid">
+                        <!-- Input Form -->
+                        <div class="glass-card col-8" data-id="ENTRY_FORM_05">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                    <span class="stat-label" id="label-income" style="margin-bottom: 0; opacity: 1;">収入 / INCOME</span>
+                                    <div class="toggle-switch" id="type-toggle">
+                                        <div class="toggle-thumb"></div>
+                                    </div>
+                                    <span class="stat-label" id="label-expense" style="margin-bottom: 0; opacity: 0.4;">支出 / EXPENSE</span>
                                 </div>
                             </div>
 
-                            <div style="position: relative;">
-                                <span class="view-subtitle" style="position: absolute; top: -10px; left: 15px; background: #121414; padding: 0 8px; z-index: 10;">AMOUNT</span>
-                                <div class="dot-matrix" id="amount-display" style="width: 100%; border: 1px solid var(--border-glass); border-radius: 12px; padding: 2.5rem 1.5rem; text-align: right; background: rgba(0,0,0,0.2);">0</div>
+                            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                                <div class="form-group">
+                                    <label class="form-label">カテゴリー選択 / CATEGORY</label>
+                                    <div class="custom-select-wrap">
+                                        <select id="category-select" class="form-input">
+                                            <option value="食費">食費・食料品</option>
+                                            <option value="日用品">日用品・消耗品</option>
+                                            <option value="娯楽">趣味・娯楽</option>
+                                            <option value="交通費">交通・移動</option>
+                                            <option value="住宅">住宅・光熱費</option>
+                                            <option value="給与">給与・報酬</option>
+                                            <option value="その他">その他</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">取引金額 / AMOUNT</label>
+                                    <div class="amount-display-wrap">
+                                        <span class="currency-symbol">¥</span>
+                                        <div class="stat-value" id="amount-display" style="font-size: 3.5rem;">0</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn-primary" id="submit-record" style="width: 100%;">
+                                    <i class="fa-solid fa-bolt"></i> EXECUTE_TRANSACTION
+                                </button>
                             </div>
+                        </div>
 
-                            <button class="num-btn accent" id="submit-record" style="padding: 1.5rem; font-size: 1.1rem;">
-                                <i class="fa-solid fa-cloud-upload"></i> REGISTER TRANSACTION
-                            </button>
+                        <!-- Industrial Numpad -->
+                        <div class="glass-card col-4" data-id="INPUT_PAD_06">
+                            <span class="stat-label">キーパッド入力 / KEYPAD</span>
+                            <div class="numpad" style="margin-top: 1.5rem;">
+                                <button class="num-btn" onclick="app.keypadInput('7')">7</button>
+                                <button class="num-btn" onclick="app.keypadInput('8')">8</button>
+                                <button class="num-btn" onclick="app.keypadInput('9')">9</button>
+                                <button class="num-btn" onclick="app.keypadInput('4')">4</button>
+                                <button class="num-btn" onclick="app.keypadInput('5')">5</button>
+                                <button class="num-btn" onclick="app.keypadInput('6')">6</button>
+                                <button class="num-btn" onclick="app.keypadInput('1')">1</button>
+                                <button class="num-btn" onclick="app.keypadInput('2')">2</button>
+                                <button class="num-btn" onclick="app.keypadInput('3')">3</button>
+                                <button class="num-btn" onclick="app.keypadInput('0')">0</button>
+                                <button class="num-btn" onclick="app.keypadInput('00')">00</button>
+                                <button class="num-btn" onclick="app.keypadInput('C')" style="color: var(--accent);">
+                                    <i class="fa-solid fa-delete-left"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <!-- Industrial Numpad -->
-                    <div class="glass-panel col-span-4">
-                        <span class="view-subtitle" style="display: block; margin-bottom: 1.5rem;">Manual Entry Pad</span>
-                        <div class="numpad">
-                            <button class="num-btn" onclick="app.keypadInput('7')">7</button>
-                            <button class="num-btn" onclick="app.keypadInput('8')">8</button>
-                            <button class="num-btn" onclick="app.keypadInput('9')">9</button>
-                            <button class="num-btn" onclick="app.keypadInput('4')">4</button>
-                            <button class="num-btn" onclick="app.keypadInput('5')">5</button>
-                            <button class="num-btn" onclick="app.keypadInput('6')">6</button>
-                            <button class="num-btn" onclick="app.keypadInput('1')">1</button>
-                            <button class="num-btn" onclick="app.keypadInput('2')">2</button>
-                            <button class="num-btn" onclick="app.keypadInput('3')">3</button>
-                            <button class="num-btn" onclick="app.keypadInput('0')">0</button>
-                            <button class="num-btn" onclick="app.keypadInput('00')">00</button>
-                            <button class="num-btn" onclick="app.keypadInput('C')">
-                                <i class="fa-solid fa-backspace"></i>
-                            </button>
+                <!-- VIEW: HISTORY -->
+                <section id="history" class="view">
+                    <header class="view-header">
+                        <span class="view-subtitle">データ台帳アーカイブ / READ_ONLY</span>
+                        <h1 class="view-title">入出金履歴</h1>
+                    </header>
+                    <div class="glass-card" data-id="LEDGER_ARCHIVE_07">
+                        <span class="stat-label">中央台帳システム / CENTRAL_LEDGER</span>
+                        <div id="history-container" style="max-height: 60vh; overflow-y: auto; padding-right: 1rem; margin-top: 1.5rem;">
+                            <!-- List view for history -->
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- VIEW: HISTORY -->
-            <section id="history" class="view">
-                <header class="view-header">
-                    <div class="view-title-wrap">
-                        <span class="view-subtitle">TRANS_LOG</span>
-                        <h1 class="view-title">HISTORY</h1>
-                    </div>
-                </header>
-                <div class="glass-panel">
-                    <div id="history-container" style="max-height: 60vh; overflow-y: auto; padding-right: 1rem;">
-                        <!-- List view for history -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIEW: ANALYSIS -->
-            <section id="analysis" class="view">
-                <header class="view-header">
-                    <div class="view-title-wrap">
-                        <span class="view-subtitle">REPT_GEN_01</span>
-                        <h1 class="view-title">ANALYSIS</h1>
-                    </div>
-                </header>
-                <div class="bento-grid">
-                    <div class="glass-panel col-span-6">
-                        <span class="view-subtitle">Category Breakdown</span>
-                        <div style="height: 350px; margin-top: 1rem;">
-                            <canvas id="categoryPieChart"></canvas>
+                <!-- VIEW: ANALYSIS -->
+                <section id="analysis" class="view">
+                    <header class="view-header">
+                        <span class="view-subtitle">分析エンジン / REPORT_GEN</span>
+                        <h1 class="view-title">資産分析</h1>
+                    </header>
+                    <div class="dashboard-grid">
+                        <div class="glass-card col-8" data-id="MATRIX_ANALYSIS_08">
+                            <span class="stat-label">カテゴリー分布マトリクス / DISTRIBUTION</span>
+                            <div style="height: 400px; margin-top: 1.5rem;">
+                                <canvas id="categoryPieChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="glass-card col-4" data-id="SUMMARY_METRICS_09">
+                            <span class="stat-label">システム集計メトリクス / AGGREGATED</span>
+                            <div id="stats-summary" style="margin-top: 2rem;">
+                                <!-- Dynamic stats -->
+                            </div>
                         </div>
                     </div>
-                    <div class="glass-panel col-span-6">
-                        <span class="view-subtitle">Monthly Statistics</span>
-                        <div id="stats-summary" style="margin-top: 1.5rem;">
-                            <!-- Dynamic stats -->
-                        </div>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-        </main>
+            </main>
+        </div>
     </div>
 
     <!-- Mobile Navigation (Bottom) -->
@@ -256,6 +258,6 @@
         </button>
     </nav>
 
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

@@ -1,372 +1,406 @@
 /**
- * AI-FINANCE Dashboard Core Logic
- * Handles View Switching, Data Fetching, Rendering, and Transaction Entry
+ * AI-FINANCE: Core Logic (Cloud Native)
+ * Premium Asset Management System with Firebase RTDB
  */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, onValue, push, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgn3msTKtbr7Sm0Jayu0gLu3cRSPnCvn4",
+  authDomain: "oku-jissenn.firebaseapp.com",
+  projectId: "oku-jissenn",
+  storageBucket: "oku-jissenn.firebasestorage.app",
+  messagingSenderId: "458948159224",
+  appId: "1:458948159224:web:4aa7808fd7179cbb1e3d0d"
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getDatabase(firebaseApp);
 
 const app = {
     state: {
-        records: { expenditure: [], income: [], settlement: [] },
         currentView: 'dashboard',
-        entryMode: 'income', // 'income' or 'expense'
-        currentAmount: '0',
-        sidebarVisible: window.innerWidth >= 1200,
-        charts: {}
+        totalAssets: 0,
+        monthlySalary: 200000,
+        allocationRatio: 30,
+        history: [],
+        type: 'expense' // 'expense' or 'income'
     },
 
-    async init() {
-        console.log('Initializing AI-FINANCE system...');
-        this.setupEventListeners();
-        this.startClock();
-        await this.fetchData();
-        this.renderAll();
+    init() {
+        this.bindEvents();
+        this.updateClock();
+        this.setupFirebaseListeners();
+        setInterval(() => this.updateClock(), 1000);
     },
 
-    startClock() {
-        const updateClock = () => {
-            const now = new Date();
-            const timeStr = now.toTimeString().split(' ')[0];
-            const clockEl = document.getElementById('system-clock');
-            if (clockEl) clockEl.innerText = timeStr;
-        };
-        setInterval(updateClock, 1000);
-        updateClock();
+    setupFirebaseListeners() {
+        const userId = 'saito'; // Static for now, can use Auth later
+        
+        // Assets Summary Listener
+        const assetRef = ref(db, `users/${userId}/assets/summary`);
+        onValue(assetRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                this.state.totalAssets = data.total || 0;
+                this.updateDashboardStats();
+            }
+        });
+
+        // History Listener
+        const historyRef = ref(db, `history/${userId}`);
+        onValue(historyRef, (snapshot) => {
+            const data = snapshot.val();
+            const flattened = [];
+            if (data) {
+                // Iterate through years/months/records
+                Object.keys(data).forEach(year => {
+                    Object.keys(data[year]).forEach(month => {
+                        const records = data[year][month].records;
+                        if (records) {
+                            Object.keys(records).forEach(id => {
+                                flattened.push({ id, ...records[id] });
+                            });
+                        }
+                    });
+                });
+                // Sort by date descending
+                this.state.history = flattened.sort((a, b) => new Date(b.date) - new Date(a.date));
+                this.renderHistory();
+                this.renderCharts();
+            }
+        });
     },
 
-    setupEventListeners() {
-        // Hamburger toggle
-        document.getElementById('hamburger').addEventListener('click', () => this.toggleSidebar());
-
-        // Sidebar Nav links
-        document.querySelectorAll('.nav-link[data-view], .mobile-nav-btn[data-view]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const viewId = e.currentTarget.getAttribute('data-view');
-                this.switchView(viewId);
+    bindEvents() {
+        // Navigation
+        document.querySelectorAll('.nav-link, .mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const view = btn.getAttribute('data-view');
+                if (view) this.switchView(view);
             });
         });
 
-        // Entry Mode Toggle
-        const typeToggle = document.getElementById('type-toggle');
-        if (typeToggle) {
-            typeToggle.addEventListener('click', () => {
-                this.state.entryMode = this.state.entryMode === 'income' ? 'expense' : 'income';
-                typeToggle.classList.toggle('active');
-                
-                // Update labels opacity
-                document.getElementById('label-income').style.opacity = this.state.entryMode === 'income' ? '1' : '0.4';
-                document.getElementById('label-expense').style.opacity = this.state.entryMode === 'expense' ? '1' : '0.4';
-                
-                // Update category options based on mode
-                this.updateCategoryOptions();
+        // Salary Slider
+        const slider = document.getElementById('allocation-slider');
+        if (slider) {
+            slider.addEventListener('input', (e) => {
+                this.state.allocationRatio = parseInt(e.target.value);
+                this.updateAllocationUI();
+            });
+        }
+
+        // Type Toggle (Expense/Income)
+        const toggle = document.getElementById('type-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                this.state.type = this.state.type === 'expense' ? 'income' : 'expense';
+                toggle.classList.toggle('active', this.state.type === 'income');
+                document.getElementById('label-income').style.opacity = this.state.type === 'income' ? '1' : '0.4';
+                document.getElementById('label-expense').style.opacity = this.state.type === 'expense' ? '1' : '0.4';
             });
         }
 
         // Submit Record
         const submitBtn = document.getElementById('submit-record');
         if (submitBtn) {
-            submitBtn.addEventListener('click', () => this.submitRecord());
+            submitBtn.addEventListener('click', () => this.submitToFirebase());
         }
 
-        // Sync button
-        const syncBtn = document.getElementById('sync-btn');
-        if (syncBtn) {
-            syncBtn.addEventListener('click', async () => {
-                await this.fetchData();
-                this.renderAll();
-                alert('Data synchronized with JSON storage.');
-            });
-        }
-    },
-
-    async fetchData() {
-        try {
-            const response = await fetch('/api/finance/records');
-            const data = await response.json();
-            this.state.records = data;
-            console.log('Data fetched successfully:', data);
-        } catch (err) {
-            console.error('Failed to fetch finance records:', err);
-        }
-    },
-
-    renderAll() {
-        this.renderDashboard();
-        this.renderHistory();
-        this.renderAnalysis();
-    },
-
-    renderDashboard() {
-        const { expenditure, income } = this.state.records;
+        // Sidebar Toggle
+        const hamburger = document.getElementById('hamburger');
+        const overlay = document.getElementById('sidebar-overlay');
         
-        // Calculate totals
-        const totalIncome = income.reduce((acc, r) => acc + (parseFloat(r.金額) || 0), 0);
-        const totalExpense = expenditure.reduce((acc, r) => acc + (parseFloat(r.金額) || 0), 0);
-        const balance = totalIncome - totalExpense;
+        if (hamburger) {
+            hamburger.addEventListener('click', () => this.toggleSidebar());
+        }
+        if (overlay) {
+            overlay.addEventListener('click', () => this.toggleSidebar(false));
+        }
+    },
 
-        // Calculate Safe-to-Spend (Current Month)
+    async submitToFirebase() {
+        const userId = 'saito';
+        const amount = parseInt(this.currentEntryAmount);
+        const category = document.getElementById('category-select').value;
         const now = new Date();
-        const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-        const daysLeft = daysInMonth - now.getDate() + 1;
-        
-        // Very basic logic: (Total Income - Total Expense) / Days Left
-        // In a real app, this should be scoped to current month's budget, using balance as placeholder
-        const safeToSpend = Math.max(0, Math.floor(balance / daysLeft));
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const dateStr = `${year}-${month}-${String(now.getDate()).padStart(2, '0')}`;
 
-        // Update Dot Matrix
-        document.getElementById('total-balance').innerText = `¥${balance.toLocaleString()}`;
-        
-        const safeToSpendEl = document.getElementById('safe-to-spend');
-        if(safeToSpendEl) safeToSpendEl.innerText = `¥${safeToSpend.toLocaleString()}`;
-        
-        const daysLeftEl = document.getElementById('days-left');
-        if(daysLeftEl) daysLeftEl.innerText = `${daysLeft} days left in month`;
+        if (amount <= 0) return alert('金額を入力してください');
 
-        document.getElementById('monthly-income').innerText = `¥${totalIncome.toLocaleString()}`;
-        document.getElementById('monthly-expense').innerText = `¥${totalExpense.toLocaleString()}`;
-
-        this.updateCharts();
-    },
-
-    updateCharts() {
-        const ctx = document.getElementById('assetChart').getContext('2d');
-        if (this.state.charts.asset) this.state.charts.asset.destroy();
-
-        // Simple mock trend for visualization
-        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-        this.state.charts.asset = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Asset Trend',
-                    data: [1200000, 1350000, 1280000, 1450000, 1400000, 1550000],
-                    borderColor: '#ff3b3b',
-                    backgroundColor: 'rgba(255, 59, 59, 0.1)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#666' } },
-                    x: { grid: { display: false }, ticks: { color: '#666' } }
-                }
-            }
-        });
-    },
-
-    renderHistory() {
-        const container = document.getElementById('history-container');
-        if (!container) return;
-
-        const parseKanjiDate = (str) => {
-            if (!str) return 0;
-            // e.g. "2026年4月15日"
-            const match = str.match(/(\d+)年(\d+)月(\d+)日/);
-            if (match) {
-                return new Date(parseInt(match[1]), parseInt(match[2])-1, parseInt(match[3])).getTime();
-            }
-            return new Date(str).getTime() || 0;
+        const recordRef = ref(db, `history/${userId}/${year}/${month}/records`);
+        const newRecord = {
+            amount: amount,
+            category: category,
+            type: this.state.type,
+            date: dateStr,
+            timestamp: serverTimestamp(),
+            source: 'Dashboard App'
         };
 
-        // Merge and sort all records
-        const all = [
-            ...this.state.records.income.map(r => ({ ...r, type: 'INCOME', color: '#00ffaa' })),
-            ...this.state.records.expenditure.map(r => ({ ...r, type: 'EXPENSE', color: '#ff3b3b' }))
-        ].sort((a, b) => parseKanjiDate(b.支払日 || b.日付) - parseKanjiDate(a.支払日 || a.日付));
+        try {
+            await push(recordRef, newRecord);
+            
+            // Update Total Assets (Basic logic: subtract if expense, add if income)
+            const summaryRef = ref(db, `users/${userId}/assets/summary`);
+            const newTotal = this.state.type === 'expense' 
+                ? this.state.totalAssets - amount 
+                : this.state.totalAssets + amount;
+            
+            await set(summaryRef, {
+                total: newTotal,
+                last_updated: serverTimestamp()
+            });
 
-        container.innerHTML = all.slice(0, 50).map(r => `
-            <div class="history-item">
-                <div class="info">
-                    <span class="date">${r.支払日 || r.日付 || 'Unknown Date'}</span>
-                    <span class="label">${r.項目名 || r.用途 || 'No Description'}</span>
-                </div>
-                <div class="amount-wrap">
-                    <div class="amount" style="color: ${r.color};">
-                        ${r.type === 'EXPENSE' ? '-' : '+'} ¥${(parseFloat(r.金額) || 0).toLocaleString()}
-                    </div>
-                    <div class="cat-tag">${r.カテゴリー || r.カテゴリ || 'OTHER'}</div>
-                </div>
-            </div>
-        `).join('');
-    },
-
-    renderAnalysis() {
-        const ctx = document.getElementById('categoryPieChart').getContext('2d');
-        if (this.state.charts.pie) this.state.charts.pie.destroy();
-
-        const categories = {};
-        this.state.records.expenditure.forEach(r => {
-            const cat = r.カテゴリー || r.カテゴリ || 'その他';
-            categories[cat] = (categories[cat] || 0) + (parseFloat(r.金額) || 0);
-        });
-
-        this.state.charts.pie = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: Object.keys(categories),
-                datasets: [{
-                    data: Object.values(categories),
-                    backgroundColor: ['#ff3b3b', '#00ffaa', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right', labels: { color: '#aaa', font: { family: 'Space Grotesk' } } }
-                }
-            }
-        });
-
-        // Populate Stats Summary
-        const statsEl = document.getElementById('stats-summary');
-        if (statsEl) {
-            const sortedCats = Object.entries(categories).sort((a, b) => b[1] - a[1]);
-            const topExp = this.state.records.expenditure
-                .sort((a, b) => (parseFloat(b.金額) || 0) - (parseFloat(a.金額) || 0))
-                .slice(0, 5);
-
-            statsEl.innerHTML = `
-                <div style="margin-bottom: 2rem;">
-                    <span class="view-subtitle" style="font-size: 0.6rem; color: var(--secondary);">Largest Category</span>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">${sortedCats[0] ? sortedCats[0][0] : 'N/A'}</div>
-                </div>
-                <div>
-                    <span class="view-subtitle" style="font-size: 0.6rem; color: var(--secondary); margin-bottom: 1rem; display: block;">Top 5 Expenses</span>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        ${topExp.map(e => `
-                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 0.8rem; border-radius: 8px;">
-                                <span style="font-size: 0.85rem; font-weight: 500;">${e.項目名 || e.用途}</span>
-                                <span style="font-family: var(--font-mono); font-weight: 700;">¥${(parseFloat(e.金額) || 0).toLocaleString()}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
+            this.currentEntryAmount = '0';
+            document.getElementById('amount-display').textContent = '0';
+            alert('登録完了しました');
+            this.switchView('dashboard');
+        } catch (e) {
+            console.error(e);
+            alert('エラーが発生しました');
         }
     },
 
     switchView(viewId) {
-        // Update active class in sidebar/mobile nav
-        document.querySelectorAll('.nav-link, .mobile-nav-btn').forEach(el => {
-            if (el.getAttribute('data-view') === viewId) el.classList.add('active');
-            else el.classList.remove('active');
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(viewId);
+        if (target) target.classList.add('active');
+        
+        // Update Nav UI
+        document.querySelectorAll('.nav-link').forEach(l => {
+            l.classList.toggle('active', l.getAttribute('data-view') === viewId);
         });
 
-        // Toggle views
-        document.querySelectorAll('.view').forEach(view => {
-            view.classList.remove('active');
-        });
-        document.getElementById(viewId).classList.add('active');
-        
         this.state.currentView = viewId;
-        
-        // Hide sidebar on mobile after selection
-        if (window.innerWidth < 1200) {
-            this.toggleSidebar(false);
-        }
+
+        // Auto-close sidebar on mobile/tablet after selection
+        this.toggleSidebar(false);
     },
 
     toggleSidebar(force) {
         const sidebar = document.getElementById('sidebar');
-        const main = document.getElementById('main-content');
-        
-        if (force !== undefined) this.state.sidebarVisible = force;
-        else this.state.sidebarVisible = !this.state.sidebarVisible;
-
-        if (this.state.sidebarVisible) {
-            sidebar.classList.remove('hidden');
-            main.classList.remove('expanded');
-            // Add overlay for mobile
-            if (window.innerWidth < 1200) {
-                this.addOverlay();
-            }
-        } else {
-            sidebar.classList.add('hidden');
-            main.classList.add('expanded');
-            this.removeOverlay();
-        }
-    },
-
-    addOverlay() {
-        if (document.getElementById('sidebar-overlay')) return;
-        const overlay = document.createElement('div');
-        overlay.id = 'sidebar-overlay';
-        overlay.style.cssText = `
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); 
-            backdrop-filter: blur(4px); z-index: 950;
-        `;
-        overlay.addEventListener('click', () => this.toggleSidebar(false));
-        document.body.appendChild(overlay);
-    },
-
-    removeOverlay() {
         const overlay = document.getElementById('sidebar-overlay');
-        if (overlay) overlay.remove();
-    },
-
-    keypadInput(val) {
-        if (val === 'C') {
-            this.state.currentAmount = '0';
+        
+        if (force === undefined) {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        } else if (force === false) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
         } else {
-            if (this.state.currentAmount === '0' && val !== '00') {
-                this.state.currentAmount = val;
-            } else {
-                this.state.currentAmount += val;
-            }
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
         }
-        
-        // Format with commas
-        const formatted = parseInt(this.state.currentAmount).toLocaleString();
-        document.getElementById('amount-display').innerText = formatted;
     },
 
-    updateCategoryOptions() {
-        const select = document.getElementById('category-select');
-        const incomeCats = ['給与', '賞与', '副業', '利息', 'その他'];
-        const expenseCats = ['食費', '日用品', '娯楽', '交通費', '住宅', '通信', '光熱費', 'その他'];
-        
-        const cats = this.state.entryMode === 'income' ? incomeCats : expenseCats;
-        select.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+    updateClock() {
+        const clock = document.getElementById('system-clock');
+        if (clock) {
+            const now = new Date();
+            clock.textContent = now.toLocaleTimeString('ja-JP', { hour12: false });
+        }
     },
 
-    async submitRecord() {
-        const amount = parseInt(this.state.currentAmount);
-        if (amount <= 0) return alert('Please enter a valid amount.');
+    updateAllocationUI() {
+        const savings = Math.floor(this.state.monthlySalary * (this.state.allocationRatio / 100));
+        const consumption = this.state.monthlySalary - savings;
+        
+        document.getElementById('label-savings').textContent = `貯蓄・投資 (${this.state.allocationRatio}%)`;
+        document.getElementById('label-consumption').textContent = `生活費・消費 (${100 - this.state.allocationRatio}%)`;
+        document.getElementById('allocation-result').textContent = `¥${savings.toLocaleString()} / ¥${consumption.toLocaleString()}`;
+    },
 
-        const category = document.getElementById('category-select').value;
-        const record = {
-            日付: new Date().toISOString().split('T')[0],
-            カテゴリ: category,
-            金額: amount,
-            用途: `${category} (Quick Entry)`
-        };
+    updateDashboardStats() {
+        document.getElementById('total-assets-val').textContent = `¥${this.state.totalAssets.toLocaleString()}`;
+        this.updateAllocationUI();
+    },
 
-        try {
-            const endpoint = this.state.entryMode === 'income' ? '/api/income/add' : '/api/finance/add';
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(record)
+    renderHistory() {
+        const containers = [
+            document.getElementById('recent-list'), // Dashboard view (not in HTML yet but maybe in older versions)
+            document.getElementById('history-container') // History view
+        ];
+        
+        const html = this.state.history.slice(0, 50).map(item => `
+            <div class="history-item">
+                <div style="display: flex; align-items: center; gap: 1.2rem;">
+                    <div class="history-icon ${item.type}"></div>
+                    <div>
+                        <div style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">${item.category}</div>
+                        <div style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-dim);">${item.date}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: ${item.type === 'income' ? 'var(--primary)' : '#fff'};">
+                        ${item.type === 'income' ? '+' : '-'}${item.amount.toLocaleString()}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        containers.forEach(c => { if(c) c.innerHTML = html; });
+    },
+
+    charts: { asset: null, category: null },
+    renderCharts() {
+        // Global Chart.js Defaults
+        Chart.defaults.font.family = "'Space Grotesk', sans-serif";
+        Chart.defaults.color = '#888';
+
+        // Asset Chart
+        const assetCtx = document.getElementById('assetChart');
+        if (assetCtx) {
+            if (this.charts.asset) this.charts.asset.destroy();
+            
+            const labels = [];
+            const data = [];
+            this.state.history.slice(0, 10).reverse().forEach(h => {
+                labels.push(h.date.split('-').slice(1).join('/'));
+                data.push(h.amount);
             });
 
-            if (response.ok) {
-                alert('Record saved successfully.');
-                this.state.currentAmount = '0';
-                document.getElementById('amount-display').innerText = '0';
-                await this.fetchData();
-                this.renderAll();
-                this.switchView('dashboard');
-            }
-        } catch (err) {
-            console.error('Submission failed:', err);
+            this.charts.asset = new Chart(assetCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: labels.length ? labels : ['05/01', '05/02'],
+                    datasets: [{
+                        label: 'VALUATION',
+                        data: data.length ? data : [1200000, 1250000],
+                        borderColor: '#FF0000',
+                        backgroundColor: 'rgba(255, 0, 0, 0.05)',
+                        fill: true,
+                        tension: 0.1,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#FF0000',
+                        pointBorderColor: '#fff',
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(18, 20, 20, 0.95)',
+                            titleFont: { size: 10, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            border: { display: false }
+                        },
+                        x: { 
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
         }
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart');
+        if (categoryCtx) {
+            if (this.charts.category) this.charts.category.destroy();
+            
+            const cats = {};
+            this.state.history.forEach(h => {
+                cats[h.category] = (cats[h.category] || 0) + h.amount;
+            });
+            
+            const labels = Object.keys(cats).length ? Object.keys(cats) : ['食費', '固定費', '投資'];
+            const data = Object.values(cats).length ? Object.values(cats) : [40, 35, 25];
+
+            this.charts.category = new Chart(categoryCtx.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 255, 255, 0.1)',
+                            'rgba(255, 0, 0, 0.8)',
+                            'rgba(255, 255, 255, 0.4)',
+                            'rgba(255, 255, 255, 0.05)',
+                        ],
+                        borderWidth: 1,
+                        borderColor: 'rgba(0,0,0,0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                boxWidth: 8,
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Analysis View Chart
+        const analysisCtx = document.getElementById('categoryPieChart');
+        if (analysisCtx) {
+            if (this.charts.analysis) this.charts.analysis.destroy();
+            this.charts.analysis = new Chart(analysisCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['食費', '日用品', '娯楽', '交通', '住宅', 'その他'],
+                    datasets: [{
+                        label: 'EXPENSE_BY_CAT',
+                        data: [12000, 19000, 3000, 5000, 2000, 3000],
+                        backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                        borderColor: '#FF0000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+    },
+
+    currentEntryAmount: '0',
+    keypadInput(val) {
+        const display = document.getElementById('amount-display');
+        if (val === 'C') {
+            this.currentEntryAmount = '0';
+        } else if (val === '00' && this.currentEntryAmount === '0') {
+            return;
+        } else {
+            if (this.currentEntryAmount === '0') {
+                this.currentEntryAmount = val;
+            } else {
+                this.currentEntryAmount += val;
+            }
+        }
+        display.textContent = parseInt(this.currentEntryAmount).toLocaleString();
     }
 };
 
-// Initialize app on load
+// Expose to window for global access (like onclick handlers)
+window.app = app;
 window.onload = () => app.init();
