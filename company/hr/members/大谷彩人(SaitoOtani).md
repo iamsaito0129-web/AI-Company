@@ -1,0 +1,55 @@
+---
+name: 大谷彩人
+category: 精選 / オーナー
+tags:
+- '#interest/liquor'
+- '#interest/tech'
+- '#status/active'
+last_updated: 2026/5/2
+birthday: 1月29日
+cssclasses:
+- profile-card
+- owner-profile
+community:
+- 家族
+kanji_name: 大谷彩人
+kana_name: おおたにさいと
+aliases: []
+base: 姫里
+line_names:
+- 大谷 彩人
+last_contact_line: '2026-04-22'
+---
+# 👤 大谷彩人(SaitoOtani)
+
+> [!ABSTRACT] プロファイル要約
+> {{その人の一言紹介、第一印象、キャッチコピー}}
+
+## 💎 スキル & 専門性 (Obsidian-Skills)
+- **Primary Skill**: `{{最も頼りになること}}`
+- **Related Skills**: `{{スキル1}}`, `{{スキル2}}`, `{{スキル3}}`
+- **興味・関心**: `{{今ハマっていること}}`
+
+## 🤝 コミュニケーション & 特性
+- **性格**: {{熱血、論理的、聞き上手、癒やし系等}}
+- **コミュニケーション・スタイル**: {{LINEが早い、電話派、直接会いたい派等}}
+- **好きなもの (ギフト候補)**: {{お酒、ガジェット、甘いもの等}}
+
+## 📖 関係性の歴史
+- **出会い**: {{場所・時期・きっかけ}}
+- **主要なイベント**:
+    - [ ] 
+- **現在のステータス**: {{頻繁に会う / 重要だが疎遠等}}
+
+## 🔗 ネットワーク (Mermaid)
+```mermaid
+graph LR
+    Owner((オーナー)) <--> |{{関係性}}| Member[(大谷彩人(SaitoOtani))]
+    Member --- Community[({{コミュニティ名}})]
+```
+
+## 📝 最新ログ
+- **2026/5/2**: (前回話した内容、印象、変化等)
+
+## 💡 秘書メモ / ネクストアクション
+- [ ] 

@@ -11,10 +11,14 @@
             "id": "79dbef50ad8183f4",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "グラフビュー"
+              "type": "markdown",
+              "state": {
+                "file": "company/hr/members/line_logs/【整理済み】実委③ こうしろうさん PA.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "【整理済み】実委③ こうしろうさん PA"
             }
           }
         ]
@@ -49,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#FF914D",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -70,12 +74,12 @@
               "title": "ブックマーク"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "7885611d9f71a06a",
@@ -180,17 +184,29 @@
   },
   "active": "79dbef50ad8183f4",
   "lastOpenFiles": [
-    "company/hr/members/_archive/final_link_cleanup.py",
-    "company/hr/members/line_logs/archive/【済】黒崎 則子.txt",
-    "company/hr/members/line_logs/archive/【済】魁生.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕追いコン.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　濵田.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　濵田, 大谷 彩人, みう, 祐哉, 松井美佑, はるき, コフィア, 馬渕　小柳津, ....txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　森.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　宮阪さん.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　安藤.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　今岡優月.txt",
-    "company/hr/members/line_logs/archive/【済】馬渕　しゅーじ.txt",
+    "company/secretary/logs/2026-05-02_1735_sync.md",
+    "company/hr/members/scratch/update_line_mapping.py",
+    "company/hr/members/佐伯.md",
+    "company/hr/members/福井大輝.md",
+    "company/hr/members/_archive/_empty_line_names_report.md",
+    "company/hr/members/_archive/name_regex_mapping.md",
+    "company/hr/members/_archive/member_input_sheet.md",
+    "company/hr/members/_archive/line_name_regex.md",
+    "company/hr/members/scratch/apply_tags.py",
+    "company/hr/members/_archive/member_all_properties.csv",
+    "company/hr/members/_archive/line_names_input_sheet.csv",
+    "company/hr/members/_archive/line_mapping_pending.csv",
+    "company/hr/members/_archive/community_management.csv",
+    "company/hr/members/tags_guide.md",
+    "company/hr/members/scratch/sync_last_message.py",
+    "company/hr/members/新穂明日菜.md",
+    "company/hr/members/6F055000",
+    "company/hr/members/line_mapping_pending.csv",
+    "company/hr/members/scratch/check_line_status.py",
+    "company/hr/members/髙畠そうたろう.md",
+    "company/hr/members/椎野睦代(しいのともよ).md",
+    "company/hr/members/大谷彩人(SaitoOtani).md",
+    "company/hr/members/_empty_line_names_report.md",
     "company/hr/members/line_logs/【整理済み】🦦.md",
     "company/hr/members/line_logs/【整理済み】🌱さごじょう.md",
     "company/hr/members/line_logs/【整理済み】黒崎 則子.md",
@@ -204,18 +220,6 @@
     "company/hr/members/line_logs/【整理済み】馬渕　今岡優月.md",
     "company/hr/members/line_logs/【整理済み】馬渕　しゅーじ.md",
     "company/hr/members/line_logs/【整理済み】飲み会（in関西）.md",
-    "company/hr/members/line_logs/【整理済み】音葉.md",
-    "company/hr/members/line_logs/【整理済み】音楽田村チーム.md",
-    "company/hr/members/line_logs/【整理済み】西淀 髙畠そうたろう.md",
-    "company/hr/members/line_logs/【整理済み】西淀 谷よしき 大教自然科学.md",
-    "company/hr/members/line_logs/【整理済み】常翔 中島 大経.md",
-    "company/hr/members/line_logs/【整理済み】小国 林.md",
-    "company/hr/members/line_logs/【整理済み】宮崇人.md",
-    "company/hr/members/line_logs/【整理済み】実委２・３・４回生.md",
-    "company/hr/members/line_logs/【整理済み】実委衛生　きよ.md",
-    "company/hr/members/line_logs/【整理済み】実委公式LINE（2025 神霜祭）.md",
-    "company/hr/members/line_logs/【整理済み】実委のBBQ.md",
-    "company/hr/members/line_logs/【整理済み】実委　投票用　グループ.md",
     "Pasted image 20260429153220.png",
     "Pasted image 20260429153103.png",
     "Pasted image 20260429153052.png",
